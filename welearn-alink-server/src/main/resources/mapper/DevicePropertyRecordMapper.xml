@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  Table    : device_property_record
+  Comment  : 设备属性记录
+  Mapper   : com.welearn.mapper.DevicePropertyRecordMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/6/27 11:51:34
+-->
+<mapper namespace="com.welearn.mapper.DevicePropertyRecordMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    iotId,
+    dataJson,
+    reportedAt,
+    type
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    device_property_record.id AS id,
+    device_property_record.createdAt AS createdAt,
+    device_property_record.updatedAt AS updatedAt,
+    device_property_record.isEnable AS isEnable,
+    device_property_record.iotId AS iotId,
+    device_property_record.dataJson AS dataJson,
+    device_property_record.reportedAt AS reportedAt,
+    device_property_record.type AS type
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.alink.DevicePropertyRecord" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 设备唯一标识符 -->
+    <result column="iotId" property="iotId"/>
+    <!-- Comment: 属性数据JSON格式存储 -->
+    <result column="dataJson" property="dataJson"/>
+    <!-- Comment: 属性上报时间 -->
+    <result column="reportedAt" property="reportedAt"/>
+    <!-- Comment: 属性记录类型: 0-上报属性记录, 1-运行时间记录 -->
+    <result column="type" property="type"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.alink.DevicePropertyRecord" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM device_property_record
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.alink.DevicePropertyRecord" parameterType="com.welearn.entity.qo.alink.DevicePropertyRecordQueryCondition" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM device_property_record
+    <where>
+      <if test="id != null" >
+        id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="iotId != null" >
+        AND iotId = #{iotId}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="dataJson != null" >
+        AND dataJson = #{dataJson}
+      </if>
+      <if test="reportedAt != null" >
+        AND reportedAt = #{reportedAt}
+      </if>
+      <!-- START USER DEFINED -->
+      <if test="reportedAtStart != null" >
+        AND reportedAt >= #{reportedAtStart}
+      </if>
+      <if test="reportedAtEnd != null" >
+        AND #{reportedAtEnd} >= reportedAt
+      </if>
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.alink.DevicePropertyRecord" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM device_property_record
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM device_property_record
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.alink.DevicePropertyRecord" >
+    UPDATE device_property_record
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      iotId = #{iotId},
+      dataJson = #{dataJson},
+      reportedAt = #{reportedAt},
+      type = #{type},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.alink.DevicePropertyRecord" >
+    UPDATE device_property_record
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="iotId != null" >
+        iotId = #{iotId},
+      </if>
+      <if test="dataJson != null" >
+        dataJson = #{dataJson},
+      </if>
+      <if test="reportedAt != null" >
+        reportedAt = #{reportedAt},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE device_property_record SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE device_property_record SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.alink.DevicePropertyRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO device_property_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      iotId,
+      dataJson,
+      reportedAt,
+      type,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{iotId},
+      #{dataJson},
+      #{reportedAt},
+      #{type},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.alink.DevicePropertyRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO device_property_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="iotId != null" >
+        iotId,
+      </if>
+      <if test="dataJson != null" >
+        dataJson,
+      </if>
+      <if test="reportedAt != null" >
+        reportedAt,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="iotId != null" >
+        #{iotId},
+      </if>
+      <if test="dataJson != null" >
+        #{dataJson},
+      </if>
+      <if test="reportedAt != null" >
+        #{reportedAt},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM device_property_record WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM device_property_record
+  </delete>
+
+
+  <!-- START USER DEFINED -->
+
+  <delete id="deleteByReportedAtLessThan">
+    DELETE FROM device_property_record where #{reportedAt} > reportedAt and type = #{type}
+  </delete>
+</mapper>

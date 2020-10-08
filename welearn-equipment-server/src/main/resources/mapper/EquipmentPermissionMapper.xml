@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : equipment_permission
+  Comment  : 设备权限
+  Mapper   : com.welearn.mapper.EquipmentPermissionMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/1/3 16:15:52
+-->
+<mapper namespace="com.welearn.mapper.EquipmentPermissionMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentId,
+    type,
+    companyId,
+    companyName,
+    departmentId,
+    departmentName,
+    employeeId,
+    employeeName,
+    permission,
+    obtainAt,
+    obtainReason,
+    loseAt,
+    loseReason
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    equipment_permission.id AS id,
+    equipment_permission.createdAt AS createdAt,
+    equipment_permission.updatedAt AS updatedAt,
+    equipment_permission.isEnable AS isEnable,
+    equipment_permission.equipmentId AS equipmentId,
+    equipment_permission.type AS type,
+    equipment_permission.companyId AS companyId,
+    equipment_permission.companyName AS companyName,
+    equipment_permission.departmentId AS departmentId,
+    equipment_permission.departmentName AS departmentName,
+    equipment_permission.employeeId AS employeeId,
+    equipment_permission.employeeName AS employeeName,
+    equipment_permission.permission AS permission,
+    equipment_permission.obtainAt AS obtainAt,
+    equipment_permission.obtainReason AS obtainReason,
+    equipment_permission.loseAt AS loseAt,
+    equipment_permission.loseReason AS loseReason
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.EquipmentPermission" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 设备id -->
+    <result column="equipmentId" property="equipmentId"/>
+    <!-- Comment: 类型: 0-企业 1-部门 2-员工 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 公司名称 -->
+    <result column="companyName" property="companyName"/>
+    <!-- Comment: 部门id -->
+    <result column="departmentId" property="departmentId"/>
+    <!-- Comment: 部门名称 -->
+    <result column="departmentName" property="departmentName"/>
+    <!-- Comment: 员工id -->
+    <result column="employeeId" property="employeeId"/>
+    <!-- Comment: 员工姓名 -->
+    <result column="employeeName" property="employeeName"/>
+    <!-- Comment: 所拥有的权力编号 0-... -->
+    <result column="permission" property="permission"/>
+    <!-- Comment: 得权时间 -->
+    <result column="obtainAt" property="obtainAt"/>
+    <!-- Comment: 得权描述 -->
+    <result column="obtainReason" property="obtainReason"/>
+    <!-- Comment: 失权时间 失权后变为不可用 -->
+    <result column="loseAt" property="loseAt"/>
+    <!-- Comment: 失权描述 -->
+    <result column="loseReason" property="loseReason"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.EquipmentPermission" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_permission
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.EquipmentPermission" parameterType="com.welearn.entity.qo.equipment.EquipmentPermissionQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_permission
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentId != null" >
+          AND equipmentId = #{equipmentId}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="companyName != null" >
+          AND companyName = #{companyName}
+        </if>
+        <if test="departmentId != null" >
+          AND departmentId = #{departmentId}
+        </if>
+        <if test="departmentName != null" >
+          AND departmentName = #{departmentName}
+        </if>
+        <if test="employeeId != null" >
+          AND employeeId = #{employeeId}
+        </if>
+        <if test="employeeName != null" >
+          AND employeeName = #{employeeName}
+        </if>
+        <if test="permission != null" >
+          AND permission = #{permission}
+        </if>
+        <if test="obtainAt != null" >
+          AND obtainAt = #{obtainAt}
+        </if>
+        <if test="obtainReason != null" >
+          AND obtainReason = #{obtainReason}
+        </if>
+        <if test="loseAt != null" >
+          AND loseAt = #{loseAt}
+        </if>
+        <if test="loseReason != null" >
+          AND loseReason = #{loseReason}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.EquipmentPermission" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_permission
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM equipment_permission
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.EquipmentPermission" >
+    UPDATE equipment_permission
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentId = #{equipmentId},
+      type = #{type},
+      companyId = #{companyId},
+      companyName = #{companyName},
+      departmentId = #{departmentId},
+      departmentName = #{departmentName},
+      employeeId = #{employeeId},
+      employeeName = #{employeeName},
+      permission = #{permission},
+      obtainAt = #{obtainAt},
+      obtainReason = #{obtainReason},
+      loseAt = #{loseAt},
+      loseReason = #{loseReason},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.EquipmentPermission" >
+    UPDATE equipment_permission
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId = #{equipmentId},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="companyName != null" >
+        companyName = #{companyName},
+      </if>
+      <if test="departmentId != null" >
+        departmentId = #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        departmentName = #{departmentName},
+      </if>
+      <if test="employeeId != null" >
+        employeeId = #{employeeId},
+      </if>
+      <if test="employeeName != null" >
+        employeeName = #{employeeName},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission},
+      </if>
+      <if test="obtainAt != null" >
+        obtainAt = #{obtainAt},
+      </if>
+      <if test="obtainReason != null" >
+        obtainReason = #{obtainReason},
+      </if>
+      <if test="loseAt != null" >
+        loseAt = #{loseAt},
+      </if>
+      <if test="loseReason != null" >
+        loseReason = #{loseReason},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE equipment_permission SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE equipment_permission SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.EquipmentPermission" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentId,
+      type,
+      companyId,
+      companyName,
+      departmentId,
+      departmentName,
+      employeeId,
+      employeeName,
+      permission,
+      obtainAt,
+      obtainReason,
+      loseAt,
+      loseReason,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentId},
+      #{type},
+      #{companyId},
+      #{companyName},
+      #{departmentId},
+      #{departmentName},
+      #{employeeId},
+      #{employeeName},
+      #{permission},
+      #{obtainAt},
+      #{obtainReason},
+      #{loseAt},
+      #{loseReason},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.EquipmentPermission" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_permission 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="companyName != null" >
+        companyName,
+      </if>
+      <if test="departmentId != null" >
+        departmentId,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="employeeId != null" >
+        employeeId,
+      </if>
+      <if test="employeeName != null" >
+        employeeName,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="obtainAt != null" >
+        obtainAt,
+      </if>
+      <if test="obtainReason != null" >
+        obtainReason,
+      </if>
+      <if test="loseAt != null" >
+        loseAt,
+      </if>
+      <if test="loseReason != null" >
+        loseReason,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="companyName != null" >
+        #{companyName},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName},
+      </if>
+      <if test="permission != null" >
+        #{permission},
+      </if>
+      <if test="obtainAt != null" >
+        #{obtainAt},
+      </if>
+      <if test="obtainReason != null" >
+        #{obtainReason},
+      </if>
+      <if test="loseAt != null" >
+        #{loseAt},
+      </if>
+      <if test="loseReason != null" >
+        #{loseReason},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM equipment_permission WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM equipment_permission
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="selectRefEquipments" resultType="com.welearn.entity.po.equipment.Equipment">
+    select distinct e.* from equipment e
+    join equipment_permission ep on ep.isEnable = true
+      and ep.equipmentId = e.id
+      and ep.permission = #{permissionCode}
+      and ep.type = #{type}
+      <if test="type == 0" >
+        and ep.companyId = #{typeId}
+      </if>
+      <if test="type == 1" >
+        and ep.departmentId = #{typeId}
+      </if>
+      <if test="type == 2" >
+        and ep.employeeId = #{typeId}
+      </if>
+    where e.isEnable = true
+    order by e.createdAt asc
+  </select>
+  <select id="selectRefEquipmentProducts" resultType="com.welearn.entity.po.equipment.EquipmentProduct">
+    select distinct eprod.*
+    from equipment_product eprod
+    join equipment e on e.equipmentProductId = eprod.id and e.isEnable = true
+    join equipment_permission ep on ep.equipmentId = e.id and ep.isEnable = true
+      and ep.permission = #{permissionCode}
+      and ep.type = #{type}
+      <if test="type == 0" >
+        and ep.companyId = #{typeId}
+      </if>
+      <if test="type == 1" >
+        and ep.departmentId = #{typeId}
+      </if>
+      <if test="type == 2" >
+        and ep.employeeId = #{typeId}
+      </if>
+    where eprod.isEnable = true
+    order by eprod.createdAt asc
+  </select>
+  <select id="selectRefEquipmentTypes" resultType="com.welearn.entity.vo.response.equipment.EquipmentTypeItemInfo">
+    select distinct eti.*, etd.dSort, etd.uSort, etd.description, etd.`usage`
+    from equipment_type_item eti
+    left join re_equipment_type_item_description retid on retid.itemId = eti.id and retid.isEnable = true
+    left join equipment_type_description etd on etd.id = retid.descriptionId and etd.isEnable = true
+    join equipment e on e.equipmentTypeId = eti.id and e.isEnable = true
+    join equipment_permission ep on ep.equipmentId = e.id and ep.isEnable = true
+      and ep.permission = #{permissionCode}
+      and ep.type = #{type}
+      <if test="type == 0" >
+        and ep.companyId = #{typeId}
+      </if>
+      <if test="type == 1" >
+        and ep.departmentId = #{typeId}
+      </if>
+      <if test="type == 2" >
+        and ep.employeeId = #{typeId}
+      </if>
+    where eti.isEnable = true
+    order by eti.id asc
+  </select>
+  <select id="selectRefEquipmentsCount" resultType="java.lang.Integer">
+    select count(distinct e.id)
+    from equipment e
+    join equipment_permission ep on ep.isEnable = true
+    and ep.equipmentId = e.id
+    and ep.permission = #{permissionCode}
+    and ep.type = #{type}
+    <if test="type == 0" >
+      and ep.companyId = #{typeId}
+    </if>
+    <if test="type == 1" >
+      and ep.departmentId = #{typeId}
+    </if>
+    <if test="type == 2" >
+      and ep.employeeId = #{typeId}
+    </if>
+    where e.isEnable = true
+  </select>
+  <select id="selectRefEquipmentProductsCount" resultType="java.lang.Integer">
+    select count(distinct eprod.id)
+    from equipment_product eprod
+    join equipment e on e.equipmentProductId = eprod.id and e.isEnable = true
+    join equipment_permission ep on ep.equipmentId = e.id and ep.isEnable = true
+    and ep.permission = #{permissionCode}
+    and ep.type = #{type}
+    <if test="type == 0" >
+      and ep.companyId = #{typeId}
+    </if>
+    <if test="type == 1" >
+      and ep.departmentId = #{typeId}
+    </if>
+    <if test="type == 2" >
+      and ep.employeeId = #{typeId}
+    </if>
+    where eprod.isEnable = true
+  </select>
+  <select id="selectRefEquipmentTypesCount" resultType="java.lang.Integer">
+    select count(distinct eti.id)
+    from equipment_type_item eti
+    join equipment e on e.equipmentTypeId = eti.id and e.isEnable = true
+    join equipment_permission ep on ep.equipmentId = e.id and ep.isEnable = true
+    and ep.permission = #{permissionCode}
+    and ep.type = #{type}
+    <if test="type == 0" >
+      and ep.companyId = #{typeId}
+    </if>
+    <if test="type == 1" >
+      and ep.departmentId = #{typeId}
+    </if>
+    <if test="type == 2" >
+      and ep.employeeId = #{typeId}
+    </if>
+    where eti.isEnable = true
+  </select>
+</mapper>

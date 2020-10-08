@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : large_equipment_application
+  Comment  : 大型医疗设备装备申请(年度设备计划采购申请 如为大型医疗设备 审批后 创建该申请)
+  Mapper   : com.welearn.mapper.LargeEquipmentApplicationMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/10/30 18:20:49
+-->
+<mapper namespace="com.welearn.mapper.LargeEquipmentApplicationMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentYearPlanApplicationId,
+    applicationFile,
+    replyFile
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    large_equipment_application.id AS id,
+    large_equipment_application.createdAt AS createdAt,
+    large_equipment_application.updatedAt AS updatedAt,
+    large_equipment_application.isEnable AS isEnable,
+    large_equipment_application.equipmentYearPlanApplicationId AS equipmentYearPlanApplicationId,
+    large_equipment_application.applicationFile AS applicationFile,
+    large_equipment_application.replyFile AS replyFile
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.apply.LargeEquipmentApplication" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 年度设备计划采购申请内容id -->
+    <result column="equipmentYearPlanApplicationId" property="equipmentYearPlanApplicationId"/>
+    <!-- Comment: 大型医疗设备装备申请文件 -->
+    <result column="applicationFile" property="applicationFile"/>
+    <!-- Comment: 相关部门批复文件 -->
+    <result column="replyFile" property="replyFile"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.apply.LargeEquipmentApplication" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM large_equipment_application
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.apply.LargeEquipmentApplication" parameterType="com.welearn.entity.qo.apply.LargeEquipmentApplicationQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM large_equipment_application
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentYearPlanApplicationId != null" >
+          AND equipmentYearPlanApplicationId = #{equipmentYearPlanApplicationId}
+        </if>
+        <if test="applicationFile != null" >
+          AND applicationFile = #{applicationFile}
+        </if>
+        <if test="replyFile != null" >
+          AND replyFile = #{replyFile}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.apply.LargeEquipmentApplication" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM large_equipment_application
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM large_equipment_application
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.apply.LargeEquipmentApplication" >
+    UPDATE large_equipment_application
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentYearPlanApplicationId = #{equipmentYearPlanApplicationId},
+      applicationFile = #{applicationFile},
+      replyFile = #{replyFile},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.apply.LargeEquipmentApplication" >
+    UPDATE large_equipment_application
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentYearPlanApplicationId != null" >
+        equipmentYearPlanApplicationId = #{equipmentYearPlanApplicationId},
+      </if>
+      <if test="applicationFile != null" >
+        applicationFile = #{applicationFile},
+      </if>
+      <if test="replyFile != null" >
+        replyFile = #{replyFile},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE large_equipment_application SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE large_equipment_application SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.apply.LargeEquipmentApplication" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO large_equipment_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentYearPlanApplicationId,
+      applicationFile,
+      replyFile,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentYearPlanApplicationId},
+      #{applicationFile},
+      #{replyFile},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.apply.LargeEquipmentApplication" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO large_equipment_application 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentYearPlanApplicationId != null" >
+        equipmentYearPlanApplicationId,
+      </if>
+      <if test="applicationFile != null" >
+        applicationFile,
+      </if>
+      <if test="replyFile != null" >
+        replyFile,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentYearPlanApplicationId != null" >
+        #{equipmentYearPlanApplicationId},
+      </if>
+      <if test="applicationFile != null" >
+        #{applicationFile},
+      </if>
+      <if test="replyFile != null" >
+        #{replyFile},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM large_equipment_application WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM large_equipment_application
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

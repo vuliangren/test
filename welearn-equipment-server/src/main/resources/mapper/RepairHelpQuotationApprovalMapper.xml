@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : repair_help_quotation_approval
+  Comment  : 维修外援报价申请
+  Mapper   : com.welearn.mapper.RepairHelpQuotationApprovalMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/3/11 14:37:02
+-->
+<mapper namespace="com.welearn.mapper.RepairHelpQuotationApprovalMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    requestId,
+    dispatchId,
+    engineerId,
+    engineerName,
+    outsideDispatchId,
+    outsideEngineerId,
+    outsideEngineerName,
+    signatureId,
+    price,
+    description,
+    applyId,
+    status
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    repair_help_quotation_approval.id AS id,
+    repair_help_quotation_approval.createdAt AS createdAt,
+    repair_help_quotation_approval.updatedAt AS updatedAt,
+    repair_help_quotation_approval.isEnable AS isEnable,
+    repair_help_quotation_approval.requestId AS requestId,
+    repair_help_quotation_approval.dispatchId AS dispatchId,
+    repair_help_quotation_approval.engineerId AS engineerId,
+    repair_help_quotation_approval.engineerName AS engineerName,
+    repair_help_quotation_approval.outsideDispatchId AS outsideDispatchId,
+    repair_help_quotation_approval.outsideEngineerId AS outsideEngineerId,
+    repair_help_quotation_approval.outsideEngineerName AS outsideEngineerName,
+    repair_help_quotation_approval.signatureId AS signatureId,
+    repair_help_quotation_approval.price AS price,
+    repair_help_quotation_approval.description AS description,
+    repair_help_quotation_approval.applyId AS applyId,
+    repair_help_quotation_approval.status AS status
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 报修id -->
+    <result column="requestId" property="requestId"/>
+    <!-- Comment: 派工id -->
+    <result column="dispatchId" property="dispatchId"/>
+    <!-- Comment: 工程师id -->
+    <result column="engineerId" property="engineerId"/>
+    <!-- Comment: 工程师名称 -->
+    <result column="engineerName" property="engineerName"/>
+    <!-- Comment: 外部派工id -->
+    <result column="outsideDispatchId" property="outsideDispatchId"/>
+    <!-- Comment: 外部工程师id -->
+    <result column="outsideEngineerId" property="outsideEngineerId"/>
+    <!-- Comment: 外部工程师名称 -->
+    <result column="outsideEngineerName" property="outsideEngineerName"/>
+    <!-- Comment: 工程师签名 -->
+    <result column="signatureId" property="signatureId"/>
+    <!-- Comment: 价格 -->
+    <result column="price" property="price"/>
+    <!-- Comment: 报价说明 -->
+    <result column="description" property="description"/>
+    <!-- Comment: 申请id -->
+    <result column="applyId" property="applyId"/>
+    <!-- Comment: 状态：0-待审批 1-审批通过 2-审批失败 -->
+    <result column="status" property="status"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_help_quotation_approval
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" parameterType="com.welearn.entity.qo.equipment.RepairHelpQuotationApprovalQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_help_quotation_approval
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="requestId != null" >
+          AND requestId = #{requestId}
+        </if>
+        <if test="dispatchId != null" >
+          AND dispatchId = #{dispatchId}
+        </if>
+        <if test="engineerId != null" >
+          AND engineerId = #{engineerId}
+        </if>
+        <if test="engineerName != null" >
+          AND engineerName = #{engineerName}
+        </if>
+        <if test="outsideDispatchId != null" >
+          AND outsideDispatchId = #{outsideDispatchId}
+        </if>
+        <if test="outsideEngineerId != null" >
+          AND outsideEngineerId = #{outsideEngineerId}
+        </if>
+        <if test="outsideEngineerName != null" >
+          AND outsideEngineerName = #{outsideEngineerName}
+        </if>
+        <if test="signatureId != null" >
+          AND signatureId = #{signatureId}
+        </if>
+        <if test="price != null" >
+          AND price = #{price}
+        </if>
+        <if test="description != null" >
+          AND description = #{description}
+        </if>
+        <if test="applyId != null" >
+          AND applyId = #{applyId}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_help_quotation_approval
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM repair_help_quotation_approval
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" >
+    UPDATE repair_help_quotation_approval
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      requestId = #{requestId},
+      dispatchId = #{dispatchId},
+      engineerId = #{engineerId},
+      engineerName = #{engineerName},
+      outsideDispatchId = #{outsideDispatchId},
+      outsideEngineerId = #{outsideEngineerId},
+      outsideEngineerName = #{outsideEngineerName},
+      signatureId = #{signatureId},
+      price = #{price},
+      description = #{description},
+      applyId = #{applyId},
+      status = #{status},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" >
+    UPDATE repair_help_quotation_approval
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="requestId != null" >
+        requestId = #{requestId},
+      </if>
+      <if test="dispatchId != null" >
+        dispatchId = #{dispatchId},
+      </if>
+      <if test="engineerId != null" >
+        engineerId = #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        engineerName = #{engineerName},
+      </if>
+      <if test="outsideDispatchId != null" >
+        outsideDispatchId = #{outsideDispatchId},
+      </if>
+      <if test="outsideEngineerId != null" >
+        outsideEngineerId = #{outsideEngineerId},
+      </if>
+      <if test="outsideEngineerName != null" >
+        outsideEngineerName = #{outsideEngineerName},
+      </if>
+      <if test="signatureId != null" >
+        signatureId = #{signatureId},
+      </if>
+      <if test="price != null" >
+        price = #{price},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="applyId != null" >
+        applyId = #{applyId},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE repair_help_quotation_approval SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE repair_help_quotation_approval SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO repair_help_quotation_approval
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      requestId,
+      dispatchId,
+      engineerId,
+      engineerName,
+      outsideDispatchId,
+      outsideEngineerId,
+      outsideEngineerName,
+      signatureId,
+      price,
+      description,
+      applyId,
+      status,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{requestId},
+      #{dispatchId},
+      #{engineerId},
+      #{engineerName},
+      #{outsideDispatchId},
+      #{outsideEngineerId},
+      #{outsideEngineerName},
+      #{signatureId},
+      #{price},
+      #{description},
+      #{applyId},
+      #{status},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.RepairHelpQuotationApproval" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO repair_help_quotation_approval 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="requestId != null" >
+        requestId,
+      </if>
+      <if test="dispatchId != null" >
+        dispatchId,
+      </if>
+      <if test="engineerId != null" >
+        engineerId,
+      </if>
+      <if test="engineerName != null" >
+        engineerName,
+      </if>
+      <if test="outsideDispatchId != null" >
+        outsideDispatchId,
+      </if>
+      <if test="outsideEngineerId != null" >
+        outsideEngineerId,
+      </if>
+      <if test="outsideEngineerName != null" >
+        outsideEngineerName,
+      </if>
+      <if test="signatureId != null" >
+        signatureId,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="applyId != null" >
+        applyId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="requestId != null" >
+        #{requestId},
+      </if>
+      <if test="dispatchId != null" >
+        #{dispatchId},
+      </if>
+      <if test="engineerId != null" >
+        #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        #{engineerName},
+      </if>
+      <if test="outsideDispatchId != null" >
+        #{outsideDispatchId},
+      </if>
+      <if test="outsideEngineerId != null" >
+        #{outsideEngineerId},
+      </if>
+      <if test="outsideEngineerName != null" >
+        #{outsideEngineerName},
+      </if>
+      <if test="signatureId != null" >
+        #{signatureId},
+      </if>
+      <if test="price != null" >
+        #{price},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="applyId != null" >
+        #{applyId},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM repair_help_quotation_approval WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM repair_help_quotation_approval
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

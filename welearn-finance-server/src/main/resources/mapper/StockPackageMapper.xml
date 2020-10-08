@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : stock_package
+  Comment  : 库存货物包装
+  Mapper   : com.welearn.mapper.StockPackageMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/12/18 16:19:49
+-->
+<mapper namespace="com.welearn.mapper.StockPackageMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    remark,
+    rePackageId,
+    amount,
+    count,
+    sscc,
+    creatorId,
+    stockTypeId,
+    status
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    stock_package.id AS id,
+    stock_package.createdAt AS createdAt,
+    stock_package.updatedAt AS updatedAt,
+    stock_package.isEnable AS isEnable,
+    stock_package.remark AS remark,
+    stock_package.rePackageId AS rePackageId,
+    stock_package.amount AS amount,
+    stock_package.count AS count,
+    stock_package.sscc AS sscc,
+    stock_package.creatorId AS creatorId,
+    stock_package.stockTypeId AS stockTypeId,
+    stock_package.status AS status
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.finance.StockPackage" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+    <!-- Comment: 关联包装id, 在包装拆分或合并时会使用 -->
+    <result column="rePackageId" property="rePackageId"/>
+    <!-- Comment: 包装创建时内含数量 -->
+    <result column="amount" property="amount"/>
+    <!-- Comment: 包装当前的内含数量 -->
+    <result column="count" property="count"/>
+    <!-- Comment: 货物包装SSCC(与 id 一一对应) -->
+    <result column="sscc" property="sscc"/>
+    <!-- Comment: 创建人id -->
+    <result column="creatorId" property="creatorId"/>
+    <!-- Comment: 库存类型id -->
+    <result column="stockTypeId" property="stockTypeId"/>
+    <!-- Comment: 状态: 0-虚拟态(系统创建了该SSCC条码) 1-现实态(库存人员将该SSCC条码打印并贴在箱子上) -->
+    <result column="status" property="status"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.finance.StockPackage" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_package
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.finance.StockPackage" parameterType="com.welearn.entity.qo.finance.StockPackageQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_package
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <if test="rePackageId != null" >
+          AND rePackageId = #{rePackageId}
+        </if>
+        <if test="amount != null" >
+          AND amount = #{amount}
+        </if>
+        <if test="count != null" >
+          AND count = #{count}
+        </if>
+        <if test="sscc != null" >
+          AND sscc = #{sscc}
+        </if>
+        <if test="creatorId != null" >
+          AND creatorId = #{creatorId}
+        </if>
+        <if test="stockTypeId != null" >
+          AND stockTypeId = #{stockTypeId}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.finance.StockPackage" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_package
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM stock_package
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.finance.StockPackage" >
+    UPDATE stock_package
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      remark = #{remark},
+      rePackageId = #{rePackageId},
+      amount = #{amount},
+      count = #{count},
+      sscc = #{sscc},
+      creatorId = #{creatorId},
+      stockTypeId = #{stockTypeId},
+      status = #{status},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.finance.StockPackage" >
+    UPDATE stock_package
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="rePackageId != null" >
+        rePackageId = #{rePackageId},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount},
+      </if>
+      <if test="count != null" >
+        count = #{count},
+      </if>
+      <if test="sscc != null" >
+        sscc = #{sscc},
+      </if>
+      <if test="creatorId != null" >
+        creatorId = #{creatorId},
+      </if>
+      <if test="stockTypeId != null" >
+        stockTypeId = #{stockTypeId},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE stock_package SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE stock_package SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.finance.StockPackage" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO stock_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      remark,
+      rePackageId,
+      amount,
+      count,
+      sscc,
+      creatorId,
+      stockTypeId,
+      status,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{remark},
+      #{rePackageId},
+      #{amount},
+      #{count},
+      #{sscc},
+      #{creatorId},
+      #{stockTypeId},
+      #{status},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.finance.StockPackage" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO stock_package 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="rePackageId != null" >
+        rePackageId,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="sscc != null" >
+        sscc,
+      </if>
+      <if test="creatorId != null" >
+        creatorId,
+      </if>
+      <if test="stockTypeId != null" >
+        stockTypeId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="rePackageId != null" >
+        #{rePackageId},
+      </if>
+      <if test="amount != null" >
+        #{amount},
+      </if>
+      <if test="count != null" >
+        #{count},
+      </if>
+      <if test="sscc != null" >
+        #{sscc},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId},
+      </if>
+      <if test="stockTypeId != null" >
+        #{stockTypeId},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM stock_package WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM stock_package
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : invoice
+  Comment  : 发票
+  Mapper   : com.welearn.mapper.InvoiceMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/11/8 18:19:47
+-->
+<mapper namespace="com.welearn.mapper.InvoiceMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    refType,
+    refId,
+    description,
+    type,
+    code,
+    number,
+    issuedAt,
+    closedAt,
+    status,
+    sellerId,
+    sellerName,
+    sellerCode,
+    sellerAddress,
+    sellerPhone,
+    sellerBank,
+    sellerAccount,
+    buyerId,
+    buyerName,
+    buyerCode,
+    buyerAddress,
+    buyerPhone,
+    buyerBank,
+    buyerAccount,
+    totalAmount,
+    totalTax,
+    balance,
+    amountLower,
+    amountUpper,
+    remark,
+    uploadType,
+    uploadFile,
+    detailJson
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    invoice.id AS id,
+    invoice.createdAt AS createdAt,
+    invoice.updatedAt AS updatedAt,
+    invoice.isEnable AS isEnable,
+    invoice.refType AS refType,
+    invoice.refId AS refId,
+    invoice.description AS description,
+    invoice.type AS type,
+    invoice.code AS code,
+    invoice.number AS number,
+    invoice.issuedAt AS issuedAt,
+    invoice.closedAt AS closedAt,
+    invoice.status AS status,
+    invoice.sellerId AS sellerId,
+    invoice.sellerName AS sellerName,
+    invoice.sellerCode AS sellerCode,
+    invoice.sellerAddress AS sellerAddress,
+    invoice.sellerPhone AS sellerPhone,
+    invoice.sellerBank AS sellerBank,
+    invoice.sellerAccount AS sellerAccount,
+    invoice.buyerId AS buyerId,
+    invoice.buyerName AS buyerName,
+    invoice.buyerCode AS buyerCode,
+    invoice.buyerAddress AS buyerAddress,
+    invoice.buyerPhone AS buyerPhone,
+    invoice.buyerBank AS buyerBank,
+    invoice.buyerAccount AS buyerAccount,
+    invoice.totalAmount AS totalAmount,
+    invoice.totalTax AS totalTax,
+    invoice.balance AS balance,
+    invoice.amountLower AS amountLower,
+    invoice.amountUpper AS amountUpper,
+    invoice.remark AS remark,
+    invoice.uploadType AS uploadType,
+    invoice.uploadFile AS uploadFile,
+    invoice.detailJson AS detailJson
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.finance.Invoice" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 关联类型-表名 -->
+    <result column="refType" property="refType"/>
+    <!-- Comment: 关联类型id -->
+    <result column="refId" property="refId"/>
+    <!-- Comment: 关联简述 -->
+    <result column="description" property="description"/>
+    <!-- Comment: 发票类型:0-增值税普通发票, 1-增值税专用发票, 2-其他发票 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 发票代码 -->
+    <result column="code" property="code"/>
+    <!-- Comment: 发票号码 -->
+    <result column="number" property="number"/>
+    <!-- Comment: 开票日期 -->
+    <result column="issuedAt" property="issuedAt"/>
+    <!-- Comment: 结算日期 -->
+    <result column="closedAt" property="closedAt"/>
+    <!-- Comment: 发票状态: 0-未结算, 1-已部分结算, 2-已全部结算 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 销售方公司id -->
+    <result column="sellerId" property="sellerId"/>
+    <!-- Comment: 销售方公司名称 -->
+    <result column="sellerName" property="sellerName"/>
+    <!-- Comment: 销售方公司纳税人识别号 -->
+    <result column="sellerCode" property="sellerCode"/>
+    <!-- Comment: 销售方公司地址 -->
+    <result column="sellerAddress" property="sellerAddress"/>
+    <!-- Comment: 销售方公司电话 -->
+    <result column="sellerPhone" property="sellerPhone"/>
+    <!-- Comment: 销售方公司开户行 -->
+    <result column="sellerBank" property="sellerBank"/>
+    <!-- Comment: 销售方公司账号 -->
+    <result column="sellerAccount" property="sellerAccount"/>
+    <!-- Comment: 购买方公司id -->
+    <result column="buyerId" property="buyerId"/>
+    <!-- Comment: 购买方公司名称 -->
+    <result column="buyerName" property="buyerName"/>
+    <!-- Comment: 购买方公司纳税人识别号 -->
+    <result column="buyerCode" property="buyerCode"/>
+    <!-- Comment: 购买方公司地址 -->
+    <result column="buyerAddress" property="buyerAddress"/>
+    <!-- Comment: 购买方公司电话 -->
+    <result column="buyerPhone" property="buyerPhone"/>
+    <!-- Comment: 购买方公司开户行 -->
+    <result column="buyerBank" property="buyerBank"/>
+    <!-- Comment: 购买方公司账号 -->
+    <result column="buyerAccount" property="buyerAccount"/>
+    <!-- Comment: 合计金额 -->
+    <result column="totalAmount" property="totalAmount"/>
+    <!-- Comment: 合计税额 -->
+    <result column="totalTax" property="totalTax"/>
+    <!-- Comment: 待结金额 -->
+    <result column="balance" property="balance"/>
+    <!-- Comment: 价税合计小写 -->
+    <result column="amountLower" property="amountLower"/>
+    <!-- Comment: 价税合计大写 -->
+    <result column="amountUpper" property="amountUpper"/>
+    <!-- Comment: 发票备注 -->
+    <result column="remark" property="remark"/>
+    <!-- Comment: 上传类型 -->
+    <result column="uploadType" property="uploadType"/>
+    <!-- Comment: 上传文件 -->
+    <result column="uploadFile" property="uploadFile"/>
+    <!-- Comment: 发票明细 -->
+    <result column="detailJson" property="detailJson"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.finance.Invoice" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM invoice
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.finance.Invoice" parameterType="com.welearn.entity.qo.finance.InvoiceQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM invoice
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="refType != null" >
+          AND refType = #{refType}
+        </if>
+        <if test="refId != null" >
+          AND refId = #{refId}
+        </if>
+        <if test="description != null" >
+          AND description = #{description}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="code != null" >
+          AND code = #{code}
+        </if>
+        <if test="number != null" >
+          AND number = #{number}
+        </if>
+        <if test="issuedAtStart != null" >
+          AND issuedAt >= #{issuedAtStart}
+        </if>
+        <if test="issuedAtEnd != null" >
+          AND #{issuedAtEnd} >= issuedAt
+        </if>
+        <if test="closedAt != null" >
+          AND closedAt = #{closedAt}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="sellerId != null" >
+          AND sellerId = #{sellerId}
+        </if>
+        <if test="sellerName != null" >
+          AND sellerName = #{sellerName}
+        </if>
+        <if test="sellerCode != null" >
+          AND sellerCode = #{sellerCode}
+        </if>
+        <if test="sellerAddress != null" >
+          AND sellerAddress = #{sellerAddress}
+        </if>
+        <if test="sellerPhone != null" >
+          AND sellerPhone = #{sellerPhone}
+        </if>
+        <if test="sellerBank != null" >
+          AND sellerBank = #{sellerBank}
+        </if>
+        <if test="sellerAccount != null" >
+          AND sellerAccount = #{sellerAccount}
+        </if>
+        <if test="buyerId != null" >
+          AND buyerId = #{buyerId}
+        </if>
+        <if test="buyerName != null" >
+          AND buyerName = #{buyerName}
+        </if>
+        <if test="buyerCode != null" >
+          AND buyerCode = #{buyerCode}
+        </if>
+        <if test="buyerAddress != null" >
+          AND buyerAddress = #{buyerAddress}
+        </if>
+        <if test="buyerPhone != null" >
+          AND buyerPhone = #{buyerPhone}
+        </if>
+        <if test="buyerBank != null" >
+          AND buyerBank = #{buyerBank}
+        </if>
+        <if test="buyerAccount != null" >
+          AND buyerAccount = #{buyerAccount}
+        </if>
+        <if test="totalAmount != null" >
+          AND totalAmount = #{totalAmount}
+        </if>
+        <if test="totalTax != null" >
+          AND totalTax = #{totalTax}
+        </if>
+        <if test="balance != null" >
+          AND balance = #{balance}
+        </if>
+        <if test="amountLower != null" >
+          AND amountLower = #{amountLower}
+        </if>
+        <if test="amountUpper != null" >
+          AND amountUpper = #{amountUpper}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <if test="uploadType != null" >
+          AND uploadType = #{uploadType}
+        </if>
+        <if test="uploadFile != null" >
+          AND uploadFile = #{uploadFile}
+        </if>
+        <if test="detailJson != null" >
+          AND detailJson = #{detailJson}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.finance.Invoice" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM invoice
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM invoice
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.finance.Invoice" >
+    UPDATE invoice
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      refType = #{refType},
+      refId = #{refId},
+      description = #{description},
+      type = #{type},
+      code = #{code},
+      number = #{number},
+      issuedAt = #{issuedAt},
+      closedAt = #{closedAt},
+      status = #{status},
+      sellerId = #{sellerId},
+      sellerName = #{sellerName},
+      sellerCode = #{sellerCode},
+      sellerAddress = #{sellerAddress},
+      sellerPhone = #{sellerPhone},
+      sellerBank = #{sellerBank},
+      sellerAccount = #{sellerAccount},
+      buyerId = #{buyerId},
+      buyerName = #{buyerName},
+      buyerCode = #{buyerCode},
+      buyerAddress = #{buyerAddress},
+      buyerPhone = #{buyerPhone},
+      buyerBank = #{buyerBank},
+      buyerAccount = #{buyerAccount},
+      totalAmount = #{totalAmount},
+      totalTax = #{totalTax},
+      balance = #{balance},
+      amountLower = #{amountLower},
+      amountUpper = #{amountUpper},
+      remark = #{remark},
+      uploadType = #{uploadType},
+      uploadFile = #{uploadFile},
+      detailJson = #{detailJson},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.finance.Invoice" >
+    UPDATE invoice
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="refType != null" >
+        refType = #{refType},
+      </if>
+      <if test="refId != null" >
+        refId = #{refId},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="code != null" >
+        code = #{code},
+      </if>
+      <if test="number != null" >
+        number = #{number},
+      </if>
+      <if test="issuedAt != null" >
+        issuedAt = #{issuedAt},
+      </if>
+      <if test="closedAt != null" >
+        closedAt = #{closedAt},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="sellerId != null" >
+        sellerId = #{sellerId},
+      </if>
+      <if test="sellerName != null" >
+        sellerName = #{sellerName},
+      </if>
+      <if test="sellerCode != null" >
+        sellerCode = #{sellerCode},
+      </if>
+      <if test="sellerAddress != null" >
+        sellerAddress = #{sellerAddress},
+      </if>
+      <if test="sellerPhone != null" >
+        sellerPhone = #{sellerPhone},
+      </if>
+      <if test="sellerBank != null" >
+        sellerBank = #{sellerBank},
+      </if>
+      <if test="sellerAccount != null" >
+        sellerAccount = #{sellerAccount},
+      </if>
+      <if test="buyerId != null" >
+        buyerId = #{buyerId},
+      </if>
+      <if test="buyerName != null" >
+        buyerName = #{buyerName},
+      </if>
+      <if test="buyerCode != null" >
+        buyerCode = #{buyerCode},
+      </if>
+      <if test="buyerAddress != null" >
+        buyerAddress = #{buyerAddress},
+      </if>
+      <if test="buyerPhone != null" >
+        buyerPhone = #{buyerPhone},
+      </if>
+      <if test="buyerBank != null" >
+        buyerBank = #{buyerBank},
+      </if>
+      <if test="buyerAccount != null" >
+        buyerAccount = #{buyerAccount},
+      </if>
+      <if test="totalAmount != null" >
+        totalAmount = #{totalAmount},
+      </if>
+      <if test="totalTax != null" >
+        totalTax = #{totalTax},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance},
+      </if>
+      <if test="amountLower != null" >
+        amountLower = #{amountLower},
+      </if>
+      <if test="amountUpper != null" >
+        amountUpper = #{amountUpper},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="uploadType != null" >
+        uploadType = #{uploadType},
+      </if>
+      <if test="uploadFile != null" >
+        uploadFile = #{uploadFile},
+      </if>
+      <if test="detailJson != null" >
+        detailJson = #{detailJson},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE invoice SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE invoice SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.finance.Invoice" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO invoice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      refType,
+      refId,
+      description,
+      type,
+      code,
+      number,
+      issuedAt,
+      closedAt,
+      status,
+      sellerId,
+      sellerName,
+      sellerCode,
+      sellerAddress,
+      sellerPhone,
+      sellerBank,
+      sellerAccount,
+      buyerId,
+      buyerName,
+      buyerCode,
+      buyerAddress,
+      buyerPhone,
+      buyerBank,
+      buyerAccount,
+      totalAmount,
+      totalTax,
+      balance,
+      amountLower,
+      amountUpper,
+      remark,
+      uploadType,
+      uploadFile,
+      detailJson,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{refType},
+      #{refId},
+      #{description},
+      #{type},
+      #{code},
+      #{number},
+      #{issuedAt},
+      #{closedAt},
+      #{status},
+      #{sellerId},
+      #{sellerName},
+      #{sellerCode},
+      #{sellerAddress},
+      #{sellerPhone},
+      #{sellerBank},
+      #{sellerAccount},
+      #{buyerId},
+      #{buyerName},
+      #{buyerCode},
+      #{buyerAddress},
+      #{buyerPhone},
+      #{buyerBank},
+      #{buyerAccount},
+      #{totalAmount},
+      #{totalTax},
+      #{balance},
+      #{amountLower},
+      #{amountUpper},
+      #{remark},
+      #{uploadType},
+      #{uploadFile},
+      #{detailJson},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.finance.Invoice" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO invoice 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="refType != null" >
+        refType,
+      </if>
+      <if test="refId != null" >
+        refId,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="issuedAt != null" >
+        issuedAt,
+      </if>
+      <if test="closedAt != null" >
+        closedAt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sellerId != null" >
+        sellerId,
+      </if>
+      <if test="sellerName != null" >
+        sellerName,
+      </if>
+      <if test="sellerCode != null" >
+        sellerCode,
+      </if>
+      <if test="sellerAddress != null" >
+        sellerAddress,
+      </if>
+      <if test="sellerPhone != null" >
+        sellerPhone,
+      </if>
+      <if test="sellerBank != null" >
+        sellerBank,
+      </if>
+      <if test="sellerAccount != null" >
+        sellerAccount,
+      </if>
+      <if test="buyerId != null" >
+        buyerId,
+      </if>
+      <if test="buyerName != null" >
+        buyerName,
+      </if>
+      <if test="buyerCode != null" >
+        buyerCode,
+      </if>
+      <if test="buyerAddress != null" >
+        buyerAddress,
+      </if>
+      <if test="buyerPhone != null" >
+        buyerPhone,
+      </if>
+      <if test="buyerBank != null" >
+        buyerBank,
+      </if>
+      <if test="buyerAccount != null" >
+        buyerAccount,
+      </if>
+      <if test="totalAmount != null" >
+        totalAmount,
+      </if>
+      <if test="totalTax != null" >
+        totalTax,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="amountLower != null" >
+        amountLower,
+      </if>
+      <if test="amountUpper != null" >
+        amountUpper,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="uploadType != null" >
+        uploadType,
+      </if>
+      <if test="uploadFile != null" >
+        uploadFile,
+      </if>
+      <if test="detailJson != null" >
+        detailJson,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="refType != null" >
+        #{refType},
+      </if>
+      <if test="refId != null" >
+        #{refId},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="number != null" >
+        #{number},
+      </if>
+      <if test="issuedAt != null" >
+        #{issuedAt},
+      </if>
+      <if test="closedAt != null" >
+        #{closedAt},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="sellerId != null" >
+        #{sellerId},
+      </if>
+      <if test="sellerName != null" >
+        #{sellerName},
+      </if>
+      <if test="sellerCode != null" >
+        #{sellerCode},
+      </if>
+      <if test="sellerAddress != null" >
+        #{sellerAddress},
+      </if>
+      <if test="sellerPhone != null" >
+        #{sellerPhone},
+      </if>
+      <if test="sellerBank != null" >
+        #{sellerBank},
+      </if>
+      <if test="sellerAccount != null" >
+        #{sellerAccount},
+      </if>
+      <if test="buyerId != null" >
+        #{buyerId},
+      </if>
+      <if test="buyerName != null" >
+        #{buyerName},
+      </if>
+      <if test="buyerCode != null" >
+        #{buyerCode},
+      </if>
+      <if test="buyerAddress != null" >
+        #{buyerAddress},
+      </if>
+      <if test="buyerPhone != null" >
+        #{buyerPhone},
+      </if>
+      <if test="buyerBank != null" >
+        #{buyerBank},
+      </if>
+      <if test="buyerAccount != null" >
+        #{buyerAccount},
+      </if>
+      <if test="totalAmount != null" >
+        #{totalAmount},
+      </if>
+      <if test="totalTax != null" >
+        #{totalTax},
+      </if>
+      <if test="balance != null" >
+        #{balance},
+      </if>
+      <if test="amountLower != null" >
+        #{amountLower},
+      </if>
+      <if test="amountUpper != null" >
+        #{amountUpper},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="uploadType != null" >
+        #{uploadType},
+      </if>
+      <if test="uploadFile != null" >
+        #{uploadFile},
+      </if>
+      <if test="detailJson != null" >
+        #{detailJson},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM invoice WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM invoice
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="searchUnRef" resultType="com.welearn.entity.po.finance.Invoice" parameterType="com.welearn.entity.qo.finance.InvoiceQueryCondition" >
+    SELECT
+      *
+    FROM invoice
+    <where>
+      refId IS NULL
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="refType != null" >
+        AND refType = #{refType}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="code != null" >
+        AND code = #{code}
+      </if>
+      <if test="number != null" >
+        AND number = #{number}
+      </if>
+      <if test="status != null" >
+        AND status = #{status}
+      </if>
+      <if test="sellerId != null" >
+        AND sellerId = #{sellerId}
+      </if>
+      <if test="buyerId != null" >
+        AND buyerId = #{buyerId}
+      </if>
+      <if test="uploadType != null" >
+        AND uploadType = #{uploadType}
+      </if>
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+</mapper>

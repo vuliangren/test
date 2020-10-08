@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : re_route_permission
+  Comment  : 前端路由与权限编码的关联
+  Mapper   : com.welearn.mapper.ReRoutePermissionMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/5/5 10:02:48
+-->
+<mapper namespace="com.welearn.mapper.ReRoutePermissionMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    clientType,
+    path,
+    permission
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    re_route_permission.id AS id,
+    re_route_permission.createdAt AS createdAt,
+    re_route_permission.updatedAt AS updatedAt,
+    re_route_permission.isEnable AS isEnable,
+    re_route_permission.clientType AS clientType,
+    re_route_permission.path AS path,
+    re_route_permission.permission AS permission
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.common.ReRoutePermission" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 客户端类型: 1-web -->
+    <result column="clientType" property="clientType"/>
+    <!-- Comment: 前端路由地址 -->
+    <result column="path" property="path"/>
+    <!-- Comment: 权限code -->
+    <result column="permission" property="permission"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.common.ReRoutePermission" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_route_permission
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.common.ReRoutePermission" parameterType="com.welearn.entity.qo.common.ReRoutePermissionQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_route_permission
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="clientType != null" >
+          AND clientType = #{clientType}
+        </if>
+        <if test="path != null" >
+          AND path = #{path}
+        </if>
+        <if test="permission != null" >
+          AND permission = #{permission}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.common.ReRoutePermission" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_route_permission
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM re_route_permission
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.common.ReRoutePermission" >
+    UPDATE re_route_permission
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      clientType = #{clientType},
+      path = #{path},
+      permission = #{permission},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.common.ReRoutePermission" >
+    UPDATE re_route_permission
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="clientType != null" >
+        clientType = #{clientType},
+      </if>
+      <if test="path != null" >
+        path = #{path},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE re_route_permission SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE re_route_permission SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.common.ReRoutePermission" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_route_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      clientType,
+      path,
+      permission,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{clientType},
+      #{path},
+      #{permission},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.common.ReRoutePermission" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_route_permission 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="clientType != null" >
+        clientType,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="clientType != null" >
+        #{clientType},
+      </if>
+      <if test="path != null" >
+        #{path},
+      </if>
+      <if test="permission != null" >
+        #{permission},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM re_route_permission WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM re_route_permission
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="selectPermissionCodeByRoleCode" resultType="java.lang.String">
+    select distinct rrp.permission
+    from re_route_permission rrp
+    join re_route_role rrr on rrr.clientType = #{clientType} and rrr.role = #{roleCode} and rrr.isEnable = true
+    where rrp.clientType = rrr.clientType
+      and rrp.path = rrr.path
+      and rrp.isEnable = true
+  </select>
+</mapper>

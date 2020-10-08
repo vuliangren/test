@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : maintenance_method
+  Comment  : 维护方式
+  Mapper   : com.welearn.mapper.MaintenanceMethodMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/1/3 16:15:58
+-->
+<mapper namespace="com.welearn.mapper.MaintenanceMethodMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    serveType,
+    serveId,
+    serveName,
+    minInterval,
+    score,
+    name,
+    description,
+    stepInfoId,
+    warningInfoId,
+    dataTypeJson,
+    companyId
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    maintenance_method.id AS id,
+    maintenance_method.createdAt AS createdAt,
+    maintenance_method.updatedAt AS updatedAt,
+    maintenance_method.isEnable AS isEnable,
+    maintenance_method.serveType AS serveType,
+    maintenance_method.serveId AS serveId,
+    maintenance_method.serveName AS serveName,
+    maintenance_method.minInterval AS minInterval,
+    maintenance_method.score AS score,
+    maintenance_method.name AS name,
+    maintenance_method.description AS description,
+    maintenance_method.stepInfoId AS stepInfoId,
+    maintenance_method.warningInfoId AS warningInfoId,
+    maintenance_method.dataTypeJson AS dataTypeJson,
+    maintenance_method.companyId AS companyId
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.MaintenanceMethod" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 适用类型: 0-类型 1-产品 2-设备 3-全部 -->
+    <result column="serveType" property="serveType"/>
+    <!-- Comment: 类型/产品/设备id -->
+    <result column="serveId" property="serveId"/>
+    <!-- Comment: 适用类型名称 -->
+    <result column="serveName" property="serveName"/>
+    <!-- Comment: 最短维护间隔(分钟) -->
+    <result column="minInterval" property="minInterval"/>
+    <!-- Comment: 维护分值(用于计算工程师绩效) -->
+    <result column="score" property="score"/>
+    <!-- Comment: 维护方式名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 维护方式简述 -->
+    <result column="description" property="description"/>
+    <!-- Comment: 维护方式详述id -->
+    <result column="stepInfoId" property="stepInfoId"/>
+    <!-- Comment: 维护注意事项id -->
+    <result column="warningInfoId" property="warningInfoId"/>
+    <!-- Comment: 维护数据记录格式JSON -->
+    <result column="dataTypeJson" property="dataTypeJson"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.MaintenanceMethod" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM maintenance_method
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.MaintenanceMethod" parameterType="com.welearn.entity.qo.equipment.MaintenanceMethodQueryCondition" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM maintenance_method
+    <where>
+      <if test="id != null" >
+        id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="serveType != null" >
+        AND serveType = #{serveType}
+      </if>
+      <if test="serveId != null" >
+        AND serveId = #{serveId}
+      </if>
+      <if test="serveName != null" >
+        AND serveName = #{serveName}
+      </if>
+      <if test="minInterval != null" >
+        AND minInterval = #{minInterval}
+      </if>
+      <if test="score != null" >
+        AND score = #{score}
+      </if>
+      <if test="name != null" >
+        AND name like CONCAT('%',#{name},'%')
+      </if>
+      <if test="description != null" >
+        AND description = #{description}
+      </if>
+      <if test="stepInfoId != null" >
+        AND stepInfoId = #{stepInfoId}
+      </if>
+      <if test="warningInfoId != null" >
+        AND warningInfoId = #{warningInfoId}
+      </if>
+      <if test="dataTypeJson != null" >
+        AND dataTypeJson = #{dataTypeJson}
+      </if>
+      <if test="companyId != null" >
+        AND companyId = #{companyId}
+      </if>
+      <!-- START USER DEFINED -->
+
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.MaintenanceMethod" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM maintenance_method
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM maintenance_method
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.MaintenanceMethod" >
+    UPDATE maintenance_method
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      serveType = #{serveType},
+      serveId = #{serveId},
+      serveName = #{serveName},
+      minInterval = #{minInterval},
+      score = #{score},
+      name = #{name},
+      description = #{description},
+      stepInfoId = #{stepInfoId},
+      warningInfoId = #{warningInfoId},
+      dataTypeJson = #{dataTypeJson},
+      companyId = #{companyId},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.MaintenanceMethod" >
+    UPDATE maintenance_method
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="serveType != null" >
+        serveType = #{serveType},
+      </if>
+      <if test="serveId != null" >
+        serveId = #{serveId},
+      </if>
+      <if test="serveName != null" >
+        serveName = #{serveName},
+      </if>
+      <if test="minInterval != null" >
+        minInterval = #{minInterval},
+      </if>
+      <if test="score != null" >
+        score = #{score},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="stepInfoId != null" >
+        stepInfoId = #{stepInfoId},
+      </if>
+      <if test="warningInfoId != null" >
+        warningInfoId = #{warningInfoId},
+      </if>
+      <if test="dataTypeJson != null" >
+        dataTypeJson = #{dataTypeJson},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE maintenance_method SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE maintenance_method SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.MaintenanceMethod" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO maintenance_method
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      serveType,
+      serveId,
+      serveName,
+      minInterval,
+      score,
+      name,
+      description,
+      stepInfoId,
+      warningInfoId,
+      dataTypeJson,
+      companyId,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{serveType},
+      #{serveId},
+      #{serveName},
+      #{minInterval},
+      #{score},
+      #{name},
+      #{description},
+      #{stepInfoId},
+      #{warningInfoId},
+      #{dataTypeJson},
+      #{companyId},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.MaintenanceMethod" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO maintenance_method
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="serveType != null" >
+        serveType,
+      </if>
+      <if test="serveId != null" >
+        serveId,
+      </if>
+      <if test="serveName != null" >
+        serveName,
+      </if>
+      <if test="minInterval != null" >
+        minInterval,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="stepInfoId != null" >
+        stepInfoId,
+      </if>
+      <if test="warningInfoId != null" >
+        warningInfoId,
+      </if>
+      <if test="dataTypeJson != null" >
+        dataTypeJson,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="serveType != null" >
+        #{serveType},
+      </if>
+      <if test="serveId != null" >
+        #{serveId},
+      </if>
+      <if test="serveName != null" >
+        #{serveName},
+      </if>
+      <if test="minInterval != null" >
+        #{minInterval},
+      </if>
+      <if test="score != null" >
+        #{score},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="stepInfoId != null" >
+        #{stepInfoId},
+      </if>
+      <if test="warningInfoId != null" >
+        #{warningInfoId},
+      </if>
+      <if test="dataTypeJson != null" >
+        #{dataTypeJson},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM maintenance_method WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM maintenance_method
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="selectByTaskId" resultType="com.welearn.entity.po.equipment.MaintenanceMethod">
+    SELECT
+      mm.*
+    FROM maintenance_method mm
+    join re_maintenance_task_method rmtm on rmtm.taskId=#{taskId} and rmtm.methodId = mm.id and rmtm.isEnable = true
+    where mm.isEnable = true
+  </select>
+  <select id="selectByAssignmentId" resultType="com.welearn.entity.vo.response.equipment.TaskAssignmentDetail">
+    SELECT
+      rtam.*, mm.serveType, mm.serveId, mm.minInterval, mm.score, mm.name, mm.description, mm.stepInfoId, mm.warningInfoId, mm.dataTypeJson, mm.companyId
+    FROM maintenance_method mm
+    join re_task_assignment_method rtam on rtam.taskAssignmentId=#{assignmentId} and rtam.methodId = mm.id and rtam.isEnable = true
+    where mm.isEnable = true
+  </select>
+  <select id="selectByRecordId" resultType="com.welearn.entity.vo.response.equipment.MaintenanceRecordDetail">
+    SELECT
+      rmrm.*, mm.serveType, mm.serveId, mm.minInterval, mm.score, mm.name, mm.description, mm.stepInfoId, mm.warningInfoId, mm.dataTypeJson, mm.companyId
+    FROM maintenance_method mm
+    join re_maintenance_record_method rmrm on rmrm.recordId=#{recordId} and rmrm.methodId = mm.id and rmrm.isEnable = true
+    where mm.isEnable = true
+  </select>
+  <select id="countByCompanyId" resultType="java.lang.Integer">
+    select count(1) from maintenance_method where isEnable = true and companyId = #{companyId}
+  </select>
+</mapper>

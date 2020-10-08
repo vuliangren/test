@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : export_task
+  Comment  : 导出任务
+  Mapper   : com.welearn.mapper.ExportTaskMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/6/11 11:39:02
+-->
+<mapper namespace="com.welearn.mapper.ExportTaskMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    receivedAt,
+    finishedAt,
+    status,
+    type,
+    argsJson,
+    resultJson,
+    resultSize,
+    name,
+    companyId,
+    creatorId,
+    creatorName,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    export_task.id AS id,
+    export_task.createdAt AS createdAt,
+    export_task.updatedAt AS updatedAt,
+    export_task.isEnable AS isEnable,
+    export_task.receivedAt AS receivedAt,
+    export_task.finishedAt AS finishedAt,
+    export_task.status AS status,
+    export_task.type AS type,
+    export_task.argsJson AS argsJson,
+    export_task.resultJson AS resultJson,
+    export_task.resultSize AS resultSize,
+    export_task.name AS name,
+    export_task.companyId AS companyId,
+    export_task.creatorId AS creatorId,
+    export_task.creatorName AS creatorName,
+    export_task.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.export.ExportTask" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 任务接手时间 -->
+    <result column="receivedAt" property="receivedAt"/>
+    <!-- Comment: 任务完成时间 -->
+    <result column="finishedAt" property="finishedAt"/>
+    <!-- Comment: 任务状态: 0-队列中 1-处理中 2-待上传 3-导出成功 4-导出失败 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 导出类型: 0-模板导出 1-JSON导出 2-系统导出 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 导出请求参数: 根据类型决定 JSON存储 -->
+    <result column="argsJson" property="argsJson"/>
+    <!-- Comment: 导出返回结果(一般为UploadRecord 对象) -->
+    <result column="resultJson" property="resultJson"/>
+    <!-- Comment: 导出结果文件大小(单位kb) -->
+    <result column="resultSize" property="resultSize"/>
+    <!-- Comment: 任务名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 任务创建人公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 任务创建人id -->
+    <result column="creatorId" property="creatorId"/>
+    <!-- Comment: 任务创建人名称 -->
+    <result column="creatorName" property="creatorName"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.export.ExportTask" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM export_task
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.export.ExportTask" parameterType="com.welearn.entity.qo.export.ExportTaskQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM export_task
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="receivedAt != null" >
+          AND receivedAt = #{receivedAt}
+        </if>
+        <if test="finishedAt != null" >
+          AND finishedAt = #{finishedAt}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="argsJson != null" >
+          AND argsJson = #{argsJson}
+        </if>
+        <if test="resultJson != null" >
+          AND resultJson = #{resultJson}
+        </if>
+        <if test="resultSize != null" >
+          AND resultSize = #{resultSize}
+        </if>
+        <if test="name != null" >
+          AND name = #{name}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="creatorId != null" >
+          AND creatorId = #{creatorId}
+        </if>
+        <if test="creatorName != null" >
+          AND creatorName = #{creatorName}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.export.ExportTask" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM export_task
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM export_task
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.export.ExportTask" >
+    UPDATE export_task
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      receivedAt = #{receivedAt},
+      finishedAt = #{finishedAt},
+      status = #{status},
+      type = #{type},
+      argsJson = #{argsJson},
+      resultJson = #{resultJson},
+      resultSize = #{resultSize},
+      name = #{name},
+      companyId = #{companyId},
+      creatorId = #{creatorId},
+      creatorName = #{creatorName},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.export.ExportTask" >
+    UPDATE export_task
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="receivedAt != null" >
+        receivedAt = #{receivedAt},
+      </if>
+      <if test="finishedAt != null" >
+        finishedAt = #{finishedAt},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="argsJson != null" >
+        argsJson = #{argsJson},
+      </if>
+      <if test="resultJson != null" >
+        resultJson = #{resultJson},
+      </if>
+      <if test="resultSize != null" >
+        resultSize = #{resultSize},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="creatorId != null" >
+        creatorId = #{creatorId},
+      </if>
+      <if test="creatorName != null" >
+        creatorName = #{creatorName},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE export_task SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE export_task SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.export.ExportTask" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO export_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      receivedAt,
+      finishedAt,
+      status,
+      type,
+      argsJson,
+      resultJson,
+      resultSize,
+      name,
+      companyId,
+      creatorId,
+      creatorName,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{receivedAt},
+      #{finishedAt},
+      #{status},
+      #{type},
+      #{argsJson},
+      #{resultJson},
+      #{resultSize},
+      #{name},
+      #{companyId},
+      #{creatorId},
+      #{creatorName},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.export.ExportTask" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO export_task 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="receivedAt != null" >
+        receivedAt,
+      </if>
+      <if test="finishedAt != null" >
+        finishedAt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="argsJson != null" >
+        argsJson,
+      </if>
+      <if test="resultJson != null" >
+        resultJson,
+      </if>
+      <if test="resultSize != null" >
+        resultSize,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="creatorId != null" >
+        creatorId,
+      </if>
+      <if test="creatorName != null" >
+        creatorName,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="receivedAt != null" >
+        #{receivedAt},
+      </if>
+      <if test="finishedAt != null" >
+        #{finishedAt},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="argsJson != null" >
+        #{argsJson},
+      </if>
+      <if test="resultJson != null" >
+        #{resultJson},
+      </if>
+      <if test="resultSize != null" >
+        #{resultSize},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM export_task WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM export_task
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

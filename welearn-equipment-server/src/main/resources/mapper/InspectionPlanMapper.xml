@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : inspection_plan
+  Comment  : 强检计划
+  Mapper   : com.welearn.mapper.InspectionPlanMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/3/12 14:55:47
+-->
+<mapper namespace="com.welearn.mapper.InspectionPlanMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    `no`,
+    companyId,
+    companyName,
+    equipmentTypeId,
+    equipmentTypeName,
+    equipmentProductId,
+    equipmentProductName,
+    description,
+    accuracy,
+    lever,
+    `range`,
+    effectiveAt,
+    period,
+    remindDay,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    inspection_plan.id AS id,
+    inspection_plan.createdAt AS createdAt,
+    inspection_plan.updatedAt AS updatedAt,
+    inspection_plan.isEnable AS isEnable,
+    inspection_plan.no AS `no`,
+    inspection_plan.companyId AS companyId,
+    inspection_plan.companyName AS companyName,
+    inspection_plan.equipmentTypeId AS equipmentTypeId,
+    inspection_plan.equipmentTypeName AS equipmentTypeName,
+    inspection_plan.equipmentProductId AS equipmentProductId,
+    inspection_plan.equipmentProductName AS equipmentProductName,
+    inspection_plan.description AS description,
+    inspection_plan.accuracy AS accuracy,
+    inspection_plan.lever AS lever,
+    inspection_plan.range AS `range`,
+    inspection_plan.effectiveAt AS effectiveAt,
+    inspection_plan.period AS period,
+    inspection_plan.remindDay AS remindDay,
+    inspection_plan.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.InspectionPlan" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 编号 -->
+    <result column="no" property="no"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 公司名称 -->
+    <result column="companyName" property="companyName"/>
+    <!-- Comment: 设备类型id -->
+    <result column="equipmentTypeId" property="equipmentTypeId"/>
+    <!-- Comment: 设备类型名称 -->
+    <result column="equipmentTypeName" property="equipmentTypeName"/>
+    <!-- Comment: 设备产品id -->
+    <result column="equipmentProductId" property="equipmentProductId"/>
+    <!-- Comment: 设备产品名称 -->
+    <result column="equipmentProductName" property="equipmentProductName"/>
+    <!-- Comment: 简述 -->
+    <result column="description" property="description"/>
+    <!-- Comment: 准确度 -->
+    <result column="accuracy" property="accuracy"/>
+    <!-- Comment: 等级 -->
+    <result column="lever" property="lever"/>
+    <!-- Comment: 测量范围 -->
+    <result column="range" property="range"/>
+    <!-- Comment: 计划生效时间(当前时间大于生效时间计划才有效) -->
+    <result column="effectiveAt" property="effectiveAt"/>
+    <!-- Comment: 检定周期(天) -->
+    <result column="period" property="period"/>
+    <!-- Comment: 提前提醒(天) -->
+    <result column="remindDay" property="remindDay"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.InspectionPlan" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM inspection_plan
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.InspectionPlan" parameterType="com.welearn.entity.qo.equipment.InspectionPlanQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM inspection_plan
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="no != null" >
+          AND `no` = #{no}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="companyName != null" >
+          AND companyName = #{companyName}
+        </if>
+        <if test="equipmentTypeId != null" >
+          AND equipmentTypeId = #{equipmentTypeId}
+        </if>
+        <if test="equipmentTypeName != null" >
+          AND equipmentTypeName = #{equipmentTypeName}
+        </if>
+        <if test="equipmentProductId != null" >
+          AND equipmentProductId = #{equipmentProductId}
+        </if>
+        <if test="equipmentProductName != null" >
+          AND equipmentProductName = #{equipmentProductName}
+        </if>
+        <if test="description != null" >
+          AND description = #{description}
+        </if>
+        <if test="accuracy != null" >
+          AND accuracy = #{accuracy}
+        </if>
+        <if test="lever != null" >
+          AND lever = #{lever}
+        </if>
+        <if test="range != null" >
+          AND `range` = #{range}
+        </if>
+        <if test="effectiveAt != null" >
+          AND effectiveAt = #{effectiveAt}
+        </if>
+        <if test="period != null" >
+          AND period = #{period}
+        </if>
+        <if test="remindDay != null" >
+          AND remindDay = #{remindDay}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.InspectionPlan" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM inspection_plan
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM inspection_plan
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.InspectionPlan" >
+    UPDATE inspection_plan
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      `no` = #{no},
+      companyId = #{companyId},
+      companyName = #{companyName},
+      equipmentTypeId = #{equipmentTypeId},
+      equipmentTypeName = #{equipmentTypeName},
+      equipmentProductId = #{equipmentProductId},
+      equipmentProductName = #{equipmentProductName},
+      description = #{description},
+      accuracy = #{accuracy},
+      lever = #{lever},
+      `range` = #{range},
+      effectiveAt = #{effectiveAt},
+      period = #{period},
+      remindDay = #{remindDay},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.InspectionPlan" >
+    UPDATE inspection_plan
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="no != null" >
+        `no` = #{no},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="companyName != null" >
+        companyName = #{companyName},
+      </if>
+      <if test="equipmentTypeId != null" >
+        equipmentTypeId = #{equipmentTypeId},
+      </if>
+      <if test="equipmentTypeName != null" >
+        equipmentTypeName = #{equipmentTypeName},
+      </if>
+      <if test="equipmentProductId != null" >
+        equipmentProductId = #{equipmentProductId},
+      </if>
+      <if test="equipmentProductName != null" >
+        equipmentProductName = #{equipmentProductName},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="accuracy != null" >
+        accuracy = #{accuracy},
+      </if>
+      <if test="lever != null" >
+        lever = #{lever},
+      </if>
+      <if test="range != null" >
+        `range` = #{range},
+      </if>
+      <if test="effectiveAt != null" >
+        effectiveAt = #{effectiveAt},
+      </if>
+      <if test="period != null" >
+        period = #{period},
+      </if>
+      <if test="remindDay != null" >
+        remindDay = #{remindDay},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE inspection_plan SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE inspection_plan SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.InspectionPlan" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO inspection_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      `no`,
+      companyId,
+      companyName,
+      equipmentTypeId,
+      equipmentTypeName,
+      equipmentProductId,
+      equipmentProductName,
+      description,
+      accuracy,
+      lever,
+      `range`,
+      effectiveAt,
+      period,
+      remindDay,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{no},
+      #{companyId},
+      #{companyName},
+      #{equipmentTypeId},
+      #{equipmentTypeName},
+      #{equipmentProductId},
+      #{equipmentProductName},
+      #{description},
+      #{accuracy},
+      #{lever},
+      #{range},
+      #{effectiveAt},
+      #{period},
+      #{remindDay},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.InspectionPlan" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO inspection_plan 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="no != null" >
+        `no`,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="companyName != null" >
+        companyName,
+      </if>
+      <if test="equipmentTypeId != null" >
+        equipmentTypeId,
+      </if>
+      <if test="equipmentTypeName != null" >
+        equipmentTypeName,
+      </if>
+      <if test="equipmentProductId != null" >
+        equipmentProductId,
+      </if>
+      <if test="equipmentProductName != null" >
+        equipmentProductName,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="accuracy != null" >
+        accuracy,
+      </if>
+      <if test="lever != null" >
+        lever,
+      </if>
+      <if test="range != null" >
+        `range`,
+      </if>
+      <if test="effectiveAt != null" >
+        effectiveAt,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="remindDay != null" >
+        remindDay,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="no != null" >
+        #{no},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="companyName != null" >
+        #{companyName},
+      </if>
+      <if test="equipmentTypeId != null" >
+        #{equipmentTypeId},
+      </if>
+      <if test="equipmentTypeName != null" >
+        #{equipmentTypeName},
+      </if>
+      <if test="equipmentProductId != null" >
+        #{equipmentProductId},
+      </if>
+      <if test="equipmentProductName != null" >
+        #{equipmentProductName},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="accuracy != null" >
+        #{accuracy},
+      </if>
+      <if test="lever != null" >
+        #{lever},
+      </if>
+      <if test="range != null" >
+        #{range},
+      </if>
+      <if test="effectiveAt != null" >
+        #{effectiveAt},
+      </if>
+      <if test="period != null" >
+        #{period},
+      </if>
+      <if test="remindDay != null" >
+        #{remindDay},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM inspection_plan WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM inspection_plan
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="countByCompanyId" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM inspection_plan
+    where companyId = #{companyId}
+  </select>
+</mapper>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : invoice_payment
+  Comment  : 发票结算记录
+  Mapper   : com.welearn.mapper.InvoicePaymentMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/11/8 18:19:48
+-->
+<mapper namespace="com.welearn.mapper.InvoicePaymentMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    invoiceId,
+    companyId,
+    operatorId,
+    operatorName,
+    amount,
+    voucher,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    invoice_payment.id AS id,
+    invoice_payment.createdAt AS createdAt,
+    invoice_payment.updatedAt AS updatedAt,
+    invoice_payment.isEnable AS isEnable,
+    invoice_payment.invoiceId AS invoiceId,
+    invoice_payment.companyId AS companyId,
+    invoice_payment.operatorId AS operatorId,
+    invoice_payment.operatorName AS operatorName,
+    invoice_payment.amount AS amount,
+    invoice_payment.voucher AS voucher,
+    invoice_payment.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.finance.InvoicePayment" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 发票id -->
+    <result column="invoiceId" property="invoiceId"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 操作人员id -->
+    <result column="operatorId" property="operatorId"/>
+    <!-- Comment: 操作人员名称 -->
+    <result column="operatorName" property="operatorName"/>
+    <!-- Comment: 结算金额 -->
+    <result column="amount" property="amount"/>
+    <!-- Comment: 结算凭证 -->
+    <result column="voucher" property="voucher"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.finance.InvoicePayment" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM invoice_payment
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.finance.InvoicePayment" parameterType="com.welearn.entity.qo.finance.InvoicePaymentQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM invoice_payment
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="invoiceId != null" >
+          AND invoiceId = #{invoiceId}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="operatorId != null" >
+          AND operatorId = #{operatorId}
+        </if>
+        <if test="operatorName != null" >
+          AND operatorName = #{operatorName}
+        </if>
+        <if test="amount != null" >
+          AND amount = #{amount}
+        </if>
+        <if test="voucher != null" >
+          AND voucher = #{voucher}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.finance.InvoicePayment" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM invoice_payment
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM invoice_payment
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.finance.InvoicePayment" >
+    UPDATE invoice_payment
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      invoiceId = #{invoiceId},
+      companyId = #{companyId},
+      operatorId = #{operatorId},
+      operatorName = #{operatorName},
+      amount = #{amount},
+      voucher = #{voucher},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.finance.InvoicePayment" >
+    UPDATE invoice_payment
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="invoiceId != null" >
+        invoiceId = #{invoiceId},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="operatorId != null" >
+        operatorId = #{operatorId},
+      </if>
+      <if test="operatorName != null" >
+        operatorName = #{operatorName},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount},
+      </if>
+      <if test="voucher != null" >
+        voucher = #{voucher},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE invoice_payment SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE invoice_payment SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.finance.InvoicePayment" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO invoice_payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      invoiceId,
+      companyId,
+      operatorId,
+      operatorName,
+      amount,
+      voucher,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{invoiceId},
+      #{companyId},
+      #{operatorId},
+      #{operatorName},
+      #{amount},
+      #{voucher},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.finance.InvoicePayment" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO invoice_payment 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="invoiceId != null" >
+        invoiceId,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="operatorId != null" >
+        operatorId,
+      </if>
+      <if test="operatorName != null" >
+        operatorName,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="voucher != null" >
+        voucher,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="invoiceId != null" >
+        #{invoiceId},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName},
+      </if>
+      <if test="amount != null" >
+        #{amount},
+      </if>
+      <if test="voucher != null" >
+        #{voucher},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM invoice_payment WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM invoice_payment
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

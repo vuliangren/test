@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : engineer
+  Comment  : 工程师
+  Mapper   : com.welearn.mapper.EngineerMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/2/21 10:20:04
+-->
+<mapper namespace="com.welearn.mapper.EngineerMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    userId,
+    userName,
+    userCompanyId,
+    userCompanyName,
+    userDepartmentId,
+    userDepartmentName,
+    serveCompanyId,
+    serveCompanyName,
+    telephone,
+    email,
+    qq,
+    wechat,
+    type,
+    experience,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    engineer.id AS id,
+    engineer.createdAt AS createdAt,
+    engineer.updatedAt AS updatedAt,
+    engineer.isEnable AS isEnable,
+    engineer.userId AS userId,
+    engineer.userName AS userName,
+    engineer.userCompanyId AS userCompanyId,
+    engineer.userCompanyName AS userCompanyName,
+    engineer.userDepartmentId AS userDepartmentId,
+    engineer.userDepartmentName AS userDepartmentName,
+    engineer.serveCompanyId AS serveCompanyId,
+    engineer.serveCompanyName AS serveCompanyName,
+    engineer.telephone AS telephone,
+    engineer.email AS email,
+    engineer.qq AS qq,
+    engineer.wechat AS wechat,
+    engineer.type AS type,
+    engineer.experience AS experience,
+    engineer.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.Engineer" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 人员id -->
+    <result column="userId" property="userId"/>
+    <!-- Comment: 人员名称 -->
+    <result column="userName" property="userName"/>
+    <!-- Comment: 人员所属公司id -->
+    <result column="userCompanyId" property="userCompanyId"/>
+    <!-- Comment: 人员所属公司名称 -->
+    <result column="userCompanyName" property="userCompanyName"/>
+    <!-- Comment: 人员所属部门id -->
+    <result column="userDepartmentId" property="userDepartmentId"/>
+    <!-- Comment: 人员所属部门名称 -->
+    <result column="userDepartmentName" property="userDepartmentName"/>
+    <!-- Comment: 服务于公司id -->
+    <result column="serveCompanyId" property="serveCompanyId"/>
+    <!-- Comment: 服务于公司名称 -->
+    <result column="serveCompanyName" property="serveCompanyName"/>
+    <!-- Comment: 工程师电话 -->
+    <result column="telephone" property="telephone"/>
+    <!-- Comment: 工程师邮箱 -->
+    <result column="email" property="email"/>
+    <!-- Comment: 工程师QQ -->
+    <result column="qq" property="qq"/>
+    <!-- Comment: 工程师微信 -->
+    <result column="wechat" property="wechat"/>
+    <!-- Comment: 工程师类型: 0-内部工程师 1-外部工程师 2-临时工程师 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 经验积分 -->
+    <result column="experience" property="experience"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.Engineer" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM engineer
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.Engineer" parameterType="com.welearn.entity.qo.equipment.EngineerQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM engineer
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="userId != null" >
+          AND userId = #{userId}
+        </if>
+        <if test="userName != null" >
+          AND userName like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="userCompanyId != null" >
+          AND userCompanyId = #{userCompanyId}
+        </if>
+        <if test="userCompanyName != null" >
+          AND userCompanyName like CONCAT('%',#{userCompanyName},'%')
+        </if>
+        <if test="userDepartmentId != null" >
+          AND userDepartmentId = #{userDepartmentId}
+        </if>
+        <if test="userDepartmentName != null" >
+          AND userDepartmentName = #{userDepartmentName}
+        </if>
+        <if test="serveCompanyId != null" >
+          AND serveCompanyId = #{serveCompanyId}
+        </if>
+        <if test="serveCompanyName != null" >
+          AND serveCompanyName = #{serveCompanyName}
+        </if>
+        <if test="telephone != null" >
+          AND telephone = #{telephone}
+        </if>
+        <if test="email != null" >
+          AND email = #{email}
+        </if>
+        <if test="qq != null" >
+          AND qq = #{qq}
+        </if>
+        <if test="wechat != null" >
+          AND wechat = #{wechat}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="experience != null" >
+          AND experience = #{experience}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.Engineer" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM engineer
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM engineer
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.Engineer" >
+    UPDATE engineer
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      userId = #{userId},
+      userName = #{userName},
+      userCompanyId = #{userCompanyId},
+      userCompanyName = #{userCompanyName},
+      userDepartmentId = #{userDepartmentId},
+      userDepartmentName = #{userDepartmentName},
+      serveCompanyId = #{serveCompanyId},
+      serveCompanyName = #{serveCompanyName},
+      telephone = #{telephone},
+      email = #{email},
+      qq = #{qq},
+      wechat = #{wechat},
+      type = #{type},
+      experience = #{experience},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.Engineer" >
+    UPDATE engineer
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="userId != null" >
+        userId = #{userId},
+      </if>
+      <if test="userName != null" >
+        userName = #{userName},
+      </if>
+      <if test="userCompanyId != null" >
+        userCompanyId = #{userCompanyId},
+      </if>
+      <if test="userCompanyName != null" >
+        userCompanyName = #{userCompanyName},
+      </if>
+      <if test="userDepartmentId != null" >
+        userDepartmentId = #{userDepartmentId},
+      </if>
+      <if test="userDepartmentName != null" >
+        userDepartmentName = #{userDepartmentName},
+      </if>
+      <if test="serveCompanyId != null" >
+        serveCompanyId = #{serveCompanyId},
+      </if>
+      <if test="serveCompanyName != null" >
+        serveCompanyName = #{serveCompanyName},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone},
+      </if>
+      <if test="email != null" >
+        email = #{email},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="experience != null" >
+        experience = #{experience},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE engineer SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE engineer SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.Engineer" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO engineer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      userId,
+      userName,
+      userCompanyId,
+      userCompanyName,
+      userDepartmentId,
+      userDepartmentName,
+      serveCompanyId,
+      serveCompanyName,
+      telephone,
+      email,
+      qq,
+      wechat,
+      type,
+      experience,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{userId},
+      #{userName},
+      #{userCompanyId},
+      #{userCompanyName},
+      #{userDepartmentId},
+      #{userDepartmentName},
+      #{serveCompanyId},
+      #{serveCompanyName},
+      #{telephone},
+      #{email},
+      #{qq},
+      #{wechat},
+      #{type},
+      #{experience},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.Engineer" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO engineer 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="userCompanyId != null" >
+        userCompanyId,
+      </if>
+      <if test="userCompanyName != null" >
+        userCompanyName,
+      </if>
+      <if test="userDepartmentId != null" >
+        userDepartmentId,
+      </if>
+      <if test="userDepartmentName != null" >
+        userDepartmentName,
+      </if>
+      <if test="serveCompanyId != null" >
+        serveCompanyId,
+      </if>
+      <if test="serveCompanyName != null" >
+        serveCompanyName,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="experience != null" >
+        experience,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="userCompanyId != null" >
+        #{userCompanyId},
+      </if>
+      <if test="userCompanyName != null" >
+        #{userCompanyName},
+      </if>
+      <if test="userDepartmentId != null" >
+        #{userDepartmentId},
+      </if>
+      <if test="userDepartmentName != null" >
+        #{userDepartmentName},
+      </if>
+      <if test="serveCompanyId != null" >
+        #{serveCompanyId},
+      </if>
+      <if test="serveCompanyName != null" >
+        #{serveCompanyName},
+      </if>
+      <if test="telephone != null" >
+        #{telephone},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="qq != null" >
+        #{qq},
+      </if>
+      <if test="wechat != null" >
+        #{wechat},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="experience != null" >
+        #{experience},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM engineer WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM engineer
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="engineerStatistic" resultType="com.welearn.entity.po.equipment.Engineer">
+    select id, userName, type, experience
+    from engineer where serveCompanyId = #{serveCompanyId} and isEnable = true
+  </select>
+</mapper>

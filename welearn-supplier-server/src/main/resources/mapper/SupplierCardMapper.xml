@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : supplier_card
+  Comment  : 供应商名片
+  Mapper   : com.welearn.mapper.SupplierCardMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/5/5 10:20:20
+-->
+<mapper namespace="com.welearn.mapper.SupplierCardMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    nameCn,
+    nameEn,
+    logo,
+    website,
+    country,
+    cityIndex1,
+    cityIndex2,
+    cityIndex3,
+    cityIndex4,
+    cityIndex5,
+    addressPrefix,
+    addressDetail,
+    postalCode,
+    hotline,
+    lever,
+    isAuth,
+    isLock,
+    status,
+    contactJson,
+    slideshow,
+    businessScopeJson,
+    descriptionInfo,
+    serviceProcessInfo,
+    qualificationInfo,
+    configJson,
+    currentId,
+    applicationId,
+    creatorCompanyId,
+    creatorCompanyName
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    supplier_card.id AS id,
+    supplier_card.createdAt AS createdAt,
+    supplier_card.updatedAt AS updatedAt,
+    supplier_card.isEnable AS isEnable,
+    supplier_card.nameCn AS nameCn,
+    supplier_card.nameEn AS nameEn,
+    supplier_card.logo AS logo,
+    supplier_card.website AS website,
+    supplier_card.country AS country,
+    supplier_card.cityIndex1 AS cityIndex1,
+    supplier_card.cityIndex2 AS cityIndex2,
+    supplier_card.cityIndex3 AS cityIndex3,
+    supplier_card.cityIndex4 AS cityIndex4,
+    supplier_card.cityIndex5 AS cityIndex5,
+    supplier_card.addressPrefix AS addressPrefix,
+    supplier_card.addressDetail AS addressDetail,
+    supplier_card.postalCode AS postalCode,
+    supplier_card.hotline AS hotline,
+    supplier_card.lever AS lever,
+    supplier_card.isAuth AS isAuth,
+    supplier_card.isLock AS isLock,
+    supplier_card.status AS status,
+    supplier_card.contactJson AS contactJson,
+    supplier_card.slideshow AS slideshow,
+    supplier_card.businessScopeJson AS businessScopeJson,
+    supplier_card.descriptionInfo AS descriptionInfo,
+    supplier_card.serviceProcessInfo AS serviceProcessInfo,
+    supplier_card.qualificationInfo AS qualificationInfo,
+    supplier_card.configJson AS configJson,
+    supplier_card.currentId AS currentId,
+    supplier_card.applicationId AS applicationId,
+    supplier_card.creatorCompanyId AS creatorCompanyId,
+    supplier_card.creatorCompanyName AS creatorCompanyName
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.supplier.SupplierCard" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 中文名 -->
+    <result column="nameCn" property="nameCn"/>
+    <!-- Comment: 英文名 -->
+    <result column="nameEn" property="nameEn"/>
+    <!-- Comment: 图标 -->
+    <result column="logo" property="logo"/>
+    <!-- Comment: 网站url -->
+    <result column="website" property="website"/>
+    <!-- Comment: 国家编号 -->
+    <result column="country" property="country"/>
+    <!-- Comment: 地址索引一级(省) -->
+    <result column="cityIndex1" property="cityIndex1"/>
+    <!-- Comment: 地址索引二级(市) -->
+    <result column="cityIndex2" property="cityIndex2"/>
+    <!-- Comment: 地址索引三级(区) -->
+    <result column="cityIndex3" property="cityIndex3"/>
+    <!-- Comment: 地址索引四级(街) -->
+    <result column="cityIndex4" property="cityIndex4"/>
+    <!-- Comment: 地址索引五级(备) -->
+    <result column="cityIndex5" property="cityIndex5"/>
+    <!-- Comment: 地址前缀 -->
+    <result column="addressPrefix" property="addressPrefix"/>
+    <!-- Comment: 详细地址 -->
+    <result column="addressDetail" property="addressDetail"/>
+    <!-- Comment: 邮政编码 -->
+    <result column="postalCode" property="postalCode"/>
+    <!-- Comment: 服务热线 -->
+    <result column="hotline" property="hotline"/>
+    <!-- Comment: 级别 -->
+    <result column="lever" property="lever"/>
+    <!-- Comment: 是否认证 -->
+    <result column="isAuth" property="isAuth"/>
+    <!-- Comment: 是否锁定 -->
+    <result column="isLock" property="isLock"/>
+    <!-- Comment: 状态: 0-正常 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 联系方式:{company:{}, person:[{}]} -->
+    <result column="contactJson" property="contactJson"/>
+    <!-- Comment: 轮播图 -->
+    <result column="slideshow" property="slideshow"/>
+    <!-- Comment: 营业范围:[0,1,2..] -->
+    <result column="businessScopeJson" property="businessScopeJson"/>
+    <!-- Comment: 公司简介 -->
+    <result column="descriptionInfo" property="descriptionInfo"/>
+    <!-- Comment: 服务流程 -->
+    <result column="serviceProcessInfo" property="serviceProcessInfo"/>
+    <!-- Comment: 资质说明 -->
+    <result column="qualificationInfo" property="qualificationInfo"/>
+    <!-- Comment: 名片配置信息:{} -->
+    <result column="configJson" property="configJson"/>
+    <!-- Comment: 当前名片id 对名片进行修改时使用 -->
+    <result column="currentId" property="currentId"/>
+    <!-- Comment: 申请id -->
+    <result column="applicationId" property="applicationId"/>
+    <!-- Comment: 创建人公司id -->
+    <result column="creatorCompanyId" property="creatorCompanyId"/>
+    <!-- Comment: 创建人公司名称 -->
+    <result column="creatorCompanyName" property="creatorCompanyName"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.supplier.SupplierCard" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM supplier_card
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.supplier.SupplierCard" parameterType="com.welearn.entity.qo.supplier.SupplierCardQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM supplier_card
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="nameCn != null" >
+          AND nameCn = #{nameCn}
+        </if>
+        <if test="nameEn != null" >
+          AND nameEn = #{nameEn}
+        </if>
+        <if test="logo != null" >
+          AND logo = #{logo}
+        </if>
+        <if test="website != null" >
+          AND website = #{website}
+        </if>
+        <if test="country != null" >
+          AND country = #{country}
+        </if>
+        <if test="cityIndex1 != null" >
+          AND cityIndex1 = #{cityIndex1}
+        </if>
+        <if test="cityIndex2 != null" >
+          AND cityIndex2 = #{cityIndex2}
+        </if>
+        <if test="cityIndex3 != null" >
+          AND cityIndex3 = #{cityIndex3}
+        </if>
+        <if test="cityIndex4 != null" >
+          AND cityIndex4 = #{cityIndex4}
+        </if>
+        <if test="cityIndex5 != null" >
+          AND cityIndex5 = #{cityIndex5}
+        </if>
+        <if test="addressPrefix != null" >
+          AND addressPrefix = #{addressPrefix}
+        </if>
+        <if test="addressDetail != null" >
+          AND addressDetail = #{addressDetail}
+        </if>
+        <if test="postalCode != null" >
+          AND postalCode = #{postalCode}
+        </if>
+        <if test="hotline != null" >
+          AND hotline = #{hotline}
+        </if>
+        <if test="lever != null" >
+          AND lever = #{lever}
+        </if>
+        <if test="isAuth != null" >
+          AND isAuth = #{isAuth}
+        </if>
+        <if test="isLock != null" >
+          AND isLock = #{isLock}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="contactJson != null" >
+          AND contactJson = #{contactJson}
+        </if>
+        <if test="slideshow != null" >
+          AND slideshow = #{slideshow}
+        </if>
+        <if test="businessScopeJson != null" >
+          AND businessScopeJson = #{businessScopeJson}
+        </if>
+        <if test="descriptionInfo != null" >
+          AND descriptionInfo = #{descriptionInfo}
+        </if>
+        <if test="serviceProcessInfo != null" >
+          AND serviceProcessInfo = #{serviceProcessInfo}
+        </if>
+        <if test="qualificationInfo != null" >
+          AND qualificationInfo = #{qualificationInfo}
+        </if>
+        <if test="configJson != null" >
+          AND configJson = #{configJson}
+        </if>
+        <if test="currentId != null" >
+          AND currentId = #{currentId}
+        </if>
+        <if test="applicationId != null" >
+          AND applicationId = #{applicationId}
+        </if>
+        <if test="creatorCompanyId != null" >
+          AND creatorCompanyId = #{creatorCompanyId}
+        </if>
+        <if test="creatorCompanyName != null" >
+          AND creatorCompanyName = #{creatorCompanyName}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.supplier.SupplierCard" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM supplier_card
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM supplier_card
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.supplier.SupplierCard" >
+    UPDATE supplier_card
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      nameCn = #{nameCn},
+      nameEn = #{nameEn},
+      logo = #{logo},
+      website = #{website},
+      country = #{country},
+      cityIndex1 = #{cityIndex1},
+      cityIndex2 = #{cityIndex2},
+      cityIndex3 = #{cityIndex3},
+      cityIndex4 = #{cityIndex4},
+      cityIndex5 = #{cityIndex5},
+      addressPrefix = #{addressPrefix},
+      addressDetail = #{addressDetail},
+      postalCode = #{postalCode},
+      hotline = #{hotline},
+      lever = #{lever},
+      isAuth = #{isAuth},
+      isLock = #{isLock},
+      status = #{status},
+      contactJson = #{contactJson},
+      slideshow = #{slideshow},
+      businessScopeJson = #{businessScopeJson},
+      descriptionInfo = #{descriptionInfo},
+      serviceProcessInfo = #{serviceProcessInfo},
+      qualificationInfo = #{qualificationInfo},
+      configJson = #{configJson},
+      currentId = #{currentId},
+      applicationId = #{applicationId},
+      creatorCompanyId = #{creatorCompanyId},
+      creatorCompanyName = #{creatorCompanyName},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.supplier.SupplierCard" >
+    UPDATE supplier_card
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="nameCn != null" >
+        nameCn = #{nameCn},
+      </if>
+      <if test="nameEn != null" >
+        nameEn = #{nameEn},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo},
+      </if>
+      <if test="website != null" >
+        website = #{website},
+      </if>
+      <if test="country != null" >
+        country = #{country},
+      </if>
+      <if test="cityIndex1 != null" >
+        cityIndex1 = #{cityIndex1},
+      </if>
+      <if test="cityIndex2 != null" >
+        cityIndex2 = #{cityIndex2},
+      </if>
+      <if test="cityIndex3 != null" >
+        cityIndex3 = #{cityIndex3},
+      </if>
+      <if test="cityIndex4 != null" >
+        cityIndex4 = #{cityIndex4},
+      </if>
+      <if test="cityIndex5 != null" >
+        cityIndex5 = #{cityIndex5},
+      </if>
+      <if test="addressPrefix != null" >
+        addressPrefix = #{addressPrefix},
+      </if>
+      <if test="addressDetail != null" >
+        addressDetail = #{addressDetail},
+      </if>
+      <if test="postalCode != null" >
+        postalCode = #{postalCode},
+      </if>
+      <if test="hotline != null" >
+        hotline = #{hotline},
+      </if>
+      <if test="lever != null" >
+        lever = #{lever},
+      </if>
+      <if test="isAuth != null" >
+        isAuth = #{isAuth},
+      </if>
+      <if test="isLock != null" >
+        isLock = #{isLock},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="contactJson != null" >
+        contactJson = #{contactJson},
+      </if>
+      <if test="slideshow != null" >
+        slideshow = #{slideshow},
+      </if>
+      <if test="businessScopeJson != null" >
+        businessScopeJson = #{businessScopeJson},
+      </if>
+      <if test="descriptionInfo != null" >
+        descriptionInfo = #{descriptionInfo},
+      </if>
+      <if test="serviceProcessInfo != null" >
+        serviceProcessInfo = #{serviceProcessInfo},
+      </if>
+      <if test="qualificationInfo != null" >
+        qualificationInfo = #{qualificationInfo},
+      </if>
+      <if test="configJson != null" >
+        configJson = #{configJson},
+      </if>
+      <if test="currentId != null" >
+        currentId = #{currentId},
+      </if>
+      <if test="applicationId != null" >
+        applicationId = #{applicationId},
+      </if>
+      <if test="creatorCompanyId != null" >
+        creatorCompanyId = #{creatorCompanyId},
+      </if>
+      <if test="creatorCompanyName != null" >
+        creatorCompanyName = #{creatorCompanyName},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE supplier_card SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE supplier_card SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.supplier.SupplierCard" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO supplier_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      nameCn,
+      nameEn,
+      logo,
+      website,
+      country,
+      cityIndex1,
+      cityIndex2,
+      cityIndex3,
+      cityIndex4,
+      cityIndex5,
+      addressPrefix,
+      addressDetail,
+      postalCode,
+      hotline,
+      lever,
+      isAuth,
+      isLock,
+      status,
+      contactJson,
+      slideshow,
+      businessScopeJson,
+      descriptionInfo,
+      serviceProcessInfo,
+      qualificationInfo,
+      configJson,
+      currentId,
+      applicationId,
+      creatorCompanyId,
+      creatorCompanyName,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{nameCn},
+      #{nameEn},
+      #{logo},
+      #{website},
+      #{country},
+      #{cityIndex1},
+      #{cityIndex2},
+      #{cityIndex3},
+      #{cityIndex4},
+      #{cityIndex5},
+      #{addressPrefix},
+      #{addressDetail},
+      #{postalCode},
+      #{hotline},
+      #{lever},
+      #{isAuth},
+      #{isLock},
+      #{status},
+      #{contactJson},
+      #{slideshow},
+      #{businessScopeJson},
+      #{descriptionInfo},
+      #{serviceProcessInfo},
+      #{qualificationInfo},
+      #{configJson},
+      #{currentId},
+      #{applicationId},
+      #{creatorCompanyId},
+      #{creatorCompanyName},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.supplier.SupplierCard" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO supplier_card 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="nameCn != null" >
+        nameCn,
+      </if>
+      <if test="nameEn != null" >
+        nameEn,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="cityIndex1 != null" >
+        cityIndex1,
+      </if>
+      <if test="cityIndex2 != null" >
+        cityIndex2,
+      </if>
+      <if test="cityIndex3 != null" >
+        cityIndex3,
+      </if>
+      <if test="cityIndex4 != null" >
+        cityIndex4,
+      </if>
+      <if test="cityIndex5 != null" >
+        cityIndex5,
+      </if>
+      <if test="addressPrefix != null" >
+        addressPrefix,
+      </if>
+      <if test="addressDetail != null" >
+        addressDetail,
+      </if>
+      <if test="postalCode != null" >
+        postalCode,
+      </if>
+      <if test="hotline != null" >
+        hotline,
+      </if>
+      <if test="lever != null" >
+        lever,
+      </if>
+      <if test="isAuth != null" >
+        isAuth,
+      </if>
+      <if test="isLock != null" >
+        isLock,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="contactJson != null" >
+        contactJson,
+      </if>
+      <if test="slideshow != null" >
+        slideshow,
+      </if>
+      <if test="businessScopeJson != null" >
+        businessScopeJson,
+      </if>
+      <if test="descriptionInfo != null" >
+        descriptionInfo,
+      </if>
+      <if test="serviceProcessInfo != null" >
+        serviceProcessInfo,
+      </if>
+      <if test="qualificationInfo != null" >
+        qualificationInfo,
+      </if>
+      <if test="configJson != null" >
+        configJson,
+      </if>
+      <if test="currentId != null" >
+        currentId,
+      </if>
+      <if test="applicationId != null" >
+        applicationId,
+      </if>
+      <if test="creatorCompanyId != null" >
+        creatorCompanyId,
+      </if>
+      <if test="creatorCompanyName != null" >
+        creatorCompanyName,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="nameCn != null" >
+        #{nameCn},
+      </if>
+      <if test="nameEn != null" >
+        #{nameEn},
+      </if>
+      <if test="logo != null" >
+        #{logo},
+      </if>
+      <if test="website != null" >
+        #{website},
+      </if>
+      <if test="country != null" >
+        #{country},
+      </if>
+      <if test="cityIndex1 != null" >
+        #{cityIndex1},
+      </if>
+      <if test="cityIndex2 != null" >
+        #{cityIndex2},
+      </if>
+      <if test="cityIndex3 != null" >
+        #{cityIndex3},
+      </if>
+      <if test="cityIndex4 != null" >
+        #{cityIndex4},
+      </if>
+      <if test="cityIndex5 != null" >
+        #{cityIndex5},
+      </if>
+      <if test="addressPrefix != null" >
+        #{addressPrefix},
+      </if>
+      <if test="addressDetail != null" >
+        #{addressDetail},
+      </if>
+      <if test="postalCode != null" >
+        #{postalCode},
+      </if>
+      <if test="hotline != null" >
+        #{hotline},
+      </if>
+      <if test="lever != null" >
+        #{lever},
+      </if>
+      <if test="isAuth != null" >
+        #{isAuth},
+      </if>
+      <if test="isLock != null" >
+        #{isLock},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="contactJson != null" >
+        #{contactJson},
+      </if>
+      <if test="slideshow != null" >
+        #{slideshow},
+      </if>
+      <if test="businessScopeJson != null" >
+        #{businessScopeJson},
+      </if>
+      <if test="descriptionInfo != null" >
+        #{descriptionInfo},
+      </if>
+      <if test="serviceProcessInfo != null" >
+        #{serviceProcessInfo},
+      </if>
+      <if test="qualificationInfo != null" >
+        #{qualificationInfo},
+      </if>
+      <if test="configJson != null" >
+        #{configJson},
+      </if>
+      <if test="currentId != null" >
+        #{currentId},
+      </if>
+      <if test="applicationId != null" >
+        #{applicationId},
+      </if>
+      <if test="creatorCompanyId != null" >
+        #{creatorCompanyId},
+      </if>
+      <if test="creatorCompanyName != null" >
+        #{creatorCompanyName},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM supplier_card WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM supplier_card
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

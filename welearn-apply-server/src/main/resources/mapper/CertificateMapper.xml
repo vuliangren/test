@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : certificate
+  Comment  : 证书
+  Mapper   : com.welearn.mapper.CertificateMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/10/20 11:21:39
+-->
+<mapper namespace="com.welearn.mapper.CertificateMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    isReplaced,
+    currentId,
+    no,
+    type,
+    name,
+    content,
+    status,
+    licenceDate,
+    expirationDate,
+    nature,
+    companyId,
+    personId,
+    personName,
+    departmentId,
+    departmentName,
+    photocopy,
+    applicationId
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    certificate.id AS id,
+    certificate.createdAt AS createdAt,
+    certificate.updatedAt AS updatedAt,
+    certificate.isEnable AS isEnable,
+    certificate.isReplaced AS isReplaced,
+    certificate.currentId AS currentId,
+    certificate.no AS no,
+    certificate.type AS type,
+    certificate.name AS name,
+    certificate.content AS content,
+    certificate.status AS status,
+    certificate.licenceDate AS licenceDate,
+    certificate.expirationDate AS expirationDate,
+    certificate.nature AS nature,
+    certificate.companyId AS companyId,
+    certificate.personId AS personId,
+    certificate.personName AS personName,
+    certificate.departmentId AS departmentId,
+    certificate.departmentName AS departmentName,
+    certificate.photocopy AS photocopy,
+    certificate.applicationId AS applicationId
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.apply.Certificate" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 是否是被替换的旧证书：0-否，1-是 -->
+    <result column="isReplaced" property="isReplaced"/>
+    <!-- Comment: 当前证书id 证书失效后补交重审时使用 -->
+    <result column="currentId" property="currentId"/>
+    <!-- Comment: 编号 -->
+    <result column="no" property="no"/>
+    <!-- Comment: 类型 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 内容 Json 存储 -->
+    <result column="content" property="content"/>
+    <!-- Comment: 状态: 0-审批中 1-审批通过 2-审批失败 3-证书过期 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 颁发时间 -->
+    <result column="licenceDate" property="licenceDate"/>
+    <!-- Comment: 过期时间 -->
+    <result column="expirationDate" property="expirationDate"/>
+    <!-- Comment: 证书性质: 0-企业证书 1-部门证书 2-个人证书 -->
+    <result column="nature" property="nature"/>
+    <!-- Comment: 所属公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 所属个人id -->
+    <result column="personId" property="personId"/>
+    <!-- Comment: 所属个人名称 -->
+    <result column="personName" property="personName"/>
+    <!-- Comment: 所属部门id -->
+    <result column="departmentId" property="departmentId"/>
+    <!-- Comment: 所属部门名称 -->
+    <result column="departmentName" property="departmentName"/>
+    <!-- Comment: 复印件图片 Json存储多个图片链接 -->
+    <result column="photocopy" property="photocopy"/>
+    <!-- Comment: 证书添加申请id -->
+    <result column="applicationId" property="applicationId"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.apply.Certificate" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM certificate
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.apply.Certificate" parameterType="com.welearn.entity.qo.apply.CertificateQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM certificate
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="isReplaced != null" >
+          AND isReplaced = #{isReplaced}
+        </if>
+        <if test="currentId != null" >
+          AND currentId = #{currentId}
+        </if>
+        <if test="no != null" >
+          AND no = #{no}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="name != null" >
+          AND name = #{name}
+        </if>
+        <if test="content != null" >
+          AND content = #{content}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="licenceDate != null" >
+          AND licenceDate = #{licenceDate}
+        </if>
+        <if test="expirationDate != null" >
+          AND expirationDate = #{expirationDate}
+        </if>
+        <if test="nature != null" >
+          AND nature = #{nature}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="personId != null" >
+          AND personId = #{personId}
+        </if>
+        <if test="personName != null" >
+          AND personName = #{personName}
+        </if>
+        <if test="departmentId != null" >
+          AND departmentId = #{departmentId}
+        </if>
+        <if test="departmentName != null" >
+          AND departmentName = #{departmentName}
+        </if>
+        <if test="photocopy != null" >
+          AND photocopy = #{photocopy}
+        </if>
+        <if test="applicationId != null" >
+          AND applicationId = #{applicationId}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.apply.Certificate" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM certificate
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM certificate
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.apply.Certificate" >
+    UPDATE certificate
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      isReplaced = #{isReplaced},
+      currentId = #{currentId},
+      no = #{no},
+      type = #{type},
+      name = #{name},
+      content = #{content},
+      status = #{status},
+      licenceDate = #{licenceDate},
+      expirationDate = #{expirationDate},
+      nature = #{nature},
+      companyId = #{companyId},
+      personId = #{personId},
+      personName = #{personName},
+      departmentId = #{departmentId},
+      departmentName = #{departmentName},
+      photocopy = #{photocopy},
+      applicationId = #{applicationId},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.apply.Certificate" >
+    UPDATE certificate
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="isReplaced != null" >
+        isReplaced = #{isReplaced},
+      </if>
+      <if test="currentId != null" >
+        currentId = #{currentId},
+      </if>
+      <if test="no != null" >
+        no = #{no},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="content != null" >
+        content = #{content},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="licenceDate != null" >
+        licenceDate = #{licenceDate},
+      </if>
+      <if test="expirationDate != null" >
+        expirationDate = #{expirationDate},
+      </if>
+      <if test="nature != null" >
+        nature = #{nature},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="personId != null" >
+        personId = #{personId},
+      </if>
+      <if test="personName != null" >
+        personName = #{personName},
+      </if>
+      <if test="departmentId != null" >
+        departmentId = #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        departmentName = #{departmentName},
+      </if>
+      <if test="photocopy != null" >
+        photocopy = #{photocopy},
+      </if>
+      <if test="applicationId != null" >
+        applicationId = #{applicationId},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE certificate SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE certificate SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.apply.Certificate" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO certificate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      isReplaced,
+      currentId,
+      no,
+      type,
+      name,
+      content,
+      status,
+      licenceDate,
+      expirationDate,
+      nature,
+      companyId,
+      personId,
+      personName,
+      departmentId,
+      departmentName,
+      photocopy,
+      applicationId,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{isReplaced},
+      #{currentId},
+      #{no},
+      #{type},
+      #{name},
+      #{content},
+      #{status},
+      #{licenceDate},
+      #{expirationDate},
+      #{nature},
+      #{companyId},
+      #{personId},
+      #{personName},
+      #{departmentId},
+      #{departmentName},
+      #{photocopy},
+      #{applicationId},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.apply.Certificate" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO certificate 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="isReplaced != null" >
+        isReplaced,
+      </if>
+      <if test="currentId != null" >
+        currentId,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="licenceDate != null" >
+        licenceDate,
+      </if>
+      <if test="expirationDate != null" >
+        expirationDate,
+      </if>
+      <if test="nature != null" >
+        nature,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="personId != null" >
+        personId,
+      </if>
+      <if test="personName != null" >
+        personName,
+      </if>
+      <if test="departmentId != null" >
+        departmentId,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="photocopy != null" >
+        photocopy,
+      </if>
+      <if test="applicationId != null" >
+        applicationId,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="isReplaced != null" >
+        #{isReplaced},
+      </if>
+      <if test="currentId != null" >
+        #{currentId},
+      </if>
+      <if test="no != null" >
+        #{no},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="licenceDate != null" >
+        #{licenceDate},
+      </if>
+      <if test="expirationDate != null" >
+        #{expirationDate},
+      </if>
+      <if test="nature != null" >
+        #{nature},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="personId != null" >
+        #{personId},
+      </if>
+      <if test="personName != null" >
+        #{personName},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName},
+      </if>
+      <if test="photocopy != null" >
+        #{photocopy},
+      </if>
+      <if test="applicationId != null" >
+        #{applicationId},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM certificate WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM certificate
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

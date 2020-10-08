@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : spare_part_in_item
+  Comment  : 配件入库项
+  Mapper   : com.welearn.mapper.SparePartInItemMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/3/1 10:24:29
+-->
+<mapper namespace="com.welearn.mapper.SparePartInItemMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    priceType,
+    name,
+    specification,
+    unit,
+    price,
+    count,
+    sumPrice,
+    sort,
+    status,
+    sparePartInBillId,
+    repairReplacementId,
+    procurementId,
+    procurementDetailId,
+    manufacturerName,
+    model,
+    sparePartId,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    spare_part_in_item.id AS id,
+    spare_part_in_item.createdAt AS createdAt,
+    spare_part_in_item.updatedAt AS updatedAt,
+    spare_part_in_item.isEnable AS isEnable,
+    spare_part_in_item.priceType AS priceType,
+    spare_part_in_item.name AS name,
+    spare_part_in_item.specification AS specification,
+    spare_part_in_item.unit AS unit,
+    spare_part_in_item.price AS price,
+    spare_part_in_item.count AS count,
+    spare_part_in_item.sumPrice AS sumPrice,
+    spare_part_in_item.sort AS sort,
+    spare_part_in_item.status AS status,
+    spare_part_in_item.sparePartInBillId AS sparePartInBillId,
+    spare_part_in_item.repairReplacementId AS repairReplacementId,
+    spare_part_in_item.procurementId AS procurementId,
+    spare_part_in_item.procurementDetailId AS procurementDetailId,
+    spare_part_in_item.manufacturerName AS manufacturerName,
+    spare_part_in_item.model AS model,
+    spare_part_in_item.sparePartId AS sparePartId,
+    spare_part_in_item.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.SparePartInItem" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 价格类型: 0-廉价配件 1-低价配件 2-高价配件 3-超额配件 -->
+    <result column="priceType" property="priceType"/>
+    <!-- Comment: 名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 规格 -->
+    <result column="specification" property="specification"/>
+    <!-- Comment: 单位 -->
+    <result column="unit" property="unit"/>
+    <!-- Comment: 单价 -->
+    <result column="price" property="price"/>
+    <!-- Comment: 数量 -->
+    <result column="count" property="count"/>
+    <!-- Comment: 金额 -->
+    <result column="sumPrice" property="sumPrice"/>
+    <!-- Comment: 排序 -->
+    <result column="sort" property="sort"/>
+    <!-- Comment: 状态:0-申请中 1-待入库 2-待确认 2-已入库 3-已取消 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 入库单id -->
+    <result column="sparePartInBillId" property="sparePartInBillId"/>
+    <!-- Comment: 维修配件更换id -->
+    <result column="repairReplacementId" property="repairReplacementId"/>
+    <!-- Comment: 采购项目id -->
+    <result column="procurementId" property="procurementId"/>
+    <!-- Comment: 采购详情id -->
+    <result column="procurementDetailId" property="procurementDetailId"/>
+    <!-- Comment: 生产厂商名称 -->
+    <result column="manufacturerName" property="manufacturerName"/>
+    <!-- Comment: 型号 -->
+    <result column="model" property="model"/>
+    <!-- Comment: 入库后的批次id -->
+    <result column="sparePartId" property="sparePartId"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.SparePartInItem" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_in_item
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.SparePartInItem" parameterType="com.welearn.entity.qo.equipment.SparePartInItemQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_in_item
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="priceType != null" >
+          AND priceType = #{priceType}
+        </if>
+        <if test="name != null" >
+          AND name = #{name}
+        </if>
+        <if test="specification != null" >
+          AND specification = #{specification}
+        </if>
+        <if test="unit != null" >
+          AND unit = #{unit}
+        </if>
+        <if test="price != null" >
+          AND price = #{price}
+        </if>
+        <if test="count != null" >
+          AND count = #{count}
+        </if>
+        <if test="sumPrice != null" >
+          AND sumPrice = #{sumPrice}
+        </if>
+        <if test="sort != null" >
+          AND sort = #{sort}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="sparePartInBillId != null" >
+          AND sparePartInBillId = #{sparePartInBillId}
+        </if>
+        <if test="repairReplacementId != null" >
+          AND repairReplacementId = #{repairReplacementId}
+        </if>
+        <if test="procurementId != null" >
+          AND procurementId = #{procurementId}
+        </if>
+        <if test="procurementDetailId != null" >
+          AND procurementDetailId = #{procurementDetailId}
+        </if>
+        <if test="manufacturerName != null" >
+          AND manufacturerName = #{manufacturerName}
+        </if>
+        <if test="model != null" >
+          AND model = #{model}
+        </if>
+        <if test="sparePartId != null" >
+          AND sparePartId = #{sparePartId}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.SparePartInItem" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_in_item
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM spare_part_in_item
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.SparePartInItem" >
+    UPDATE spare_part_in_item
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      priceType = #{priceType},
+      name = #{name},
+      specification = #{specification},
+      unit = #{unit},
+      price = #{price},
+      count = #{count},
+      sumPrice = #{sumPrice},
+      sort = #{sort},
+      status = #{status},
+      sparePartInBillId = #{sparePartInBillId},
+      repairReplacementId = #{repairReplacementId},
+      procurementId = #{procurementId},
+      procurementDetailId = #{procurementDetailId},
+      manufacturerName = #{manufacturerName},
+      model = #{model},
+      sparePartId = #{sparePartId},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.SparePartInItem" >
+    UPDATE spare_part_in_item
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="priceType != null" >
+        priceType = #{priceType},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit},
+      </if>
+      <if test="price != null" >
+        price = #{price},
+      </if>
+      <if test="count != null" >
+        count = #{count},
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice = #{sumPrice},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="sparePartInBillId != null" >
+        sparePartInBillId = #{sparePartInBillId},
+      </if>
+      <if test="repairReplacementId != null" >
+        repairReplacementId = #{repairReplacementId},
+      </if>
+      <if test="procurementId != null" >
+        procurementId = #{procurementId},
+      </if>
+      <if test="procurementDetailId != null" >
+        procurementDetailId = #{procurementDetailId},
+      </if>
+      <if test="manufacturerName != null" >
+        manufacturerName = #{manufacturerName},
+      </if>
+      <if test="model != null" >
+        model = #{model},
+      </if>
+      <if test="sparePartId != null" >
+        sparePartId = #{sparePartId},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE spare_part_in_item SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE spare_part_in_item SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.SparePartInItem" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO spare_part_in_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      priceType,
+      name,
+      specification,
+      unit,
+      price,
+      count,
+      sumPrice,
+      sort,
+      status,
+      sparePartInBillId,
+      repairReplacementId,
+      procurementId,
+      procurementDetailId,
+      manufacturerName,
+      model,
+      sparePartId,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{priceType},
+      #{name},
+      #{specification},
+      #{unit},
+      #{price},
+      #{count},
+      #{sumPrice},
+      #{sort},
+      #{status},
+      #{sparePartInBillId},
+      #{repairReplacementId},
+      #{procurementId},
+      #{procurementDetailId},
+      #{manufacturerName},
+      #{model},
+      #{sparePartId},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.SparePartInItem" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO spare_part_in_item 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="priceType != null" >
+        priceType,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sparePartInBillId != null" >
+        sparePartInBillId,
+      </if>
+      <if test="repairReplacementId != null" >
+        repairReplacementId,
+      </if>
+      <if test="procurementId != null" >
+        procurementId,
+      </if>
+      <if test="procurementDetailId != null" >
+        procurementDetailId,
+      </if>
+      <if test="manufacturerName != null" >
+        manufacturerName,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="sparePartId != null" >
+        sparePartId,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="priceType != null" >
+        #{priceType},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="specification != null" >
+        #{specification},
+      </if>
+      <if test="unit != null" >
+        #{unit},
+      </if>
+      <if test="price != null" >
+        #{price},
+      </if>
+      <if test="count != null" >
+        #{count},
+      </if>
+      <if test="sumPrice != null" >
+        #{sumPrice},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="sparePartInBillId != null" >
+        #{sparePartInBillId},
+      </if>
+      <if test="repairReplacementId != null" >
+        #{repairReplacementId},
+      </if>
+      <if test="procurementId != null" >
+        #{procurementId},
+      </if>
+      <if test="procurementDetailId != null" >
+        #{procurementDetailId},
+      </if>
+      <if test="manufacturerName != null" >
+        #{manufacturerName},
+      </if>
+      <if test="model != null" >
+        #{model},
+      </if>
+      <if test="sparePartId != null" >
+        #{sparePartId},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM spare_part_in_item WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM spare_part_in_item
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

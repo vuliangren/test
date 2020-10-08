@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : equipment_guarantee_repair_record
+  Comment  : 设备保修记录
+  Mapper   : com.welearn.mapper.EquipmentGuaranteeRepairRecordMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/2/21 10:20:08
+-->
+<mapper namespace="com.welearn.mapper.EquipmentGuaranteeRepairRecordMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentId,
+    companyId,
+    companyName,
+    companyContact,
+    startAt,
+    endAt,
+    type,
+    contractId,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    equipment_guarantee_repair_record.id AS id,
+    equipment_guarantee_repair_record.createdAt AS createdAt,
+    equipment_guarantee_repair_record.updatedAt AS updatedAt,
+    equipment_guarantee_repair_record.isEnable AS isEnable,
+    equipment_guarantee_repair_record.equipmentId AS equipmentId,
+    equipment_guarantee_repair_record.companyId AS companyId,
+    equipment_guarantee_repair_record.companyName AS companyName,
+    equipment_guarantee_repair_record.companyContact AS companyContact,
+    equipment_guarantee_repair_record.startAt AS startAt,
+    equipment_guarantee_repair_record.endAt AS endAt,
+    equipment_guarantee_repair_record.type AS type,
+    equipment_guarantee_repair_record.contractId AS contractId,
+    equipment_guarantee_repair_record.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 设备id -->
+    <result column="equipmentId" property="equipmentId"/>
+    <!-- Comment: 维保公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 维保公司名称 -->
+    <result column="companyName" property="companyName"/>
+    <!-- Comment: 维保公司联系方式 -->
+    <result column="companyContact" property="companyContact"/>
+    <!-- Comment: 保修开始时间 -->
+    <result column="startAt" property="startAt"/>
+    <!-- Comment: 保修结束时间 -->
+    <result column="endAt" property="endAt"/>
+    <!-- Comment: 保修类型: 0-出厂保修 1-原厂续保 2-第三方保修 3-其它保修 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 合同id -->
+    <result column="contractId" property="contractId"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_guarantee_repair_record
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" parameterType="com.welearn.entity.qo.equipment.EquipmentGuaranteeRepairRecordQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_guarantee_repair_record
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentId != null" >
+          AND equipmentId = #{equipmentId}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="companyName != null" >
+          AND companyName = #{companyName}
+        </if>
+        <if test="companyContact != null" >
+          AND companyContact = #{companyContact}
+        </if>
+        <if test="startAt != null" >
+          AND startAt = #{startAt}
+        </if>
+        <if test="endAt != null" >
+          AND endAt = #{endAt}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="contractId != null" >
+          AND contractId = #{contractId}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_guarantee_repair_record
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM equipment_guarantee_repair_record
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" >
+    UPDATE equipment_guarantee_repair_record
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentId = #{equipmentId},
+      companyId = #{companyId},
+      companyName = #{companyName},
+      companyContact = #{companyContact},
+      startAt = #{startAt},
+      endAt = #{endAt},
+      type = #{type},
+      contractId = #{contractId},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" >
+    UPDATE equipment_guarantee_repair_record
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId = #{equipmentId},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="companyName != null" >
+        companyName = #{companyName},
+      </if>
+      <if test="companyContact != null" >
+        companyContact = #{companyContact},
+      </if>
+      <if test="startAt != null" >
+        startAt = #{startAt},
+      </if>
+      <if test="endAt != null" >
+        endAt = #{endAt},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="contractId != null" >
+        contractId = #{contractId},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE equipment_guarantee_repair_record SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE equipment_guarantee_repair_record SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_guarantee_repair_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentId,
+      companyId,
+      companyName,
+      companyContact,
+      startAt,
+      endAt,
+      type,
+      contractId,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentId},
+      #{companyId},
+      #{companyName},
+      #{companyContact},
+      #{startAt},
+      #{endAt},
+      #{type},
+      #{contractId},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.EquipmentGuaranteeRepairRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_guarantee_repair_record 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="companyName != null" >
+        companyName,
+      </if>
+      <if test="companyContact != null" >
+        companyContact,
+      </if>
+      <if test="startAt != null" >
+        startAt,
+      </if>
+      <if test="endAt != null" >
+        endAt,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="contractId != null" >
+        contractId,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="companyName != null" >
+        #{companyName},
+      </if>
+      <if test="companyContact != null" >
+        #{companyContact},
+      </if>
+      <if test="startAt != null" >
+        #{startAt},
+      </if>
+      <if test="endAt != null" >
+        #{endAt},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="contractId != null" >
+        #{contractId},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM equipment_guarantee_repair_record WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM equipment_guarantee_repair_record
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : supplier_register
+  Comment  : 供应商注册
+  Mapper   : com.welearn.mapper.SupplierRegisterMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/12/5 15:38:03
+-->
+<mapper namespace="com.welearn.mapper.SupplierRegisterMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    companyName,
+    unifiedSocialCreditCode,
+    supplierType,
+    supplierLevel,
+    headOfSalesName,
+    headOfSalesIdCard,
+    headOfSalesPhoneNumber,
+    headOfSalesEmail,
+    headOfSalesPassword,
+    idCardPhotocopy,
+    activeCode,
+    remark,
+    approverId,
+    result,
+    status
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    supplier_register.id AS id,
+    supplier_register.createdAt AS createdAt,
+    supplier_register.updatedAt AS updatedAt,
+    supplier_register.isEnable AS isEnable,
+    supplier_register.companyName AS companyName,
+    supplier_register.unifiedSocialCreditCode AS unifiedSocialCreditCode,
+    supplier_register.supplierType AS supplierType,
+    supplier_register.supplierLevel AS supplierLevel,
+    supplier_register.headOfSalesName AS headOfSalesName,
+    supplier_register.headOfSalesIdCard AS headOfSalesIdCard,
+    supplier_register.headOfSalesPhoneNumber AS headOfSalesPhoneNumber,
+    supplier_register.headOfSalesEmail AS headOfSalesEmail,
+    supplier_register.headOfSalesPassword AS headOfSalesPassword,
+    supplier_register.idCardPhotocopy AS idCardPhotocopy,
+    supplier_register.activeCode AS activeCode,
+    supplier_register.remark AS remark,
+    supplier_register.approverId AS approverId,
+    supplier_register.result AS result,
+    supplier_register.status AS status
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.common.SupplierRegister" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 公司名称 -->
+    <result column="companyName" property="companyName"/>
+    <!-- Comment: 统一社会信用代码 -->
+    <result column="unifiedSocialCreditCode" property="unifiedSocialCreditCode"/>
+    <!-- Comment: 供应商类型 -->
+    <result column="supplierType" property="supplierType"/>
+    <!-- Comment: 供应商级别 -->
+    <result column="supplierLevel" property="supplierLevel"/>
+    <!-- Comment: 销售负责人姓名 -->
+    <result column="headOfSalesName" property="headOfSalesName"/>
+    <!-- Comment: 负责人身份证号 -->
+    <result column="headOfSalesIdCard" property="headOfSalesIdCard"/>
+    <!-- Comment: 销售负责人手机 -->
+    <result column="headOfSalesPhoneNumber" property="headOfSalesPhoneNumber"/>
+    <!-- Comment: 销售负责人邮件 -->
+    <result column="headOfSalesEmail" property="headOfSalesEmail"/>
+    <!-- Comment: 销售负责人密码 -->
+    <result column="headOfSalesPassword" property="headOfSalesPassword"/>
+    <!-- Comment: 销售负责人的身份证加盖企业公章复印件 -->
+    <result column="idCardPhotocopy" property="idCardPhotocopy"/>
+    <!-- Comment: 账户邮件激活码 -->
+    <result column="activeCode" property="activeCode"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+    <!-- Comment: 审批人id -->
+    <result column="approverId" property="approverId"/>
+    <!-- Comment: 结果 -->
+    <result column="result" property="result"/>
+    <!-- Comment: 状态: 0-待审批 1-审批通过 2-审批失败 -->
+    <result column="status" property="status"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.common.SupplierRegister" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM supplier_register
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.common.SupplierRegister" parameterType="com.welearn.entity.qo.common.SupplierRegisterQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM supplier_register
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="companyName != null" >
+          AND companyName like CONCAT('%',#{companyName},'%')
+        </if>
+        <if test="unifiedSocialCreditCode != null" >
+          AND unifiedSocialCreditCode = #{unifiedSocialCreditCode}
+        </if>
+        <if test="supplierType != null" >
+          AND supplierType = #{supplierType}
+        </if>
+        <if test="supplierLevel != null" >
+          AND supplierLevel = #{supplierLevel}
+        </if>
+        <if test="headOfSalesName != null" >
+          AND headOfSalesName like CONCAT('%',#{headOfSalesName},'%')
+        </if>
+        <if test="headOfSalesIdCard != null" >
+          AND headOfSalesIdCard = #{headOfSalesIdCard}
+        </if>
+        <if test="headOfSalesPhoneNumber != null" >
+          AND headOfSalesPhoneNumber = #{headOfSalesPhoneNumber}
+        </if>
+        <if test="headOfSalesEmail != null" >
+          AND headOfSalesEmail = #{headOfSalesEmail}
+        </if>
+        <if test="headOfSalesPassword != null" >
+          AND headOfSalesPassword = #{headOfSalesPassword}
+        </if>
+        <if test="idCardPhotocopy != null" >
+          AND idCardPhotocopy = #{idCardPhotocopy}
+        </if>
+        <if test="activeCode != null" >
+          AND activeCode = #{activeCode}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <if test="approverId != null" >
+          AND approverId = #{approverId}
+        </if>
+        <if test="result != null" >
+          AND result = #{result}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.common.SupplierRegister" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM supplier_register
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM supplier_register
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.common.SupplierRegister" >
+    UPDATE supplier_register
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      companyName = #{companyName},
+      unifiedSocialCreditCode = #{unifiedSocialCreditCode},
+      supplierType = #{supplierType},
+      supplierLevel = #{supplierLevel},
+      headOfSalesName = #{headOfSalesName},
+      headOfSalesIdCard = #{headOfSalesIdCard},
+      headOfSalesPhoneNumber = #{headOfSalesPhoneNumber},
+      headOfSalesEmail = #{headOfSalesEmail},
+      headOfSalesPassword = #{headOfSalesPassword},
+      idCardPhotocopy = #{idCardPhotocopy},
+      activeCode = #{activeCode},
+      remark = #{remark},
+      approverId = #{approverId},
+      result = #{result},
+      status = #{status},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.common.SupplierRegister" >
+    UPDATE supplier_register
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="companyName != null" >
+        companyName = #{companyName},
+      </if>
+      <if test="unifiedSocialCreditCode != null" >
+        unifiedSocialCreditCode = #{unifiedSocialCreditCode},
+      </if>
+      <if test="supplierType != null" >
+        supplierType = #{supplierType},
+      </if>
+      <if test="supplierLevel != null" >
+        supplierLevel = #{supplierLevel},
+      </if>
+      <if test="headOfSalesName != null" >
+        headOfSalesName = #{headOfSalesName},
+      </if>
+      <if test="headOfSalesIdCard != null" >
+        headOfSalesIdCard = #{headOfSalesIdCard},
+      </if>
+      <if test="headOfSalesPhoneNumber != null" >
+        headOfSalesPhoneNumber = #{headOfSalesPhoneNumber},
+      </if>
+      <if test="headOfSalesEmail != null" >
+        headOfSalesEmail = #{headOfSalesEmail},
+      </if>
+      <if test="headOfSalesPassword != null" >
+        headOfSalesPassword = #{headOfSalesPassword},
+      </if>
+      <if test="idCardPhotocopy != null" >
+        idCardPhotocopy = #{idCardPhotocopy},
+      </if>
+      <if test="activeCode != null" >
+        activeCode = #{activeCode},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="approverId != null" >
+        approverId = #{approverId},
+      </if>
+      <if test="result != null" >
+        result = #{result},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE supplier_register SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE supplier_register SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.common.SupplierRegister" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO supplier_register
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      companyName,
+      unifiedSocialCreditCode,
+      supplierType,
+      supplierLevel,
+      headOfSalesName,
+      headOfSalesIdCard,
+      headOfSalesPhoneNumber,
+      headOfSalesEmail,
+      headOfSalesPassword,
+      idCardPhotocopy,
+      activeCode,
+      remark,
+      approverId,
+      result,
+      status,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{companyName},
+      #{unifiedSocialCreditCode},
+      #{supplierType},
+      #{supplierLevel},
+      #{headOfSalesName},
+      #{headOfSalesIdCard},
+      #{headOfSalesPhoneNumber},
+      #{headOfSalesEmail},
+      #{headOfSalesPassword},
+      #{idCardPhotocopy},
+      #{activeCode},
+      #{remark},
+      #{approverId},
+      #{result},
+      #{status},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.common.SupplierRegister" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO supplier_register 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="companyName != null" >
+        companyName,
+      </if>
+      <if test="unifiedSocialCreditCode != null" >
+        unifiedSocialCreditCode,
+      </if>
+      <if test="supplierType != null" >
+        supplierType,
+      </if>
+      <if test="supplierLevel != null" >
+        supplierLevel,
+      </if>
+      <if test="headOfSalesName != null" >
+        headOfSalesName,
+      </if>
+      <if test="headOfSalesIdCard != null" >
+        headOfSalesIdCard,
+      </if>
+      <if test="headOfSalesPhoneNumber != null" >
+        headOfSalesPhoneNumber,
+      </if>
+      <if test="headOfSalesEmail != null" >
+        headOfSalesEmail,
+      </if>
+      <if test="headOfSalesPassword != null" >
+        headOfSalesPassword,
+      </if>
+      <if test="idCardPhotocopy != null" >
+        idCardPhotocopy,
+      </if>
+      <if test="activeCode != null" >
+        activeCode,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="approverId != null" >
+        approverId,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="companyName != null" >
+        #{companyName},
+      </if>
+      <if test="unifiedSocialCreditCode != null" >
+        #{unifiedSocialCreditCode},
+      </if>
+      <if test="supplierType != null" >
+        #{supplierType},
+      </if>
+      <if test="supplierLevel != null" >
+        #{supplierLevel},
+      </if>
+      <if test="headOfSalesName != null" >
+        #{headOfSalesName},
+      </if>
+      <if test="headOfSalesIdCard != null" >
+        #{headOfSalesIdCard},
+      </if>
+      <if test="headOfSalesPhoneNumber != null" >
+        #{headOfSalesPhoneNumber},
+      </if>
+      <if test="headOfSalesEmail != null" >
+        #{headOfSalesEmail},
+      </if>
+      <if test="headOfSalesPassword != null" >
+        #{headOfSalesPassword},
+      </if>
+      <if test="idCardPhotocopy != null" >
+        #{idCardPhotocopy},
+      </if>
+      <if test="activeCode != null" >
+        #{activeCode},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="approverId != null" >
+        #{approverId},
+      </if>
+      <if test="result != null" >
+        #{result},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM supplier_register WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM supplier_register
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : notice_record
+  Comment  : 通知发送记录
+  Mapper   : com.welearn.mapper.NoticeRecordMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/2/11 15:11:19
+-->
+<mapper namespace="com.welearn.mapper.NoticeRecordMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    userId,
+    userName,
+    noticeId,
+    isViewed
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    notice_record.id AS id,
+    notice_record.createdAt AS createdAt,
+    notice_record.updatedAt AS updatedAt,
+    notice_record.isEnable AS isEnable,
+    notice_record.userId AS userId,
+    notice_record.userName AS userName,
+    notice_record.noticeId AS noticeId,
+    notice_record.isViewed AS isViewed
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.notify.NoticeRecord" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 用户id -->
+    <result column="userId" property="userId"/>
+    <!-- Comment: 用户名称 -->
+    <result column="userName" property="userName"/>
+    <!-- Comment: 公告id -->
+    <result column="noticeId" property="noticeId"/>
+    <!-- Comment: 站内信是否已读：0-未读，1-已读 -->
+    <result column="isViewed" property="isViewed"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.notify.NoticeRecord" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM notice_record
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.notify.NoticeRecord" parameterType="com.welearn.entity.qo.notify.NoticeRecordQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM notice_record
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="userId != null" >
+          AND userId = #{userId}
+        </if>
+        <if test="userName != null" >
+          AND userName = #{userName}
+        </if>
+        <if test="noticeId != null" >
+          AND noticeId = #{noticeId}
+        </if>
+        <if test="isViewed != null" >
+          AND isViewed = #{isViewed}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.notify.NoticeRecord" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM notice_record
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM notice_record
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.notify.NoticeRecord" >
+    UPDATE notice_record
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      userId = #{userId},
+      userName = #{userName},
+      noticeId = #{noticeId},
+      isViewed = #{isViewed},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.notify.NoticeRecord" >
+    UPDATE notice_record
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="userId != null" >
+        userId = #{userId},
+      </if>
+      <if test="userName != null" >
+        userName = #{userName},
+      </if>
+      <if test="noticeId != null" >
+        noticeId = #{noticeId},
+      </if>
+      <if test="isViewed != null" >
+        isViewed = #{isViewed},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE notice_record SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE notice_record SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.notify.NoticeRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO notice_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      userId,
+      userName,
+      noticeId,
+      isViewed,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{userId},
+      #{userName},
+      #{noticeId},
+      #{isViewed},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.notify.NoticeRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO notice_record 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="noticeId != null" >
+        noticeId,
+      </if>
+      <if test="isViewed != null" >
+        isViewed,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="noticeId != null" >
+        #{noticeId},
+      </if>
+      <if test="isViewed != null" >
+        #{isViewed},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM notice_record WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM notice_record
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

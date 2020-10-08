@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : maintenance_cost_item
+  Comment  : 维护消费项目(针对派工)
+  Mapper   : com.welearn.mapper.MaintenanceCostItemMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/3/26 16:20:34
+-->
+<mapper namespace="com.welearn.mapper.MaintenanceCostItemMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentId,
+    taskId,
+    taskAssignmentId,
+    engineerId,
+    engineerName,
+    type,
+    name,
+    specification,
+    description,
+    price,
+    count,
+    sumPrice
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    maintenance_cost_item.id AS id,
+    maintenance_cost_item.createdAt AS createdAt,
+    maintenance_cost_item.updatedAt AS updatedAt,
+    maintenance_cost_item.isEnable AS isEnable,
+    maintenance_cost_item.equipmentId AS equipmentId,
+    maintenance_cost_item.taskId AS taskId,
+    maintenance_cost_item.taskAssignmentId AS taskAssignmentId,
+    maintenance_cost_item.engineerId AS engineerId,
+    maintenance_cost_item.engineerName AS engineerName,
+    maintenance_cost_item.type AS type,
+    maintenance_cost_item.name AS name,
+    maintenance_cost_item.specification AS specification,
+    maintenance_cost_item.description AS description,
+    maintenance_cost_item.price AS price,
+    maintenance_cost_item.count AS count,
+    maintenance_cost_item.sumPrice AS sumPrice
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.MaintenanceCostItem" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 设备id -->
+    <result column="equipmentId" property="equipmentId"/>
+    <!-- Comment: 维护任务id -->
+    <result column="taskId" property="taskId"/>
+    <!-- Comment: 任务分配id -->
+    <result column="taskAssignmentId" property="taskAssignmentId"/>
+    <!-- Comment: 工程师id -->
+    <result column="engineerId" property="engineerId"/>
+    <!-- Comment: 工程师名称 -->
+    <result column="engineerName" property="engineerName"/>
+    <!-- Comment: 类型:0-配件 1-维修 2-其它 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 规格 -->
+    <result column="specification" property="specification"/>
+    <!-- Comment: 描述 -->
+    <result column="description" property="description"/>
+    <!-- Comment: 单价 -->
+    <result column="price" property="price"/>
+    <!-- Comment: 数量 -->
+    <result column="count" property="count"/>
+    <!-- Comment: 合计 -->
+    <result column="sumPrice" property="sumPrice"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.MaintenanceCostItem" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM maintenance_cost_item
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.MaintenanceCostItem" parameterType="com.welearn.entity.qo.equipment.MaintenanceCostItemQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM maintenance_cost_item
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentId != null" >
+          AND equipmentId = #{equipmentId}
+        </if>
+        <if test="taskId != null" >
+          AND taskId = #{taskId}
+        </if>
+        <if test="taskAssignmentId != null" >
+          AND taskAssignmentId = #{taskAssignmentId}
+        </if>
+        <if test="engineerId != null" >
+          AND engineerId = #{engineerId}
+        </if>
+        <if test="engineerName != null" >
+          AND engineerName = #{engineerName}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="name != null" >
+          AND name = #{name}
+        </if>
+        <if test="specification != null" >
+          AND specification = #{specification}
+        </if>
+        <if test="description != null" >
+          AND description = #{description}
+        </if>
+        <if test="price != null" >
+          AND price = #{price}
+        </if>
+        <if test="count != null" >
+          AND count = #{count}
+        </if>
+        <if test="sumPrice != null" >
+          AND sumPrice = #{sumPrice}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.MaintenanceCostItem" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM maintenance_cost_item
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM maintenance_cost_item
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.MaintenanceCostItem" >
+    UPDATE maintenance_cost_item
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentId = #{equipmentId},
+      taskId = #{taskId},
+      taskAssignmentId = #{taskAssignmentId},
+      engineerId = #{engineerId},
+      engineerName = #{engineerName},
+      type = #{type},
+      name = #{name},
+      specification = #{specification},
+      description = #{description},
+      price = #{price},
+      count = #{count},
+      sumPrice = #{sumPrice},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.MaintenanceCostItem" >
+    UPDATE maintenance_cost_item
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId = #{equipmentId},
+      </if>
+      <if test="taskId != null" >
+        taskId = #{taskId},
+      </if>
+      <if test="taskAssignmentId != null" >
+        taskAssignmentId = #{taskAssignmentId},
+      </if>
+      <if test="engineerId != null" >
+        engineerId = #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        engineerName = #{engineerName},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="price != null" >
+        price = #{price},
+      </if>
+      <if test="count != null" >
+        count = #{count},
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice = #{sumPrice},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE maintenance_cost_item SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE maintenance_cost_item SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.MaintenanceCostItem" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO maintenance_cost_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentId,
+      taskId,
+      taskAssignmentId,
+      engineerId,
+      engineerName,
+      type,
+      name,
+      specification,
+      description,
+      price,
+      count,
+      sumPrice,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentId},
+      #{taskId},
+      #{taskAssignmentId},
+      #{engineerId},
+      #{engineerName},
+      #{type},
+      #{name},
+      #{specification},
+      #{description},
+      #{price},
+      #{count},
+      #{sumPrice},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.MaintenanceCostItem" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO maintenance_cost_item 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId,
+      </if>
+      <if test="taskId != null" >
+        taskId,
+      </if>
+      <if test="taskAssignmentId != null" >
+        taskAssignmentId,
+      </if>
+      <if test="engineerId != null" >
+        engineerId,
+      </if>
+      <if test="engineerName != null" >
+        engineerName,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId},
+      </if>
+      <if test="taskId != null" >
+        #{taskId},
+      </if>
+      <if test="taskAssignmentId != null" >
+        #{taskAssignmentId},
+      </if>
+      <if test="engineerId != null" >
+        #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        #{engineerName},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="specification != null" >
+        #{specification},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="price != null" >
+        #{price},
+      </if>
+      <if test="count != null" >
+        #{count},
+      </if>
+      <if test="sumPrice != null" >
+        #{sumPrice},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM maintenance_cost_item WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM maintenance_cost_item
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="maintenanceCostItemStatistic" resultType="com.welearn.entity.po.equipment.MaintenanceCostItem">
+    select mci.createdAt, mci.type, mci.sumPrice
+    from maintenance_cost_item mci
+    <if test="companyId != null" >
+      join engineer e on e.serveCompanyId = #{companyId} and mci.engineerId = e.id
+    </if>
+    where mci.isEnable = true
+    <if test="startAt != null" >
+      and mci.createdAt >= #{startAt}
+    </if>
+    <if test="equipmentId != null" >
+      and mci.equipmentId = #{equipmentId}
+    </if>
+  </select>
+</mapper>

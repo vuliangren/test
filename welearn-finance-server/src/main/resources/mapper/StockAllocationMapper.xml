@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : stock_allocation
+  Comment  : 库存货位
+  Mapper   : com.welearn.mapper.StockAllocationMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/12/13 16:34:53
+-->
+<mapper namespace="com.welearn.mapper.StockAllocationMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    stockPlaceId,
+    x,
+    y,
+    z,
+    name,
+    description
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    stock_allocation.id AS id,
+    stock_allocation.createdAt AS createdAt,
+    stock_allocation.updatedAt AS updatedAt,
+    stock_allocation.isEnable AS isEnable,
+    stock_allocation.stockPlaceId AS stockPlaceId,
+    stock_allocation.x AS x,
+    stock_allocation.y AS y,
+    stock_allocation.z AS z,
+    stock_allocation.name AS name,
+    stock_allocation.description AS description
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.finance.StockAllocation" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 库存仓库id -->
+    <result column="stockPlaceId" property="stockPlaceId"/>
+    <!-- Comment: 坐标系x -->
+    <result column="x" property="x"/>
+    <!-- Comment: 坐标系y -->
+    <result column="y" property="y"/>
+    <!-- Comment: 坐标系z -->
+    <result column="z" property="z"/>
+    <!-- Comment: 名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 描述 -->
+    <result column="description" property="description"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.finance.StockAllocation" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_allocation
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.finance.StockAllocation" parameterType="com.welearn.entity.qo.finance.StockAllocationQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_allocation
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="stockPlaceId != null" >
+          AND stockPlaceId = #{stockPlaceId}
+        </if>
+        <if test="x != null" >
+          AND x = #{x}
+        </if>
+        <if test="y != null" >
+          AND y = #{y}
+        </if>
+        <if test="z != null" >
+          AND z = #{z}
+        </if>
+        <if test="name != null" >
+          AND name = #{name}
+        </if>
+        <if test="description != null" >
+          AND description = #{description}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.finance.StockAllocation" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_allocation
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM stock_allocation
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.finance.StockAllocation" >
+    UPDATE stock_allocation
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      stockPlaceId = #{stockPlaceId},
+      x = #{x},
+      y = #{y},
+      z = #{z},
+      name = #{name},
+      description = #{description},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.finance.StockAllocation" >
+    UPDATE stock_allocation
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="stockPlaceId != null" >
+        stockPlaceId = #{stockPlaceId},
+      </if>
+      <if test="x != null" >
+        x = #{x},
+      </if>
+      <if test="y != null" >
+        y = #{y},
+      </if>
+      <if test="z != null" >
+        z = #{z},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE stock_allocation SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE stock_allocation SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.finance.StockAllocation" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO stock_allocation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      stockPlaceId,
+      x,
+      y,
+      z,
+      name,
+      description,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{stockPlaceId},
+      #{x},
+      #{y},
+      #{z},
+      #{name},
+      #{description},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.finance.StockAllocation" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO stock_allocation 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="stockPlaceId != null" >
+        stockPlaceId,
+      </if>
+      <if test="x != null" >
+        x,
+      </if>
+      <if test="y != null" >
+        y,
+      </if>
+      <if test="z != null" >
+        z,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="stockPlaceId != null" >
+        #{stockPlaceId},
+      </if>
+      <if test="x != null" >
+        #{x},
+      </if>
+      <if test="y != null" >
+        #{y},
+      </if>
+      <if test="z != null" >
+        #{z},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM stock_allocation WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM stock_allocation
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="selectByBatchId" resultType="com.welearn.entity.po.finance.StockAllocation">
+    select sa.*
+    from stock_allocation sa
+    join re_batch_allocation rba on rba.isEnable=true and rba.allocationId = sa.id and rba.batchId=#{batchId}
+    where sa.isEnable = true
+  </select>
+</mapper>

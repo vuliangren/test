@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : repair_evaluation
+  Comment  : 维修服务评价(针对工程师)
+  Mapper   : com.welearn.mapper.RepairEvaluationMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/2/12 17:14:00
+-->
+<mapper namespace="com.welearn.mapper.RepairEvaluationMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    requestId,
+    engineerId,
+    engineerName,
+    punctual,
+    attitude,
+    service,
+    comment,
+    appraiserid,
+    appraiserName,
+    appraiserDepartmentId,
+    appraiserDepartmentName
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    repair_evaluation.id AS id,
+    repair_evaluation.createdAt AS createdAt,
+    repair_evaluation.updatedAt AS updatedAt,
+    repair_evaluation.isEnable AS isEnable,
+    repair_evaluation.requestId AS requestId,
+    repair_evaluation.engineerId AS engineerId,
+    repair_evaluation.engineerName AS engineerName,
+    repair_evaluation.punctual AS punctual,
+    repair_evaluation.attitude AS attitude,
+    repair_evaluation.service AS service,
+    repair_evaluation.comment AS comment,
+    repair_evaluation.appraiserid AS appraiserid,
+    repair_evaluation.appraiserName AS appraiserName,
+    repair_evaluation.appraiserDepartmentId AS appraiserDepartmentId,
+    repair_evaluation.appraiserDepartmentName AS appraiserDepartmentName
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.RepairEvaluation" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 报修id -->
+    <result column="requestId" property="requestId"/>
+    <!-- Comment: 工程师id -->
+    <result column="engineerId" property="engineerId"/>
+    <!-- Comment: 工程师姓名 -->
+    <result column="engineerName" property="engineerName"/>
+    <!-- Comment: 守时评价 -->
+    <result column="punctual" property="punctual"/>
+    <!-- Comment: 态度评价 -->
+    <result column="attitude" property="attitude"/>
+    <!-- Comment: 服务评价 -->
+    <result column="service" property="service"/>
+    <!-- Comment: 评语 -->
+    <result column="comment" property="comment"/>
+    <!-- Comment: 评价人id -->
+    <result column="appraiserid" property="appraiserid"/>
+    <!-- Comment: 评价人姓名 -->
+    <result column="appraiserName" property="appraiserName"/>
+    <!-- Comment: 评价人部门id -->
+    <result column="appraiserDepartmentId" property="appraiserDepartmentId"/>
+    <!-- Comment: 评价人部门名称 -->
+    <result column="appraiserDepartmentName" property="appraiserDepartmentName"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.RepairEvaluation" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_evaluation
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.RepairEvaluation" parameterType="com.welearn.entity.qo.equipment.RepairEvaluationQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_evaluation
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="requestId != null" >
+          AND requestId = #{requestId}
+        </if>
+        <if test="engineerId != null" >
+          AND engineerId = #{engineerId}
+        </if>
+        <if test="engineerName != null" >
+          AND engineerName = #{engineerName}
+        </if>
+        <if test="punctual != null" >
+          AND punctual = #{punctual}
+        </if>
+        <if test="attitude != null" >
+          AND attitude = #{attitude}
+        </if>
+        <if test="service != null" >
+          AND service = #{service}
+        </if>
+        <if test="comment != null" >
+          AND comment = #{comment}
+        </if>
+        <if test="appraiserid != null" >
+          AND appraiserid = #{appraiserid}
+        </if>
+        <if test="appraiserName != null" >
+          AND appraiserName = #{appraiserName}
+        </if>
+        <if test="appraiserDepartmentId != null" >
+          AND appraiserDepartmentId = #{appraiserDepartmentId}
+        </if>
+        <if test="appraiserDepartmentName != null" >
+          AND appraiserDepartmentName = #{appraiserDepartmentName}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.RepairEvaluation" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_evaluation
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM repair_evaluation
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.RepairEvaluation" >
+    UPDATE repair_evaluation
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      requestId = #{requestId},
+      engineerId = #{engineerId},
+      engineerName = #{engineerName},
+      punctual = #{punctual},
+      attitude = #{attitude},
+      service = #{service},
+      comment = #{comment},
+      appraiserid = #{appraiserid},
+      appraiserName = #{appraiserName},
+      appraiserDepartmentId = #{appraiserDepartmentId},
+      appraiserDepartmentName = #{appraiserDepartmentName},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.RepairEvaluation" >
+    UPDATE repair_evaluation
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="requestId != null" >
+        requestId = #{requestId},
+      </if>
+      <if test="engineerId != null" >
+        engineerId = #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        engineerName = #{engineerName},
+      </if>
+      <if test="punctual != null" >
+        punctual = #{punctual},
+      </if>
+      <if test="attitude != null" >
+        attitude = #{attitude},
+      </if>
+      <if test="service != null" >
+        service = #{service},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment},
+      </if>
+      <if test="appraiserid != null" >
+        appraiserid = #{appraiserid},
+      </if>
+      <if test="appraiserName != null" >
+        appraiserName = #{appraiserName},
+      </if>
+      <if test="appraiserDepartmentId != null" >
+        appraiserDepartmentId = #{appraiserDepartmentId},
+      </if>
+      <if test="appraiserDepartmentName != null" >
+        appraiserDepartmentName = #{appraiserDepartmentName},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE repair_evaluation SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE repair_evaluation SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.RepairEvaluation" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO repair_evaluation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      requestId,
+      engineerId,
+      engineerName,
+      punctual,
+      attitude,
+      service,
+      comment,
+      appraiserid,
+      appraiserName,
+      appraiserDepartmentId,
+      appraiserDepartmentName,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{requestId},
+      #{engineerId},
+      #{engineerName},
+      #{punctual},
+      #{attitude},
+      #{service},
+      #{comment},
+      #{appraiserid},
+      #{appraiserName},
+      #{appraiserDepartmentId},
+      #{appraiserDepartmentName},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.RepairEvaluation" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO repair_evaluation 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="requestId != null" >
+        requestId,
+      </if>
+      <if test="engineerId != null" >
+        engineerId,
+      </if>
+      <if test="engineerName != null" >
+        engineerName,
+      </if>
+      <if test="punctual != null" >
+        punctual,
+      </if>
+      <if test="attitude != null" >
+        attitude,
+      </if>
+      <if test="service != null" >
+        service,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="appraiserid != null" >
+        appraiserid,
+      </if>
+      <if test="appraiserName != null" >
+        appraiserName,
+      </if>
+      <if test="appraiserDepartmentId != null" >
+        appraiserDepartmentId,
+      </if>
+      <if test="appraiserDepartmentName != null" >
+        appraiserDepartmentName,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="requestId != null" >
+        #{requestId},
+      </if>
+      <if test="engineerId != null" >
+        #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        #{engineerName},
+      </if>
+      <if test="punctual != null" >
+        #{punctual},
+      </if>
+      <if test="attitude != null" >
+        #{attitude},
+      </if>
+      <if test="service != null" >
+        #{service},
+      </if>
+      <if test="comment != null" >
+        #{comment},
+      </if>
+      <if test="appraiserid != null" >
+        #{appraiserid},
+      </if>
+      <if test="appraiserName != null" >
+        #{appraiserName},
+      </if>
+      <if test="appraiserDepartmentId != null" >
+        #{appraiserDepartmentId},
+      </if>
+      <if test="appraiserDepartmentName != null" >
+        #{appraiserDepartmentName},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM repair_evaluation WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM repair_evaluation
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

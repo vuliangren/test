@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  Table    : address
+  Comment  : 地址信息
+  Mapper   : com.welearn.mapper.AddressMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/6/5 10:48:28
+-->
+<mapper namespace="com.welearn.mapper.AddressMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    country,
+    cityIndex1,
+    cityIndex2,
+    cityIndex3,
+    cityIndex4,
+    cityIndex5,
+    addressPrefix,
+    addressDetail,
+    postalCode,
+    longitude,
+    latitude,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    address.id AS id,
+    address.createdAt AS createdAt,
+    address.updatedAt AS updatedAt,
+    address.isEnable AS isEnable,
+    address.country AS country,
+    address.cityIndex1 AS cityIndex1,
+    address.cityIndex2 AS cityIndex2,
+    address.cityIndex3 AS cityIndex3,
+    address.cityIndex4 AS cityIndex4,
+    address.cityIndex5 AS cityIndex5,
+    address.addressPrefix AS addressPrefix,
+    address.addressDetail AS addressDetail,
+    address.postalCode AS postalCode,
+    address.longitude AS longitude,
+    address.latitude AS latitude,
+    address.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.common.Address" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 国家编号 -->
+    <result column="country" property="country"/>
+    <!-- Comment: 地址索引一级(省) -->
+    <result column="cityIndex1" property="cityIndex1"/>
+    <!-- Comment: 地址索引二级(市) -->
+    <result column="cityIndex2" property="cityIndex2"/>
+    <!-- Comment: 地址索引三级(区) -->
+    <result column="cityIndex3" property="cityIndex3"/>
+    <!-- Comment: 地址索引四级(街) -->
+    <result column="cityIndex4" property="cityIndex4"/>
+    <!-- Comment: 地址索引五级(备) -->
+    <result column="cityIndex5" property="cityIndex5"/>
+    <!-- Comment: 地址前缀 -->
+    <result column="addressPrefix" property="addressPrefix"/>
+    <!-- Comment: 详细地址 -->
+    <result column="addressDetail" property="addressDetail"/>
+    <!-- Comment: 邮政编码 -->
+    <result column="postalCode" property="postalCode"/>
+    <!-- Comment: 经度 -->
+    <result column="longitude" property="longitude"/>
+    <!-- Comment: 纬度 -->
+    <result column="latitude" property="latitude"/>
+    <!-- Comment: 备注内容 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.common.Address" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM address
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.common.Address" parameterType="com.welearn.entity.qo.common.AddressQueryCondition" >
+    SELECT
+      *
+    FROM address
+    <where>
+      <if test="id != null" >
+        id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="country != null" >
+        AND country = #{country}
+      </if>
+      <if test="cityIndex1 != null" >
+        AND cityIndex1 = #{cityIndex1}
+      </if>
+      <if test="cityIndex2 != null" >
+        AND cityIndex2 = #{cityIndex2}
+      </if>
+      <if test="cityIndex3 != null" >
+        AND cityIndex3 = #{cityIndex3}
+      </if>
+      <if test="cityIndex4 != null" >
+        AND cityIndex4 = #{cityIndex4}
+      </if>
+      <if test="cityIndex5 != null" >
+        AND cityIndex5 = #{cityIndex5}
+      </if>
+      <if test="addressPrefix != null" >
+        AND addressPrefix = #{addressPrefix}
+      </if>
+      <if test="addressDetail != null" >
+        AND addressDetail = #{addressDetail}
+      </if>
+      <if test="postalCode != null" >
+        AND postalCode = #{postalCode}
+      </if>
+      <if test="longitude != null" >
+        AND longitude = #{longitude}
+      </if>
+      <if test="latitude != null" >
+        AND latitude = #{latitude}
+      </if>
+      <if test="remark != null" >
+        AND remark = #{remark}
+      </if>
+      <!-- START USER DEFINED -->
+      <if test="ids != null and ids.size() > 0" >
+        and id in
+        <foreach collection="ids" item="addressId" index="index" open="(" separator="," close=")" >
+          #{addressId}
+        </foreach>
+      </if>
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.common.Address" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM address
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM address
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.common.Address" >
+    UPDATE address
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      country = #{country},
+      cityIndex1 = #{cityIndex1},
+      cityIndex2 = #{cityIndex2},
+      cityIndex3 = #{cityIndex3},
+      cityIndex4 = #{cityIndex4},
+      cityIndex5 = #{cityIndex5},
+      addressPrefix = #{addressPrefix},
+      addressDetail = #{addressDetail},
+      postalCode = #{postalCode},
+      longitude = #{longitude},
+      latitude = #{latitude},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.common.Address" >
+    UPDATE address
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="country != null" >
+        country = #{country},
+      </if>
+      <if test="cityIndex1 != null" >
+        cityIndex1 = #{cityIndex1},
+      </if>
+      <if test="cityIndex2 != null" >
+        cityIndex2 = #{cityIndex2},
+      </if>
+      <if test="cityIndex3 != null" >
+        cityIndex3 = #{cityIndex3},
+      </if>
+      <if test="cityIndex4 != null" >
+        cityIndex4 = #{cityIndex4},
+      </if>
+      <if test="cityIndex5 != null" >
+        cityIndex5 = #{cityIndex5},
+      </if>
+      <if test="addressPrefix != null" >
+        addressPrefix = #{addressPrefix},
+      </if>
+      <if test="addressDetail != null" >
+        addressDetail = #{addressDetail},
+      </if>
+      <if test="postalCode != null" >
+        postalCode = #{postalCode},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE address SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE address SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.common.Address" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      country,
+      cityIndex1,
+      cityIndex2,
+      cityIndex3,
+      cityIndex4,
+      cityIndex5,
+      addressPrefix,
+      addressDetail,
+      postalCode,
+      longitude,
+      latitude,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{country},
+      #{cityIndex1},
+      #{cityIndex2},
+      #{cityIndex3},
+      #{cityIndex4},
+      #{cityIndex5},
+      #{addressPrefix},
+      #{addressDetail},
+      #{postalCode},
+      #{longitude},
+      #{latitude},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.common.Address" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="cityIndex1 != null" >
+        cityIndex1,
+      </if>
+      <if test="cityIndex2 != null" >
+        cityIndex2,
+      </if>
+      <if test="cityIndex3 != null" >
+        cityIndex3,
+      </if>
+      <if test="cityIndex4 != null" >
+        cityIndex4,
+      </if>
+      <if test="cityIndex5 != null" >
+        cityIndex5,
+      </if>
+      <if test="addressPrefix != null" >
+        addressPrefix,
+      </if>
+      <if test="addressDetail != null" >
+        addressDetail,
+      </if>
+      <if test="postalCode != null" >
+        postalCode,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="country != null" >
+        #{country},
+      </if>
+      <if test="cityIndex1 != null" >
+        #{cityIndex1},
+      </if>
+      <if test="cityIndex2 != null" >
+        #{cityIndex2},
+      </if>
+      <if test="cityIndex3 != null" >
+        #{cityIndex3},
+      </if>
+      <if test="cityIndex4 != null" >
+        #{cityIndex4},
+      </if>
+      <if test="cityIndex5 != null" >
+        #{cityIndex5},
+      </if>
+      <if test="addressPrefix != null" >
+        #{addressPrefix},
+      </if>
+      <if test="addressDetail != null" >
+        #{addressDetail},
+      </if>
+      <if test="postalCode != null" >
+        #{postalCode},
+      </if>
+      <if test="longitude != null" >
+        #{longitude},
+      </if>
+      <if test="latitude != null" >
+        #{latitude},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM address WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM address
+  </delete>
+
+
+  <!-- START USER DEFINED -->
+
+</mapper>

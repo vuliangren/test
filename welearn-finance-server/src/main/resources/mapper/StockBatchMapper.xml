@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : stock_batch
+  Comment  : 库存批次
+  Mapper   : com.welearn.mapper.StockBatchMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/12/13 16:59:44
+-->
+<mapper namespace="com.welearn.mapper.StockBatchMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    stockId,
+    stockTypeId,
+    parentId,
+    packageUnit,
+    sumCount,
+    realRemainCount,
+    planRemainCount,
+    price,
+    orderCostDay,
+    producedAt,
+    expiredAt,
+    status,
+    remark,
+    description,
+    model,
+    manufacturerName,
+    procurementId,
+    supplierId
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    stock_batch.id AS id,
+    stock_batch.createdAt AS createdAt,
+    stock_batch.updatedAt AS updatedAt,
+    stock_batch.isEnable AS isEnable,
+    stock_batch.stockId AS stockId,
+    stock_batch.stockTypeId AS stockTypeId,
+    stock_batch.parentId AS parentId,
+    stock_batch.packageUnit AS packageUnit,
+    stock_batch.sumCount AS sumCount,
+    stock_batch.realRemainCount AS realRemainCount,
+    stock_batch.planRemainCount AS planRemainCount,
+    stock_batch.price AS price,
+    stock_batch.orderCostDay AS orderCostDay,
+    stock_batch.producedAt AS producedAt,
+    stock_batch.expiredAt AS expiredAt,
+    stock_batch.status AS status,
+    stock_batch.remark AS remark,
+    stock_batch.description AS description,
+    stock_batch.model AS model,
+    stock_batch.manufacturerName AS manufacturerName,
+    stock_batch.procurementId AS procurementId,
+    stock_batch.supplierId AS supplierId
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.finance.StockBatch" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 库存id -->
+    <result column="stockId" property="stockId"/>
+    <!-- Comment: 库存类型id -->
+    <result column="stockTypeId" property="stockTypeId"/>
+    <!-- Comment: 父批次id (批次追踪) -->
+    <result column="parentId" property="parentId"/>
+    <!-- Comment: 包装单位 -->
+    <result column="packageUnit" property="packageUnit"/>
+    <!-- Comment: 总量(内含数量) -->
+    <result column="sumCount" property="sumCount"/>
+    <!-- Comment: 余量(内含数量) -->
+    <result column="realRemainCount" property="realRemainCount"/>
+    <!-- Comment: 计划余量(内含数量, 默认与余量等值, 如有相关库存任务在处理时 被取出数量 则会从计划余量中扣除) -->
+    <result column="planRemainCount" property="planRemainCount"/>
+    <!-- Comment: 单价(内含数量) -->
+    <result column="price" property="price"/>
+    <!-- Comment: 订货耗时(天) -->
+    <result column="orderCostDay" property="orderCostDay"/>
+    <!-- Comment: 生产日期 -->
+    <result column="producedAt" property="producedAt"/>
+    <!-- Comment: 保质期限(截止时间) -->
+    <result column="expiredAt" property="expiredAt"/>
+    <!-- Comment: 状态: 0-正常 1-封存中 2-待退换 3-待报废 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+    <!-- Comment: 描述(必填) -->
+    <result column="description" property="description"/>
+    <!-- Comment: 物品型号 -->
+    <result column="model" property="model"/>
+    <!-- Comment: 生产厂商名称 -->
+    <result column="manufacturerName" property="manufacturerName"/>
+    <!-- Comment: 采购项目id -->
+    <result column="procurementId" property="procurementId"/>
+    <!-- Comment: 供应商id -->
+    <result column="supplierId" property="supplierId"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.finance.StockBatch" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_batch
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.finance.StockBatch" parameterType="com.welearn.entity.qo.finance.StockBatchQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_batch
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="sCreatedAt != null" >
+          AND createdAt >= #{sCreatedAt}
+        </if>
+        <if test="eCreatedAt != null" >
+          AND #{eCreatedAt} >= createdAt
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="stockId != null" >
+          AND stockId = #{stockId}
+        </if>
+        <if test="stockTypeId != null" >
+          AND stockTypeId = #{stockTypeId}
+        </if>
+        <if test="parentId != null" >
+          AND parentId = #{parentId}
+        </if>
+        <if test="packageUnit != null" >
+          AND packageUnit = #{packageUnit}
+        </if>
+        <if test="sumCount != null" >
+          AND sumCount = #{sumCount}
+        </if>
+        <if test="realRemainCount != null" >
+          AND realRemainCount = #{realRemainCount}
+        </if>
+        <if test="planRemainCount != null" >
+          AND planRemainCount = #{planRemainCount}
+        </if>
+        <if test="price != null" >
+          AND price = #{price}
+        </if>
+        <if test="orderCostDay != null" >
+          AND orderCostDay = #{orderCostDay}
+        </if>
+        <if test="producedAt != null" >
+          AND producedAt = #{producedAt}
+        </if>
+        <if test="expiredAt != null" >
+          AND expiredAt = #{expiredAt}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <if test="description != null" >
+          AND description = #{description}
+        </if>
+        <if test="model != null" >
+          AND model = #{model}
+        </if>
+        <if test="manufacturerName != null" >
+          AND manufacturerName = #{manufacturerName}
+        </if>
+        <if test="procurementId != null" >
+          AND procurementId = #{procurementId}
+        </if>
+        <if test="supplierId != null" >
+          AND supplierId = #{supplierId}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.finance.StockBatch" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM stock_batch
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM stock_batch
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.finance.StockBatch" >
+    UPDATE stock_batch
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      stockId = #{stockId},
+      stockTypeId = #{stockTypeId},
+      parentId = #{parentId},
+      packageUnit = #{packageUnit},
+      sumCount = #{sumCount},
+      realRemainCount = #{realRemainCount},
+      planRemainCount = #{planRemainCount},
+      price = #{price},
+      orderCostDay = #{orderCostDay},
+      producedAt = #{producedAt},
+      expiredAt = #{expiredAt},
+      status = #{status},
+      remark = #{remark},
+      description = #{description},
+      model = #{model},
+      manufacturerName = #{manufacturerName},
+      procurementId = #{procurementId},
+      supplierId = #{supplierId},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.finance.StockBatch" >
+    UPDATE stock_batch
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="stockId != null" >
+        stockId = #{stockId},
+      </if>
+      <if test="stockTypeId != null" >
+        stockTypeId = #{stockTypeId},
+      </if>
+      <if test="parentId != null" >
+        parentId = #{parentId},
+      </if>
+      <if test="packageUnit != null" >
+        packageUnit = #{packageUnit},
+      </if>
+      <if test="sumCount != null" >
+        sumCount = #{sumCount},
+      </if>
+      <if test="realRemainCount != null" >
+        realRemainCount = #{realRemainCount},
+      </if>
+      <if test="planRemainCount != null" >
+        planRemainCount = #{planRemainCount},
+      </if>
+      <if test="price != null" >
+        price = #{price},
+      </if>
+      <if test="orderCostDay != null" >
+        orderCostDay = #{orderCostDay},
+      </if>
+      <if test="producedAt != null" >
+        producedAt = #{producedAt},
+      </if>
+      <if test="expiredAt != null" >
+        expiredAt = #{expiredAt},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="model != null" >
+        model = #{model},
+      </if>
+      <if test="manufacturerName != null" >
+        manufacturerName = #{manufacturerName},
+      </if>
+      <if test="procurementId != null" >
+        procurementId = #{procurementId},
+      </if>
+      <if test="supplierId != null" >
+        supplierId = #{supplierId},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE stock_batch SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE stock_batch SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.finance.StockBatch" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO stock_batch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      stockId,
+      stockTypeId,
+      parentId,
+      packageUnit,
+      sumCount,
+      realRemainCount,
+      planRemainCount,
+      price,
+      orderCostDay,
+      producedAt,
+      expiredAt,
+      status,
+      remark,
+      description,
+      model,
+      manufacturerName,
+      procurementId,
+      supplierId,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{stockId},
+      #{stockTypeId},
+      #{parentId},
+      #{packageUnit},
+      #{sumCount},
+      #{realRemainCount},
+      #{planRemainCount},
+      #{price},
+      #{orderCostDay},
+      #{producedAt},
+      #{expiredAt},
+      #{status},
+      #{remark},
+      #{description},
+      #{model},
+      #{manufacturerName},
+      #{procurementId},
+      #{supplierId},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.finance.StockBatch" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO stock_batch 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="stockId != null" >
+        stockId,
+      </if>
+      <if test="stockTypeId != null" >
+        stockTypeId,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="packageUnit != null" >
+        packageUnit,
+      </if>
+      <if test="sumCount != null" >
+        sumCount,
+      </if>
+      <if test="realRemainCount != null" >
+        realRemainCount,
+      </if>
+      <if test="planRemainCount != null" >
+        planRemainCount,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="orderCostDay != null" >
+        orderCostDay,
+      </if>
+      <if test="producedAt != null" >
+        producedAt,
+      </if>
+      <if test="expiredAt != null" >
+        expiredAt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="manufacturerName != null" >
+        manufacturerName,
+      </if>
+      <if test="procurementId != null" >
+        procurementId,
+      </if>
+      <if test="supplierId != null" >
+        supplierId,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="stockId != null" >
+        #{stockId},
+      </if>
+      <if test="stockTypeId != null" >
+        #{stockTypeId},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="packageUnit != null" >
+        #{packageUnit},
+      </if>
+      <if test="sumCount != null" >
+        #{sumCount},
+      </if>
+      <if test="realRemainCount != null" >
+        #{realRemainCount},
+      </if>
+      <if test="planRemainCount != null" >
+        #{planRemainCount},
+      </if>
+      <if test="price != null" >
+        #{price},
+      </if>
+      <if test="orderCostDay != null" >
+        #{orderCostDay},
+      </if>
+      <if test="producedAt != null" >
+        #{producedAt},
+      </if>
+      <if test="expiredAt != null" >
+        #{expiredAt},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="model != null" >
+        #{model},
+      </if>
+      <if test="manufacturerName != null" >
+        #{manufacturerName},
+      </if>
+      <if test="procurementId != null" >
+        #{procurementId},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM stock_batch WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM stock_batch
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <!--TODO: 此文件前文有修改, 更新的时不能全部替换-->
+
+  <!-- 按条件查询数据详情 -->
+  <select id="selectInfoByCondition" resultType="com.welearn.entity.vo.response.finance.StockBatchInfo" parameterType="com.welearn.entity.qo.finance.StockBatchQueryCondition" >
+    SELECT
+    sb.*, st.type as contentType, st.itemTypeId, st.itemTypeName, st.specification, st.description
+    FROM stock_batch sb
+    JOIN stock_type st ON sb.stockTypeId = st.id AND st.isEnable = true
+    <where>
+      <if test="id != null" >
+        sb.id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND sb.createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND sb.updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND sb.isEnable = #{isEnable}
+      </if>
+      <if test="stockId != null" >
+        AND sb.stockId = #{stockId}
+      </if>
+      <if test="stockTypeId != null" >
+        AND sb.stockTypeId = #{stockTypeId}
+      </if>
+      <if test="parentId != null" >
+        AND sb.parentId = #{parentId}
+      </if>
+      <if test="packageUnit != null" >
+        AND sb.packageUnit = #{packageUnit}
+      </if>
+      <if test="sumCount != null" >
+        AND sb.sumCount = #{sumCount}
+      </if>
+      <if test="realRemainCount != null" >
+        AND sb.realRemainCount = #{realRemainCount}
+      </if>
+      <if test="planRemainCount != null" >
+        AND sb.planRemainCount = #{planRemainCount}
+      </if>
+      <if test="price != null" >
+        AND sb.price = #{price}
+      </if>
+      <if test="orderCostDay != null" >
+        AND sb.orderCostDay = #{orderCostDay}
+      </if>
+      <if test="producedAt != null" >
+        AND sb.producedAt = #{producedAt}
+      </if>
+      <if test="expiredAt != null" >
+        AND sb.expiredAt = #{expiredAt}
+      </if>
+      <if test="status != null" >
+        AND sb.status = #{status}
+      </if>
+      <if test="model != null" >
+        AND sb.model = #{model}
+      </if>
+      <if test="manufacturerName != null" >
+        AND sb.manufacturerName = #{manufacturerName}
+      </if>
+      <if test="procurementId != null" >
+        AND sb.procurementId = #{procurementId}
+      </if>
+      <if test="supplierId != null" >
+        AND sb.supplierId = #{supplierId}
+      </if>
+      <!-- START USER DEFINED -->
+      <if test="contentType != null" >
+        AND st.type = #{contentType}
+      </if>
+      <if test="itemTypeId != null" >
+        AND st.itemTypeId = #{itemTypeId}
+      </if>
+      <if test="specification != null" >
+        AND st.specification = #{specification}
+      </if>
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+</mapper>

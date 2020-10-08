@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : re_maintenance_task_user
+  Comment  : 维护任务与维护人员关联
+  Mapper   : com.welearn.mapper.ReMaintenanceTaskUserMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/1/3 13:23:39
+-->
+<mapper namespace="com.welearn.mapper.ReMaintenanceTaskUserMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    taskId,
+    engineerId,
+    engineerName
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    re_maintenance_task_user.id AS id,
+    re_maintenance_task_user.createdAt AS createdAt,
+    re_maintenance_task_user.updatedAt AS updatedAt,
+    re_maintenance_task_user.isEnable AS isEnable,
+    re_maintenance_task_user.taskId AS taskId,
+    re_maintenance_task_user.engineerId AS engineerId,
+    re_maintenance_task_user.engineerName AS engineerName
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 维护任务id -->
+    <result column="taskId" property="taskId"/>
+    <!-- Comment: 维护人员id -->
+    <result column="engineerId" property="engineerId"/>
+    <!-- Comment: 维护人员名称 -->
+    <result column="engineerName" property="engineerName"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_maintenance_task_user
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" parameterType="com.welearn.entity.qo.equipment.ReMaintenanceTaskUserQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_maintenance_task_user
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="taskId != null" >
+          AND taskId = #{taskId}
+        </if>
+        <if test="engineerId != null" >
+          AND engineerId = #{engineerId}
+        </if>
+        <if test="engineerName != null" >
+          AND engineerName = #{engineerName}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_maintenance_task_user
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM re_maintenance_task_user
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" >
+    UPDATE re_maintenance_task_user
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      taskId = #{taskId},
+      engineerId = #{engineerId},
+      engineerName = #{engineerName},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" >
+    UPDATE re_maintenance_task_user
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="taskId != null" >
+        taskId = #{taskId},
+      </if>
+      <if test="engineerId != null" >
+        engineerId = #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        engineerName = #{engineerName},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE re_maintenance_task_user SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE re_maintenance_task_user SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_maintenance_task_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      taskId,
+      engineerId,
+      engineerName,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{taskId},
+      #{engineerId},
+      #{engineerName},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.ReMaintenanceTaskUser" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_maintenance_task_user 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="taskId != null" >
+        taskId,
+      </if>
+      <if test="engineerId != null" >
+        engineerId,
+      </if>
+      <if test="engineerName != null" >
+        engineerName,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="taskId != null" >
+        #{taskId},
+      </if>
+      <if test="engineerId != null" >
+        #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        #{engineerName},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM re_maintenance_task_user WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM re_maintenance_task_user
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

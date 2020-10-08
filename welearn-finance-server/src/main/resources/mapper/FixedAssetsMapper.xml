@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : fixed_assets
+  Comment  : 固定资产
+  Mapper   : com.welearn.mapper.FixedAssetsMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/3/14 17:43:06
+-->
+<mapper namespace="com.welearn.mapper.FixedAssetsMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    itemType,
+    itemId,
+    itemName,
+    itemSpecification,
+    itemModel,
+    itemManufacturer,
+    no,
+    type,
+    origin,
+    status,
+    accountingAt,
+    originalValue,
+    residualValue,
+    estimatedNetSalvageRate,
+    expectedUsefulLife,
+    sumWorkloadExpectancy,
+    isDepreciation,
+    depreciationMethod,
+    monthsOfDepreciation,
+    accumulatedDepreciation,
+    departmentId,
+    departmentName,
+    address,
+    companyId,
+    companyName,
+    creatorId,
+    creatorName,
+    isCheck,
+    applyId,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    fixed_assets.id AS id,
+    fixed_assets.createdAt AS createdAt,
+    fixed_assets.updatedAt AS updatedAt,
+    fixed_assets.isEnable AS isEnable,
+    fixed_assets.itemType AS itemType,
+    fixed_assets.itemId AS itemId,
+    fixed_assets.itemName AS itemName,
+    fixed_assets.itemSpecification AS itemSpecification,
+    fixed_assets.itemModel AS itemModel,
+    fixed_assets.itemManufacturer AS itemManufacturer,
+    fixed_assets.no AS no,
+    fixed_assets.type AS type,
+    fixed_assets.origin AS origin,
+    fixed_assets.status AS status,
+    fixed_assets.accountingAt AS accountingAt,
+    fixed_assets.originalValue AS originalValue,
+    fixed_assets.residualValue AS residualValue,
+    fixed_assets.estimatedNetSalvageRate AS estimatedNetSalvageRate,
+    fixed_assets.expectedUsefulLife AS expectedUsefulLife,
+    fixed_assets.sumWorkloadExpectancy AS sumWorkloadExpectancy,
+    fixed_assets.isDepreciation AS isDepreciation,
+    fixed_assets.depreciationMethod AS depreciationMethod,
+    fixed_assets.monthsOfDepreciation AS monthsOfDepreciation,
+    fixed_assets.accumulatedDepreciation AS accumulatedDepreciation,
+    fixed_assets.departmentId AS departmentId,
+    fixed_assets.departmentName AS departmentName,
+    fixed_assets.address AS address,
+    fixed_assets.companyId AS companyId,
+    fixed_assets.companyName AS companyName,
+    fixed_assets.creatorId AS creatorId,
+    fixed_assets.creatorName AS creatorName,
+    fixed_assets.isCheck AS isCheck,
+    fixed_assets.applyId AS applyId,
+    fixed_assets.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.finance.FixedAssets" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 物品类型: 0-医疗设备 -->
+    <result column="itemType" property="itemType"/>
+    <!-- Comment: 物品id -->
+    <result column="itemId" property="itemId"/>
+    <!-- Comment: 物品名称 -->
+    <result column="itemName" property="itemName"/>
+    <!-- Comment: 物品规格 -->
+    <result column="itemSpecification" property="itemSpecification"/>
+    <!-- Comment: 物品型号 -->
+    <result column="itemModel" property="itemModel"/>
+    <!-- Comment: 物品生产厂商名称 -->
+    <result column="itemManufacturer" property="itemManufacturer"/>
+    <!-- Comment: 固定资产编号 -->
+    <result column="no" property="no"/>
+    <!-- Comment: 固定资产类型: 0-生产用固定资产 1-非生产用固定资产 2-租出固定资产 3-未使用固定资产 4-不需用固定资产 5-融资租赁固定资产 6-接受捐赠固定资产 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 资产来源: 0-数据导入 1-采购添加  -->
+    <result column="origin" property="origin"/>
+    <!-- Comment: 状态: 0-使用中的固定资产 1-未使用的固定资产 2-不需用的固定资产 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 入账时间 -->
+    <result column="accountingAt" property="accountingAt"/>
+    <!-- Comment: 原值 -->
+    <result column="originalValue" property="originalValue"/>
+    <!-- Comment: 残值 -->
+    <result column="residualValue" property="residualValue"/>
+    <!-- Comment: 预计净残值率(0-100.00) -->
+    <result column="estimatedNetSalvageRate" property="estimatedNetSalvageRate"/>
+    <!-- Comment: 预计使用年限 -->
+    <result column="expectedUsefulLife" property="expectedUsefulLife"/>
+    <!-- Comment: 预计总工作量 -->
+    <result column="sumWorkloadExpectancy" property="sumWorkloadExpectancy"/>
+    <!-- Comment: 是否折旧：0-不折旧，1-折旧 -->
+    <result column="isDepreciation" property="isDepreciation"/>
+    <!-- Comment: 折旧方式: 0-平均年限折旧法Ⅰ 1-平均年限折旧法Ⅱ 2-年数总和法 3-双倍余额递减法 4-工作量法 -->
+    <result column="depreciationMethod" property="depreciationMethod"/>
+    <!-- Comment: 已提月份 -->
+    <result column="monthsOfDepreciation" property="monthsOfDepreciation"/>
+    <!-- Comment: 累计折旧 -->
+    <result column="accumulatedDepreciation" property="accumulatedDepreciation"/>
+    <!-- Comment: 部门id -->
+    <result column="departmentId" property="departmentId"/>
+    <!-- Comment: 部门名称 -->
+    <result column="departmentName" property="departmentName"/>
+    <!-- Comment: 资产位置 -->
+    <result column="address" property="address"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 公司名称 -->
+    <result column="companyName" property="companyName"/>
+    <!-- Comment: 创建人id -->
+    <result column="creatorId" property="creatorId"/>
+    <!-- Comment: 创建人名称 -->
+    <result column="creatorName" property="creatorName"/>
+    <!-- Comment: 是否入账确认：0-未确认 1-已确认 -->
+    <result column="isCheck" property="isCheck"/>
+    <!-- Comment: 入账申请id -->
+    <result column="applyId" property="applyId"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.finance.FixedAssets" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM fixed_assets
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.finance.FixedAssets" parameterType="com.welearn.entity.qo.finance.FixedAssetsQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM fixed_assets
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="itemType != null" >
+          AND itemType = #{itemType}
+        </if>
+        <if test="itemId != null" >
+          AND itemId = #{itemId}
+        </if>
+        <if test="itemName != null" >
+          AND itemName = #{itemName}
+        </if>
+        <if test="itemSpecification != null" >
+          AND itemSpecification = #{itemSpecification}
+        </if>
+        <if test="itemModel != null" >
+          AND itemModel = #{itemModel}
+        </if>
+        <if test="itemManufacturer != null" >
+          AND itemManufacturer = #{itemManufacturer}
+        </if>
+        <if test="no != null" >
+          AND no = #{no}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="origin != null" >
+          AND origin = #{origin}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="accountingAt != null" >
+          AND accountingAt = #{accountingAt}
+        </if>
+        <if test="originalValue != null" >
+          AND originalValue = #{originalValue}
+        </if>
+        <if test="residualValue != null" >
+          AND residualValue = #{residualValue}
+        </if>
+        <if test="estimatedNetSalvageRate != null" >
+          AND estimatedNetSalvageRate = #{estimatedNetSalvageRate}
+        </if>
+        <if test="expectedUsefulLife != null" >
+          AND expectedUsefulLife = #{expectedUsefulLife}
+        </if>
+        <if test="sumWorkloadExpectancy != null" >
+          AND sumWorkloadExpectancy = #{sumWorkloadExpectancy}
+        </if>
+        <if test="isDepreciation != null" >
+          AND isDepreciation = #{isDepreciation}
+        </if>
+        <if test="depreciationMethod != null" >
+          AND depreciationMethod = #{depreciationMethod}
+        </if>
+        <if test="monthsOfDepreciation != null" >
+          AND monthsOfDepreciation = #{monthsOfDepreciation}
+        </if>
+        <if test="accumulatedDepreciation != null" >
+          AND accumulatedDepreciation = #{accumulatedDepreciation}
+        </if>
+        <if test="departmentId != null" >
+          AND departmentId = #{departmentId}
+        </if>
+        <if test="departmentName != null" >
+          AND departmentName = #{departmentName}
+        </if>
+        <if test="address != null" >
+          AND address = #{address}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="companyName != null" >
+          AND companyName = #{companyName}
+        </if>
+        <if test="creatorId != null" >
+          AND creatorId = #{creatorId}
+        </if>
+        <if test="creatorName != null" >
+          AND creatorName = #{creatorName}
+        </if>
+        <if test="isCheck != null" >
+          AND isCheck = #{isCheck}
+        </if>
+        <if test="applyId != null" >
+          AND applyId = #{applyId}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.finance.FixedAssets" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM fixed_assets
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM fixed_assets
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.finance.FixedAssets" >
+    UPDATE fixed_assets
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      itemType = #{itemType},
+      itemId = #{itemId},
+      itemName = #{itemName},
+      itemSpecification = #{itemSpecification},
+      itemModel = #{itemModel},
+      itemManufacturer = #{itemManufacturer},
+      no = #{no},
+      type = #{type},
+      origin = #{origin},
+      status = #{status},
+      accountingAt = #{accountingAt},
+      originalValue = #{originalValue},
+      residualValue = #{residualValue},
+      estimatedNetSalvageRate = #{estimatedNetSalvageRate},
+      expectedUsefulLife = #{expectedUsefulLife},
+      sumWorkloadExpectancy = #{sumWorkloadExpectancy},
+      isDepreciation = #{isDepreciation},
+      depreciationMethod = #{depreciationMethod},
+      monthsOfDepreciation = #{monthsOfDepreciation},
+      accumulatedDepreciation = #{accumulatedDepreciation},
+      departmentId = #{departmentId},
+      departmentName = #{departmentName},
+      address = #{address},
+      companyId = #{companyId},
+      companyName = #{companyName},
+      creatorId = #{creatorId},
+      creatorName = #{creatorName},
+      isCheck = #{isCheck},
+      applyId = #{applyId},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.finance.FixedAssets" >
+    UPDATE fixed_assets
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="itemType != null" >
+        itemType = #{itemType},
+      </if>
+      <if test="itemId != null" >
+        itemId = #{itemId},
+      </if>
+      <if test="itemName != null" >
+        itemName = #{itemName},
+      </if>
+      <if test="itemSpecification != null" >
+        itemSpecification = #{itemSpecification},
+      </if>
+      <if test="itemModel != null" >
+        itemModel = #{itemModel},
+      </if>
+      <if test="itemManufacturer != null" >
+        itemManufacturer = #{itemManufacturer},
+      </if>
+      <if test="no != null" >
+        no = #{no},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="origin != null" >
+        origin = #{origin},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="accountingAt != null" >
+        accountingAt = #{accountingAt},
+      </if>
+      <if test="originalValue != null" >
+        originalValue = #{originalValue},
+      </if>
+      <if test="residualValue != null" >
+        residualValue = #{residualValue},
+      </if>
+      <if test="estimatedNetSalvageRate != null" >
+        estimatedNetSalvageRate = #{estimatedNetSalvageRate},
+      </if>
+      <if test="expectedUsefulLife != null" >
+        expectedUsefulLife = #{expectedUsefulLife},
+      </if>
+      <if test="sumWorkloadExpectancy != null" >
+        sumWorkloadExpectancy = #{sumWorkloadExpectancy},
+      </if>
+      <if test="isDepreciation != null" >
+        isDepreciation = #{isDepreciation},
+      </if>
+      <if test="depreciationMethod != null" >
+        depreciationMethod = #{depreciationMethod},
+      </if>
+      <if test="monthsOfDepreciation != null" >
+        monthsOfDepreciation = #{monthsOfDepreciation},
+      </if>
+      <if test="accumulatedDepreciation != null" >
+        accumulatedDepreciation = #{accumulatedDepreciation},
+      </if>
+      <if test="departmentId != null" >
+        departmentId = #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        departmentName = #{departmentName},
+      </if>
+      <if test="address != null" >
+        address = #{address},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="companyName != null" >
+        companyName = #{companyName},
+      </if>
+      <if test="creatorId != null" >
+        creatorId = #{creatorId},
+      </if>
+      <if test="creatorName != null" >
+        creatorName = #{creatorName},
+      </if>
+      <if test="isCheck != null" >
+        isCheck = #{isCheck},
+      </if>
+      <if test="applyId != null" >
+        applyId = #{applyId},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE fixed_assets SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE fixed_assets SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.finance.FixedAssets" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO fixed_assets
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      itemType,
+      itemId,
+      itemName,
+      itemSpecification,
+      itemModel,
+      itemManufacturer,
+      no,
+      type,
+      origin,
+      status,
+      accountingAt,
+      originalValue,
+      residualValue,
+      estimatedNetSalvageRate,
+      expectedUsefulLife,
+      sumWorkloadExpectancy,
+      isDepreciation,
+      depreciationMethod,
+      monthsOfDepreciation,
+      accumulatedDepreciation,
+      departmentId,
+      departmentName,
+      address,
+      companyId,
+      companyName,
+      creatorId,
+      creatorName,
+      isCheck,
+      applyId,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{itemType},
+      #{itemId},
+      #{itemName},
+      #{itemSpecification},
+      #{itemModel},
+      #{itemManufacturer},
+      #{no},
+      #{type},
+      #{origin},
+      #{status},
+      #{accountingAt},
+      #{originalValue},
+      #{residualValue},
+      #{estimatedNetSalvageRate},
+      #{expectedUsefulLife},
+      #{sumWorkloadExpectancy},
+      #{isDepreciation},
+      #{depreciationMethod},
+      #{monthsOfDepreciation},
+      #{accumulatedDepreciation},
+      #{departmentId},
+      #{departmentName},
+      #{address},
+      #{companyId},
+      #{companyName},
+      #{creatorId},
+      #{creatorName},
+      #{isCheck},
+      #{applyId},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.finance.FixedAssets" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO fixed_assets 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="itemType != null" >
+        itemType,
+      </if>
+      <if test="itemId != null" >
+        itemId,
+      </if>
+      <if test="itemName != null" >
+        itemName,
+      </if>
+      <if test="itemSpecification != null" >
+        itemSpecification,
+      </if>
+      <if test="itemModel != null" >
+        itemModel,
+      </if>
+      <if test="itemManufacturer != null" >
+        itemManufacturer,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="accountingAt != null" >
+        accountingAt,
+      </if>
+      <if test="originalValue != null" >
+        originalValue,
+      </if>
+      <if test="residualValue != null" >
+        residualValue,
+      </if>
+      <if test="estimatedNetSalvageRate != null" >
+        estimatedNetSalvageRate,
+      </if>
+      <if test="expectedUsefulLife != null" >
+        expectedUsefulLife,
+      </if>
+      <if test="sumWorkloadExpectancy != null" >
+        sumWorkloadExpectancy,
+      </if>
+      <if test="isDepreciation != null" >
+        isDepreciation,
+      </if>
+      <if test="depreciationMethod != null" >
+        depreciationMethod,
+      </if>
+      <if test="monthsOfDepreciation != null" >
+        monthsOfDepreciation,
+      </if>
+      <if test="accumulatedDepreciation != null" >
+        accumulatedDepreciation,
+      </if>
+      <if test="departmentId != null" >
+        departmentId,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="companyName != null" >
+        companyName,
+      </if>
+      <if test="creatorId != null" >
+        creatorId,
+      </if>
+      <if test="creatorName != null" >
+        creatorName,
+      </if>
+      <if test="isCheck != null" >
+        isCheck,
+      </if>
+      <if test="applyId != null" >
+        applyId,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="itemType != null" >
+        #{itemType},
+      </if>
+      <if test="itemId != null" >
+        #{itemId},
+      </if>
+      <if test="itemName != null" >
+        #{itemName},
+      </if>
+      <if test="itemSpecification != null" >
+        #{itemSpecification},
+      </if>
+      <if test="itemModel != null" >
+        #{itemModel},
+      </if>
+      <if test="itemManufacturer != null" >
+        #{itemManufacturer},
+      </if>
+      <if test="no != null" >
+        #{no},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="origin != null" >
+        #{origin},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="accountingAt != null" >
+        #{accountingAt},
+      </if>
+      <if test="originalValue != null" >
+        #{originalValue},
+      </if>
+      <if test="residualValue != null" >
+        #{residualValue},
+      </if>
+      <if test="estimatedNetSalvageRate != null" >
+        #{estimatedNetSalvageRate},
+      </if>
+      <if test="expectedUsefulLife != null" >
+        #{expectedUsefulLife},
+      </if>
+      <if test="sumWorkloadExpectancy != null" >
+        #{sumWorkloadExpectancy},
+      </if>
+      <if test="isDepreciation != null" >
+        #{isDepreciation},
+      </if>
+      <if test="depreciationMethod != null" >
+        #{depreciationMethod},
+      </if>
+      <if test="monthsOfDepreciation != null" >
+        #{monthsOfDepreciation},
+      </if>
+      <if test="accumulatedDepreciation != null" >
+        #{accumulatedDepreciation},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName},
+      </if>
+      <if test="address != null" >
+        #{address},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="companyName != null" >
+        #{companyName},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName},
+      </if>
+      <if test="isCheck != null" >
+        #{isCheck},
+      </if>
+      <if test="applyId != null" >
+        #{applyId},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM fixed_assets WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM fixed_assets
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="equipmentValueStatistic" resultType="com.welearn.entity.po.finance.FixedAssets">
+    select itemId, departmentId, originalValue, residualValue
+    from fixed_assets
+    where companyId = #{companyId} and itemType = 0 and isEnable = true and isCheck = true
+  </select>
+</mapper>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : re_equipment_type_item_description
+  Comment  : 设备类型品名描述关联
+  Mapper   : com.welearn.mapper.ReEquipmentTypeItemDescriptionMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/10/19 14:01:59
+-->
+<mapper namespace="com.welearn.mapper.ReEquipmentTypeItemDescriptionMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    itemId,
+    descriptionId
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    re_equipment_type_item_description.id AS id,
+    re_equipment_type_item_description.createdAt AS createdAt,
+    re_equipment_type_item_description.updatedAt AS updatedAt,
+    re_equipment_type_item_description.isEnable AS isEnable,
+    re_equipment_type_item_description.itemId AS itemId,
+    re_equipment_type_item_description.descriptionId AS descriptionId
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 品名id -->
+    <result column="itemId" property="itemId"/>
+    <!-- Comment: 描述id -->
+    <result column="descriptionId" property="descriptionId"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_equipment_type_item_description
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" parameterType="com.welearn.entity.qo.equipment.ReEquipmentTypeItemDescriptionQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_equipment_type_item_description
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="itemId != null" >
+          AND itemId = #{itemId}
+        </if>
+        <if test="descriptionId != null" >
+          AND descriptionId = #{descriptionId}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_equipment_type_item_description
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM re_equipment_type_item_description
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" >
+    UPDATE re_equipment_type_item_description
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      itemId = #{itemId},
+      descriptionId = #{descriptionId},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" >
+    UPDATE re_equipment_type_item_description
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="itemId != null" >
+        itemId = #{itemId},
+      </if>
+      <if test="descriptionId != null" >
+        descriptionId = #{descriptionId},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE re_equipment_type_item_description SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE re_equipment_type_item_description SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_equipment_type_item_description
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      itemId,
+      descriptionId,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{itemId},
+      #{descriptionId},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.ReEquipmentTypeItemDescription" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_equipment_type_item_description 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="itemId != null" >
+        itemId,
+      </if>
+      <if test="descriptionId != null" >
+        descriptionId,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="itemId != null" >
+        #{itemId},
+      </if>
+      <if test="descriptionId != null" >
+        #{descriptionId},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM re_equipment_type_item_description WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM re_equipment_type_item_description
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

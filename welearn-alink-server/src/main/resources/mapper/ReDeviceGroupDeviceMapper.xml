@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : re_device_group_device
+  Comment  : 设备分组与设备的关联
+  Mapper   : com.welearn.mapper.ReDeviceGroupDeviceMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/7/1 11:26:39
+-->
+<mapper namespace="com.welearn.mapper.ReDeviceGroupDeviceMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    groupId,
+    iotId
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    re_device_group_device.id AS id,
+    re_device_group_device.createdAt AS createdAt,
+    re_device_group_device.updatedAt AS updatedAt,
+    re_device_group_device.isEnable AS isEnable,
+    re_device_group_device.groupId AS groupId,
+    re_device_group_device.iotId AS iotId
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.alink.ReDeviceGroupDevice" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 组id -->
+    <result column="groupId" property="groupId"/>
+    <!-- Comment: 设备id -->
+    <result column="iotId" property="iotId"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.alink.ReDeviceGroupDevice" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_device_group_device
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.alink.ReDeviceGroupDevice" parameterType="com.welearn.entity.qo.alink.ReDeviceGroupDeviceQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_device_group_device
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="groupId != null" >
+          AND groupId = #{groupId}
+        </if>
+        <if test="iotId != null" >
+          AND iotId = #{iotId}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.alink.ReDeviceGroupDevice" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_device_group_device
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM re_device_group_device
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.alink.ReDeviceGroupDevice" >
+    UPDATE re_device_group_device
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      groupId = #{groupId},
+      iotId = #{iotId},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.alink.ReDeviceGroupDevice" >
+    UPDATE re_device_group_device
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="groupId != null" >
+        groupId = #{groupId},
+      </if>
+      <if test="iotId != null" >
+        iotId = #{iotId},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE re_device_group_device SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE re_device_group_device SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.alink.ReDeviceGroupDevice" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_device_group_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      groupId,
+      iotId,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{groupId},
+      #{iotId},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.alink.ReDeviceGroupDevice" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_device_group_device 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="groupId != null" >
+        groupId,
+      </if>
+      <if test="iotId != null" >
+        iotId,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="groupId != null" >
+        #{groupId},
+      </if>
+      <if test="iotId != null" >
+        #{iotId},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM re_device_group_device WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM re_device_group_device
+  </delete>
+
+  <!-- START USER DEFINED -->
+  <delete id="deleteByGroupId">
+    DELETE FROM re_device_group_device where groupId = #{groupId}
+  </delete>
+</mapper>

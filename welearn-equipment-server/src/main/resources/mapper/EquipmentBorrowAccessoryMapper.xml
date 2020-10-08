@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : equipment_borrow_accessory
+  Comment  : 设备借用附件项
+  Mapper   : com.welearn.mapper.EquipmentBorrowAccessoryMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/3/26 16:20:19
+-->
+<mapper namespace="com.welearn.mapper.EquipmentBorrowAccessoryMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentId,
+    borrowId,
+    accessoryId,
+    borrowUserId,
+    loanOutUserId,
+    checkUserId,
+    checkUserName,
+    status,
+    checkedAt
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    equipment_borrow_accessory.id AS id,
+    equipment_borrow_accessory.createdAt AS createdAt,
+    equipment_borrow_accessory.updatedAt AS updatedAt,
+    equipment_borrow_accessory.isEnable AS isEnable,
+    equipment_borrow_accessory.equipmentId AS equipmentId,
+    equipment_borrow_accessory.borrowId AS borrowId,
+    equipment_borrow_accessory.accessoryId AS accessoryId,
+    equipment_borrow_accessory.borrowUserId AS borrowUserId,
+    equipment_borrow_accessory.loanOutUserId AS loanOutUserId,
+    equipment_borrow_accessory.checkUserId AS checkUserId,
+    equipment_borrow_accessory.checkUserName AS checkUserName,
+    equipment_borrow_accessory.status AS status,
+    equipment_borrow_accessory.checkedAt AS checkedAt
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 设备id -->
+    <result column="equipmentId" property="equipmentId"/>
+    <!-- Comment: 设备借用id -->
+    <result column="borrowId" property="borrowId"/>
+    <!-- Comment: 设备附件id -->
+    <result column="accessoryId" property="accessoryId"/>
+    <!-- Comment: 借用人员id -->
+    <result column="borrowUserId" property="borrowUserId"/>
+    <!-- Comment: 借出人员id -->
+    <result column="loanOutUserId" property="loanOutUserId"/>
+    <!-- Comment: 验收人员id -->
+    <result column="checkUserId" property="checkUserId"/>
+    <!-- Comment: 验收人员名称 -->
+    <result column="checkUserName" property="checkUserName"/>
+    <!-- Comment: 验收结果: 0-正常 1-损坏 2-缺失 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 验收时间 -->
+    <result column="checkedAt" property="checkedAt"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_borrow_accessory
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" parameterType="com.welearn.entity.qo.equipment.EquipmentBorrowAccessoryQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_borrow_accessory
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentId != null" >
+          AND equipmentId = #{equipmentId}
+        </if>
+        <if test="borrowId != null" >
+          AND borrowId = #{borrowId}
+        </if>
+        <if test="accessoryId != null" >
+          AND accessoryId = #{accessoryId}
+        </if>
+        <if test="borrowUserId != null" >
+          AND borrowUserId = #{borrowUserId}
+        </if>
+        <if test="loanOutUserId != null" >
+          AND loanOutUserId = #{loanOutUserId}
+        </if>
+        <if test="checkUserId != null" >
+          AND checkUserId = #{checkUserId}
+        </if>
+        <if test="checkUserName != null" >
+          AND checkUserName = #{checkUserName}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="checkedAt != null" >
+          AND checkedAt = #{checkedAt}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_borrow_accessory
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM equipment_borrow_accessory
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" >
+    UPDATE equipment_borrow_accessory
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentId = #{equipmentId},
+      borrowId = #{borrowId},
+      accessoryId = #{accessoryId},
+      borrowUserId = #{borrowUserId},
+      loanOutUserId = #{loanOutUserId},
+      checkUserId = #{checkUserId},
+      checkUserName = #{checkUserName},
+      status = #{status},
+      checkedAt = #{checkedAt},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" >
+    UPDATE equipment_borrow_accessory
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId = #{equipmentId},
+      </if>
+      <if test="borrowId != null" >
+        borrowId = #{borrowId},
+      </if>
+      <if test="accessoryId != null" >
+        accessoryId = #{accessoryId},
+      </if>
+      <if test="borrowUserId != null" >
+        borrowUserId = #{borrowUserId},
+      </if>
+      <if test="loanOutUserId != null" >
+        loanOutUserId = #{loanOutUserId},
+      </if>
+      <if test="checkUserId != null" >
+        checkUserId = #{checkUserId},
+      </if>
+      <if test="checkUserName != null" >
+        checkUserName = #{checkUserName},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="checkedAt != null" >
+        checkedAt = #{checkedAt},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE equipment_borrow_accessory SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE equipment_borrow_accessory SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_borrow_accessory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentId,
+      borrowId,
+      accessoryId,
+      borrowUserId,
+      loanOutUserId,
+      checkUserId,
+      checkUserName,
+      status,
+      checkedAt,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentId},
+      #{borrowId},
+      #{accessoryId},
+      #{borrowUserId},
+      #{loanOutUserId},
+      #{checkUserId},
+      #{checkUserName},
+      #{status},
+      #{checkedAt},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.EquipmentBorrowAccessory" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_borrow_accessory 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId,
+      </if>
+      <if test="borrowId != null" >
+        borrowId,
+      </if>
+      <if test="accessoryId != null" >
+        accessoryId,
+      </if>
+      <if test="borrowUserId != null" >
+        borrowUserId,
+      </if>
+      <if test="loanOutUserId != null" >
+        loanOutUserId,
+      </if>
+      <if test="checkUserId != null" >
+        checkUserId,
+      </if>
+      <if test="checkUserName != null" >
+        checkUserName,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="checkedAt != null" >
+        checkedAt,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId},
+      </if>
+      <if test="borrowId != null" >
+        #{borrowId},
+      </if>
+      <if test="accessoryId != null" >
+        #{accessoryId},
+      </if>
+      <if test="borrowUserId != null" >
+        #{borrowUserId},
+      </if>
+      <if test="loanOutUserId != null" >
+        #{loanOutUserId},
+      </if>
+      <if test="checkUserId != null" >
+        #{checkUserId},
+      </if>
+      <if test="checkUserName != null" >
+        #{checkUserName},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="checkedAt != null" >
+        #{checkedAt},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM equipment_borrow_accessory WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM equipment_borrow_accessory
+  </delete>
+
+  <!-- START USER DEFINED -->
+  <select id="searchInfo" resultType="com.welearn.entity.vo.response.equipment.EquipmentBorrowAccessoryInfo" parameterType="com.welearn.entity.qo.equipment.EquipmentBorrowAccessoryQueryCondition" >
+    SELECT
+      eba.*, ea.type, ea.canBorrow, ea.status as accessoryStatus, ea.name, ea.specification, ea.description, ea.photos, ea.remark
+    FROM equipment_borrow_accessory eba
+    join equipment_accessory ea on ea.id = eba.accessoryId and ea.isEnable = true
+    <where>
+      <if test="id != null" >
+        eba.id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND eba.createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND eba.updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND eba.isEnable = #{isEnable}
+      </if>
+      <if test="equipmentId != null" >
+        AND eba.equipmentId = #{equipmentId}
+      </if>
+      <if test="borrowId != null" >
+        AND eba.borrowId = #{borrowId}
+      </if>
+      <if test="accessoryId != null" >
+        AND eba.accessoryId = #{accessoryId}
+      </if>
+      <if test="borrowUserId != null" >
+        AND eba.borrowUserId = #{borrowUserId}
+      </if>
+      <if test="loanOutUserId != null" >
+        AND eba.loanOutUserId = #{loanOutUserId}
+      </if>
+      <if test="checkUserId != null" >
+        AND eba.checkUserId = #{checkUserId}
+      </if>
+      <if test="status != null" >
+        AND eba.status = #{status}
+      </if>
+    </where>
+    ORDER BY eba.createdAt ASC, eba.updatedAt DESC
+  </select>
+</mapper>

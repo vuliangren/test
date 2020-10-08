@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : re_user_role
+  Comment  : 用户角色关联
+  Mapper   : com.welearn.mapper.ReUserRoleMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/1/6 23:08:28
+-->
+<mapper namespace="com.welearn.mapper.ReUserRoleMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    userId,
+    roleId
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    re_user_role.id AS id,
+    re_user_role.createdAt AS createdAt,
+    re_user_role.updatedAt AS updatedAt,
+    re_user_role.isEnable AS isEnable,
+    re_user_role.userId AS userId,
+    re_user_role.roleId AS roleId
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.common.ReUserRole" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 用户id -->
+    <result column="userId" property="userId"/>
+    <!-- Comment: 角色id -->
+    <result column="roleId" property="roleId"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.common.ReUserRole" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM re_user_role
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.common.ReUserRole" parameterType="com.welearn.entity.qo.common.ReUserRoleQueryCondition" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM re_user_role
+    <where>
+      <if test="id != null" >
+        id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="userId != null" >
+        AND userId = #{userId}
+      </if>
+      <if test="roleId != null" >
+        AND roleId = #{roleId}
+      </if>
+      <!-- START USER DEFINED -->
+
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.common.ReUserRole" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM re_user_role
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM re_user_role
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.common.ReUserRole" >
+    UPDATE re_user_role
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      userId = #{userId},
+      roleId = #{roleId},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.common.ReUserRole" >
+    UPDATE re_user_role
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="userId != null" >
+        userId = #{userId},
+      </if>
+      <if test="roleId != null" >
+        roleId = #{roleId},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE re_user_role SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE re_user_role SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.common.ReUserRole" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      userId,
+      roleId,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{userId},
+      #{roleId},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.common.ReUserRole" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="roleId != null" >
+        roleId,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM re_user_role WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM re_user_role
+  </delete>
+
+  
+  <!-- START USER DEFINED -->
+  <select id="selectByUserIdAndRoleId" resultType="com.welearn.entity.po.common.ReUserRole">
+    SELECT rur.*
+    FROM re_user_role rur
+    where rur.userId = #{userId}
+      and rur.roleId = #{roleId}
+  </select>
+  <select id="selectByUserId" resultType="com.welearn.entity.po.common.ReUserRole">
+    SELECT rug.*
+    FROM re_user_role rug
+    WHERE rug.userId = #{userId}
+      AND rug.isEnable = TRUE
+  </select>
+</mapper>

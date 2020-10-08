@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : re_maintenance_record_method
+  Comment  : 维护记录与维护方式关联
+  Mapper   : com.welearn.mapper.ReMaintenanceRecordMethodMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/1/3 13:23:39
+-->
+<mapper namespace="com.welearn.mapper.ReMaintenanceRecordMethodMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentId,
+    recordId,
+    methodId,
+    dataJson
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    re_maintenance_record_method.id AS id,
+    re_maintenance_record_method.createdAt AS createdAt,
+    re_maintenance_record_method.updatedAt AS updatedAt,
+    re_maintenance_record_method.isEnable AS isEnable,
+    re_maintenance_record_method.equipmentId AS equipmentId,
+    re_maintenance_record_method.recordId AS recordId,
+    re_maintenance_record_method.methodId AS methodId,
+    re_maintenance_record_method.dataJson AS dataJson
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 维护设备id -->
+    <result column="equipmentId" property="equipmentId"/>
+    <!-- Comment: 维护记录id -->
+    <result column="recordId" property="recordId"/>
+    <!-- Comment: 维护方式id -->
+    <result column="methodId" property="methodId"/>
+    <!-- Comment: 维护数据JSON -->
+    <result column="dataJson" property="dataJson"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_maintenance_record_method
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" parameterType="com.welearn.entity.qo.equipment.ReMaintenanceRecordMethodQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_maintenance_record_method
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentId != null" >
+          AND equipmentId = #{equipmentId}
+        </if>
+        <if test="recordId != null" >
+          AND recordId = #{recordId}
+        </if>
+        <if test="methodId != null" >
+          AND methodId = #{methodId}
+        </if>
+        <if test="dataJson != null" >
+          AND dataJson = #{dataJson}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM re_maintenance_record_method
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM re_maintenance_record_method
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" >
+    UPDATE re_maintenance_record_method
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentId = #{equipmentId},
+      recordId = #{recordId},
+      methodId = #{methodId},
+      dataJson = #{dataJson},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" >
+    UPDATE re_maintenance_record_method
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId = #{equipmentId},
+      </if>
+      <if test="recordId != null" >
+        recordId = #{recordId},
+      </if>
+      <if test="methodId != null" >
+        methodId = #{methodId},
+      </if>
+      <if test="dataJson != null" >
+        dataJson = #{dataJson},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE re_maintenance_record_method SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE re_maintenance_record_method SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_maintenance_record_method
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentId,
+      recordId,
+      methodId,
+      dataJson,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentId},
+      #{recordId},
+      #{methodId},
+      #{dataJson},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.ReMaintenanceRecordMethod" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO re_maintenance_record_method 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId,
+      </if>
+      <if test="recordId != null" >
+        recordId,
+      </if>
+      <if test="methodId != null" >
+        methodId,
+      </if>
+      <if test="dataJson != null" >
+        dataJson,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId},
+      </if>
+      <if test="recordId != null" >
+        #{recordId},
+      </if>
+      <if test="methodId != null" >
+        #{methodId},
+      </if>
+      <if test="dataJson != null" >
+        #{dataJson},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM re_maintenance_record_method WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM re_maintenance_record_method
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

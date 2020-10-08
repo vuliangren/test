@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : equipment_accessory
+  Comment  : 设备附件
+  Mapper   : com.welearn.mapper.EquipmentAccessoryMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/12/6 20:33:27
+-->
+<mapper namespace="com.welearn.mapper.EquipmentAccessoryMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentId,
+    type,
+    canBorrow,
+    name,
+    specification,
+    description,
+    status,
+    photos,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    equipment_accessory.id AS id,
+    equipment_accessory.createdAt AS createdAt,
+    equipment_accessory.updatedAt AS updatedAt,
+    equipment_accessory.isEnable AS isEnable,
+    equipment_accessory.equipmentId AS equipmentId,
+    equipment_accessory.type AS type,
+    equipment_accessory.canBorrow AS canBorrow,
+    equipment_accessory.name AS name,
+    equipment_accessory.specification AS specification,
+    equipment_accessory.description AS description,
+    equipment_accessory.status AS status,
+    equipment_accessory.photos AS photos,
+    equipment_accessory.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.EquipmentAccessory" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 设备id -->
+    <result column="equipmentId" property="equipmentId"/>
+    <!-- Comment: 类型:0-操作附件 1-设备文档 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 是否可借用：0-不可，1-可 -->
+    <result column="canBorrow" property="canBorrow"/>
+    <!-- Comment: 名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 规格 -->
+    <result column="specification" property="specification"/>
+    <!-- Comment: 描述 -->
+    <result column="description" property="description"/>
+    <!-- Comment: 状态: 0-待初始化, 1-正常 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 设备相关图片 -->
+    <result column="photos" property="photos"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.EquipmentAccessory" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_accessory
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.EquipmentAccessory" parameterType="com.welearn.entity.qo.equipment.EquipmentAccessoryQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_accessory
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentId != null" >
+          AND equipmentId = #{equipmentId}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="canBorrow != null" >
+          AND canBorrow = #{canBorrow}
+        </if>
+        <if test="name != null" >
+          AND name = #{name}
+        </if>
+        <if test="specification != null" >
+          AND specification = #{specification}
+        </if>
+        <if test="description != null" >
+          AND description = #{description}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="photos != null" >
+          AND photos = #{photos}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.EquipmentAccessory" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_accessory
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM equipment_accessory
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.EquipmentAccessory" >
+    UPDATE equipment_accessory
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentId = #{equipmentId},
+      type = #{type},
+      canBorrow = #{canBorrow},
+      name = #{name},
+      specification = #{specification},
+      description = #{description},
+      status = #{status},
+      photos = #{photos},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.EquipmentAccessory" >
+    UPDATE equipment_accessory
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId = #{equipmentId},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="canBorrow != null" >
+        canBorrow = #{canBorrow},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="photos != null" >
+        photos = #{photos},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE equipment_accessory SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE equipment_accessory SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.EquipmentAccessory" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_accessory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentId,
+      type,
+      canBorrow,
+      name,
+      specification,
+      description,
+      status,
+      photos,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentId},
+      #{type},
+      #{canBorrow},
+      #{name},
+      #{specification},
+      #{description},
+      #{status},
+      #{photos},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.EquipmentAccessory" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_accessory 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="canBorrow != null" >
+        canBorrow,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="photos != null" >
+        photos,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="canBorrow != null" >
+        #{canBorrow},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="specification != null" >
+        #{specification},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="photos != null" >
+        #{photos},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM equipment_accessory WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM equipment_accessory
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

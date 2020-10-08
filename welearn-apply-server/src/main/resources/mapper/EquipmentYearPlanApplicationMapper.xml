@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : equipment_year_plan_application
+  Comment  : 年度设备计划采购申请
+  Mapper   : com.welearn.mapper.EquipmentYearPlanApplicationMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/10/30 11:19:21
+-->
+<mapper namespace="com.welearn.mapper.EquipmentYearPlanApplicationMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentYearPlanId,
+    isLargeEquipment,
+    equipmentTypeId,
+    equipmentTypeName,
+    specification,
+    unitPrice,
+    count,
+    sumPrice,
+    capitalSource,
+    specialFundsType,
+    reasonType,
+    oldEquipmentId,
+    reasonDescriptionId,
+    recommendsJson,
+    auxiliariesJson,
+    serviceYear,
+    monthlyUsage,
+    fee,
+    yearlyIncome,
+    yearlyMaintenanceCost,
+    yearlyConsumablesCost,
+    yearlyBenefit,
+    recoveryCostYears,
+    socialBenefitAnalysisId,
+    technicalFeasibilityAnalysisId,
+    installationConditionsAnalysisId,
+    fieldInvestigationAnalysisId,
+    recommendsTechnicalAnalysisId,
+    status,
+    committeeApprovalResultJson,
+    directorApprovalResultJson
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    equipment_year_plan_application.id AS id,
+    equipment_year_plan_application.createdAt AS createdAt,
+    equipment_year_plan_application.updatedAt AS updatedAt,
+    equipment_year_plan_application.isEnable AS isEnable,
+    equipment_year_plan_application.equipmentYearPlanId AS equipmentYearPlanId,
+    equipment_year_plan_application.isLargeEquipment AS isLargeEquipment,
+    equipment_year_plan_application.equipmentTypeId AS equipmentTypeId,
+    equipment_year_plan_application.equipmentTypeName AS equipmentTypeName,
+    equipment_year_plan_application.specification AS specification,
+    equipment_year_plan_application.unitPrice AS unitPrice,
+    equipment_year_plan_application.count AS count,
+    equipment_year_plan_application.sumPrice AS sumPrice,
+    equipment_year_plan_application.capitalSource AS capitalSource,
+    equipment_year_plan_application.specialFundsType AS specialFundsType,
+    equipment_year_plan_application.reasonType AS reasonType,
+    equipment_year_plan_application.oldEquipmentId AS oldEquipmentId,
+    equipment_year_plan_application.reasonDescriptionId AS reasonDescriptionId,
+    equipment_year_plan_application.recommendsJson AS recommendsJson,
+    equipment_year_plan_application.auxiliariesJson AS auxiliariesJson,
+    equipment_year_plan_application.serviceYear AS serviceYear,
+    equipment_year_plan_application.monthlyUsage AS monthlyUsage,
+    equipment_year_plan_application.fee AS fee,
+    equipment_year_plan_application.yearlyIncome AS yearlyIncome,
+    equipment_year_plan_application.yearlyMaintenanceCost AS yearlyMaintenanceCost,
+    equipment_year_plan_application.yearlyConsumablesCost AS yearlyConsumablesCost,
+    equipment_year_plan_application.yearlyBenefit AS yearlyBenefit,
+    equipment_year_plan_application.recoveryCostYears AS recoveryCostYears,
+    equipment_year_plan_application.socialBenefitAnalysisId AS socialBenefitAnalysisId,
+    equipment_year_plan_application.technicalFeasibilityAnalysisId AS technicalFeasibilityAnalysisId,
+    equipment_year_plan_application.installationConditionsAnalysisId AS installationConditionsAnalysisId,
+    equipment_year_plan_application.fieldInvestigationAnalysisId AS fieldInvestigationAnalysisId,
+    equipment_year_plan_application.recommendsTechnicalAnalysisId AS recommendsTechnicalAnalysisId,
+    equipment_year_plan_application.status AS status,
+    equipment_year_plan_application.committeeApprovalResultJson AS committeeApprovalResultJson,
+    equipment_year_plan_application.directorApprovalResultJson AS directorApprovalResultJson
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.apply.EquipmentYearPlanApplication" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 年度设备采购计划id -->
+    <result column="equipmentYearPlanId" property="equipmentYearPlanId"/>
+    <!-- Comment: 大型医疗设备：0-非大型医疗设备，1-甲类大型医疗设备 2-乙类大型医疗设备 -->
+    <result column="isLargeEquipment" property="isLargeEquipment"/>
+    <!-- Comment: 设备类型id -->
+    <result column="equipmentTypeId" property="equipmentTypeId"/>
+    <!-- Comment: 设备类型名称 -->
+    <result column="equipmentTypeName" property="equipmentTypeName"/>
+    <!-- Comment: 设备规格 -->
+    <result column="specification" property="specification"/>
+    <!-- Comment: 预估单价 -->
+    <result column="unitPrice" property="unitPrice"/>
+    <!-- Comment: 申购数量 -->
+    <result column="count" property="count"/>
+    <!-- Comment: 预估总价 -->
+    <result column="sumPrice" property="sumPrice"/>
+    <!-- Comment: 资金来源 -->
+    <result column="capitalSource" property="capitalSource"/>
+    <!-- Comment: 专项资金类型 -->
+    <result column="specialFundsType" property="specialFundsType"/>
+    <!-- Comment: 申请理由类型 -->
+    <result column="reasonType" property="reasonType"/>
+    <!-- Comment: 原设备信息 -->
+    <result column="oldEquipmentId" property="oldEquipmentId"/>
+    <!-- Comment: 申请理由内容id -->
+    <result column="reasonDescriptionId" property="reasonDescriptionId"/>
+    <!-- Comment: 设备选型 -->
+    <result column="recommendsJson" property="recommendsJson"/>
+    <!-- Comment: 相关辅助配套设备 -->
+    <result column="auxiliariesJson" property="auxiliariesJson"/>
+    <!-- Comment: 正常服务年限 -->
+    <result column="serviceYear" property="serviceYear"/>
+    <!-- Comment: 每月使用人次 -->
+    <result column="monthlyUsage" property="monthlyUsage"/>
+    <!-- Comment: 收费标准/人次 -->
+    <result column="fee" property="fee"/>
+    <!-- Comment: 每年收入 -->
+    <result column="yearlyIncome" property="yearlyIncome"/>
+    <!-- Comment: 每年维护费用 -->
+    <result column="yearlyMaintenanceCost" property="yearlyMaintenanceCost"/>
+    <!-- Comment: 每年耗材费用 -->
+    <result column="yearlyConsumablesCost" property="yearlyConsumablesCost"/>
+    <!-- Comment: 预计一年经济效益 -->
+    <result column="yearlyBenefit" property="yearlyBenefit"/>
+    <!-- Comment: 预计回收成本年限 -->
+    <result column="recoveryCostYears" property="recoveryCostYears"/>
+    <!-- Comment: 社会效益分析id -->
+    <result column="socialBenefitAnalysisId" property="socialBenefitAnalysisId"/>
+    <!-- Comment: 技术可行性分析id -->
+    <result column="technicalFeasibilityAnalysisId" property="technicalFeasibilityAnalysisId"/>
+    <!-- Comment: 安装条件可行性分析id -->
+    <result column="installationConditionsAnalysisId" property="installationConditionsAnalysisId"/>
+    <!-- Comment: 实地考察论证分析id -->
+    <result column="fieldInvestigationAnalysisId" property="fieldInvestigationAnalysisId"/>
+    <!-- Comment: 选型设备技术评价id -->
+    <result column="recommendsTechnicalAnalysisId" property="recommendsTechnicalAnalysisId"/>
+    <!-- Comment: 状态: 0-审批中 1-审批失败 2-设备科审批通过 3-委员会审批通过 4-院长审批通过 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 委员会评审结果 -->
+    <result column="committeeApprovalResultJson" property="committeeApprovalResultJson"/>
+    <!-- Comment: 院长评审结果 -->
+    <result column="directorApprovalResultJson" property="directorApprovalResultJson"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.apply.EquipmentYearPlanApplication" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_year_plan_application
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.apply.EquipmentYearPlanApplication" parameterType="com.welearn.entity.qo.apply.EquipmentYearPlanApplicationQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_year_plan_application
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="equipmentYearPlanId != null" >
+          AND equipmentYearPlanId = #{equipmentYearPlanId}
+        </if>
+        <if test="isLargeEquipment != null" >
+          AND isLargeEquipment = #{isLargeEquipment}
+        </if>
+        <if test="equipmentTypeId != null" >
+          AND equipmentTypeId = #{equipmentTypeId}
+        </if>
+        <if test="equipmentTypeName != null" >
+          AND equipmentTypeName = #{equipmentTypeName}
+        </if>
+        <if test="specification != null" >
+          AND specification = #{specification}
+        </if>
+        <if test="unitPrice != null" >
+          AND unitPrice = #{unitPrice}
+        </if>
+        <if test="count != null" >
+          AND count = #{count}
+        </if>
+        <if test="sumPrice != null" >
+          AND sumPrice = #{sumPrice}
+        </if>
+        <if test="capitalSource != null" >
+          AND capitalSource = #{capitalSource}
+        </if>
+        <if test="specialFundsType != null" >
+          AND specialFundsType = #{specialFundsType}
+        </if>
+        <if test="reasonType != null" >
+          AND reasonType = #{reasonType}
+        </if>
+        <if test="oldEquipmentId != null" >
+          AND oldEquipmentId = #{oldEquipmentId}
+        </if>
+        <if test="reasonDescriptionId != null" >
+          AND reasonDescriptionId = #{reasonDescriptionId}
+        </if>
+        <if test="recommendsJson != null" >
+          AND recommendsJson = #{recommendsJson}
+        </if>
+        <if test="auxiliariesJson != null" >
+          AND auxiliariesJson = #{auxiliariesJson}
+        </if>
+        <if test="serviceYear != null" >
+          AND serviceYear = #{serviceYear}
+        </if>
+        <if test="monthlyUsage != null" >
+          AND monthlyUsage = #{monthlyUsage}
+        </if>
+        <if test="fee != null" >
+          AND fee = #{fee}
+        </if>
+        <if test="yearlyIncome != null" >
+          AND yearlyIncome = #{yearlyIncome}
+        </if>
+        <if test="yearlyMaintenanceCost != null" >
+          AND yearlyMaintenanceCost = #{yearlyMaintenanceCost}
+        </if>
+        <if test="yearlyConsumablesCost != null" >
+          AND yearlyConsumablesCost = #{yearlyConsumablesCost}
+        </if>
+        <if test="yearlyBenefit != null" >
+          AND yearlyBenefit = #{yearlyBenefit}
+        </if>
+        <if test="recoveryCostYears != null" >
+          AND recoveryCostYears = #{recoveryCostYears}
+        </if>
+        <if test="socialBenefitAnalysisId != null" >
+          AND socialBenefitAnalysisId = #{socialBenefitAnalysisId}
+        </if>
+        <if test="technicalFeasibilityAnalysisId != null" >
+          AND technicalFeasibilityAnalysisId = #{technicalFeasibilityAnalysisId}
+        </if>
+        <if test="installationConditionsAnalysisId != null" >
+          AND installationConditionsAnalysisId = #{installationConditionsAnalysisId}
+        </if>
+        <if test="fieldInvestigationAnalysisId != null" >
+          AND fieldInvestigationAnalysisId = #{fieldInvestigationAnalysisId}
+        </if>
+        <if test="recommendsTechnicalAnalysisId != null" >
+          AND recommendsTechnicalAnalysisId = #{recommendsTechnicalAnalysisId}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="committeeApprovalResultJson != null" >
+          AND committeeApprovalResultJson = #{committeeApprovalResultJson}
+        </if>
+        <if test="directorApprovalResultJson != null" >
+          AND directorApprovalResultJson = #{directorApprovalResultJson}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.apply.EquipmentYearPlanApplication" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM equipment_year_plan_application
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM equipment_year_plan_application
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.apply.EquipmentYearPlanApplication" >
+    UPDATE equipment_year_plan_application
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentYearPlanId = #{equipmentYearPlanId},
+      isLargeEquipment = #{isLargeEquipment},
+      equipmentTypeId = #{equipmentTypeId},
+      equipmentTypeName = #{equipmentTypeName},
+      specification = #{specification},
+      unitPrice = #{unitPrice},
+      count = #{count},
+      sumPrice = #{sumPrice},
+      capitalSource = #{capitalSource},
+      specialFundsType = #{specialFundsType},
+      reasonType = #{reasonType},
+      oldEquipmentId = #{oldEquipmentId},
+      reasonDescriptionId = #{reasonDescriptionId},
+      recommendsJson = #{recommendsJson},
+      auxiliariesJson = #{auxiliariesJson},
+      serviceYear = #{serviceYear},
+      monthlyUsage = #{monthlyUsage},
+      fee = #{fee},
+      yearlyIncome = #{yearlyIncome},
+      yearlyMaintenanceCost = #{yearlyMaintenanceCost},
+      yearlyConsumablesCost = #{yearlyConsumablesCost},
+      yearlyBenefit = #{yearlyBenefit},
+      recoveryCostYears = #{recoveryCostYears},
+      socialBenefitAnalysisId = #{socialBenefitAnalysisId},
+      technicalFeasibilityAnalysisId = #{technicalFeasibilityAnalysisId},
+      installationConditionsAnalysisId = #{installationConditionsAnalysisId},
+      fieldInvestigationAnalysisId = #{fieldInvestigationAnalysisId},
+      recommendsTechnicalAnalysisId = #{recommendsTechnicalAnalysisId},
+      status = #{status},
+      committeeApprovalResultJson = #{committeeApprovalResultJson},
+      directorApprovalResultJson = #{directorApprovalResultJson},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.apply.EquipmentYearPlanApplication" >
+    UPDATE equipment_year_plan_application
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentYearPlanId != null" >
+        equipmentYearPlanId = #{equipmentYearPlanId},
+      </if>
+      <if test="isLargeEquipment != null" >
+        isLargeEquipment = #{isLargeEquipment},
+      </if>
+      <if test="equipmentTypeId != null" >
+        equipmentTypeId = #{equipmentTypeId},
+      </if>
+      <if test="equipmentTypeName != null" >
+        equipmentTypeName = #{equipmentTypeName},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification},
+      </if>
+      <if test="unitPrice != null" >
+        unitPrice = #{unitPrice},
+      </if>
+      <if test="count != null" >
+        count = #{count},
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice = #{sumPrice},
+      </if>
+      <if test="capitalSource != null" >
+        capitalSource = #{capitalSource},
+      </if>
+      <if test="specialFundsType != null" >
+        specialFundsType = #{specialFundsType},
+      </if>
+      <if test="reasonType != null" >
+        reasonType = #{reasonType},
+      </if>
+      <if test="oldEquipmentId != null" >
+        oldEquipmentId = #{oldEquipmentId},
+      </if>
+      <if test="reasonDescriptionId != null" >
+        reasonDescriptionId = #{reasonDescriptionId},
+      </if>
+      <if test="recommendsJson != null" >
+        recommendsJson = #{recommendsJson},
+      </if>
+      <if test="auxiliariesJson != null" >
+        auxiliariesJson = #{auxiliariesJson},
+      </if>
+      <if test="serviceYear != null" >
+        serviceYear = #{serviceYear},
+      </if>
+      <if test="monthlyUsage != null" >
+        monthlyUsage = #{monthlyUsage},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee},
+      </if>
+      <if test="yearlyIncome != null" >
+        yearlyIncome = #{yearlyIncome},
+      </if>
+      <if test="yearlyMaintenanceCost != null" >
+        yearlyMaintenanceCost = #{yearlyMaintenanceCost},
+      </if>
+      <if test="yearlyConsumablesCost != null" >
+        yearlyConsumablesCost = #{yearlyConsumablesCost},
+      </if>
+      <if test="yearlyBenefit != null" >
+        yearlyBenefit = #{yearlyBenefit},
+      </if>
+      <if test="recoveryCostYears != null" >
+        recoveryCostYears = #{recoveryCostYears},
+      </if>
+      <if test="socialBenefitAnalysisId != null" >
+        socialBenefitAnalysisId = #{socialBenefitAnalysisId},
+      </if>
+      <if test="technicalFeasibilityAnalysisId != null" >
+        technicalFeasibilityAnalysisId = #{technicalFeasibilityAnalysisId},
+      </if>
+      <if test="installationConditionsAnalysisId != null" >
+        installationConditionsAnalysisId = #{installationConditionsAnalysisId},
+      </if>
+      <if test="fieldInvestigationAnalysisId != null" >
+        fieldInvestigationAnalysisId = #{fieldInvestigationAnalysisId},
+      </if>
+      <if test="recommendsTechnicalAnalysisId != null" >
+        recommendsTechnicalAnalysisId = #{recommendsTechnicalAnalysisId},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="committeeApprovalResultJson != null" >
+        committeeApprovalResultJson = #{committeeApprovalResultJson},
+      </if>
+      <if test="directorApprovalResultJson != null" >
+        directorApprovalResultJson = #{directorApprovalResultJson},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE equipment_year_plan_application SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE equipment_year_plan_application SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.apply.EquipmentYearPlanApplication" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_year_plan_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentYearPlanId,
+      isLargeEquipment,
+      equipmentTypeId,
+      equipmentTypeName,
+      specification,
+      unitPrice,
+      count,
+      sumPrice,
+      capitalSource,
+      specialFundsType,
+      reasonType,
+      oldEquipmentId,
+      reasonDescriptionId,
+      recommendsJson,
+      auxiliariesJson,
+      serviceYear,
+      monthlyUsage,
+      fee,
+      yearlyIncome,
+      yearlyMaintenanceCost,
+      yearlyConsumablesCost,
+      yearlyBenefit,
+      recoveryCostYears,
+      socialBenefitAnalysisId,
+      technicalFeasibilityAnalysisId,
+      installationConditionsAnalysisId,
+      fieldInvestigationAnalysisId,
+      recommendsTechnicalAnalysisId,
+      status,
+      committeeApprovalResultJson,
+      directorApprovalResultJson,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentYearPlanId},
+      #{isLargeEquipment},
+      #{equipmentTypeId},
+      #{equipmentTypeName},
+      #{specification},
+      #{unitPrice},
+      #{count},
+      #{sumPrice},
+      #{capitalSource},
+      #{specialFundsType},
+      #{reasonType},
+      #{oldEquipmentId},
+      #{reasonDescriptionId},
+      #{recommendsJson},
+      #{auxiliariesJson},
+      #{serviceYear},
+      #{monthlyUsage},
+      #{fee},
+      #{yearlyIncome},
+      #{yearlyMaintenanceCost},
+      #{yearlyConsumablesCost},
+      #{yearlyBenefit},
+      #{recoveryCostYears},
+      #{socialBenefitAnalysisId},
+      #{technicalFeasibilityAnalysisId},
+      #{installationConditionsAnalysisId},
+      #{fieldInvestigationAnalysisId},
+      #{recommendsTechnicalAnalysisId},
+      #{status},
+      #{committeeApprovalResultJson},
+      #{directorApprovalResultJson},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.apply.EquipmentYearPlanApplication" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO equipment_year_plan_application 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentYearPlanId != null" >
+        equipmentYearPlanId,
+      </if>
+      <if test="isLargeEquipment != null" >
+        isLargeEquipment,
+      </if>
+      <if test="equipmentTypeId != null" >
+        equipmentTypeId,
+      </if>
+      <if test="equipmentTypeName != null" >
+        equipmentTypeName,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="unitPrice != null" >
+        unitPrice,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice,
+      </if>
+      <if test="capitalSource != null" >
+        capitalSource,
+      </if>
+      <if test="specialFundsType != null" >
+        specialFundsType,
+      </if>
+      <if test="reasonType != null" >
+        reasonType,
+      </if>
+      <if test="oldEquipmentId != null" >
+        oldEquipmentId,
+      </if>
+      <if test="reasonDescriptionId != null" >
+        reasonDescriptionId,
+      </if>
+      <if test="recommendsJson != null" >
+        recommendsJson,
+      </if>
+      <if test="auxiliariesJson != null" >
+        auxiliariesJson,
+      </if>
+      <if test="serviceYear != null" >
+        serviceYear,
+      </if>
+      <if test="monthlyUsage != null" >
+        monthlyUsage,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="yearlyIncome != null" >
+        yearlyIncome,
+      </if>
+      <if test="yearlyMaintenanceCost != null" >
+        yearlyMaintenanceCost,
+      </if>
+      <if test="yearlyConsumablesCost != null" >
+        yearlyConsumablesCost,
+      </if>
+      <if test="yearlyBenefit != null" >
+        yearlyBenefit,
+      </if>
+      <if test="recoveryCostYears != null" >
+        recoveryCostYears,
+      </if>
+      <if test="socialBenefitAnalysisId != null" >
+        socialBenefitAnalysisId,
+      </if>
+      <if test="technicalFeasibilityAnalysisId != null" >
+        technicalFeasibilityAnalysisId,
+      </if>
+      <if test="installationConditionsAnalysisId != null" >
+        installationConditionsAnalysisId,
+      </if>
+      <if test="fieldInvestigationAnalysisId != null" >
+        fieldInvestigationAnalysisId,
+      </if>
+      <if test="recommendsTechnicalAnalysisId != null" >
+        recommendsTechnicalAnalysisId,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="committeeApprovalResultJson != null" >
+        committeeApprovalResultJson,
+      </if>
+      <if test="directorApprovalResultJson != null" >
+        directorApprovalResultJson,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentYearPlanId != null" >
+        #{equipmentYearPlanId},
+      </if>
+      <if test="isLargeEquipment != null" >
+        #{isLargeEquipment},
+      </if>
+      <if test="equipmentTypeId != null" >
+        #{equipmentTypeId},
+      </if>
+      <if test="equipmentTypeName != null" >
+        #{equipmentTypeName},
+      </if>
+      <if test="specification != null" >
+        #{specification},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice},
+      </if>
+      <if test="count != null" >
+        #{count},
+      </if>
+      <if test="sumPrice != null" >
+        #{sumPrice},
+      </if>
+      <if test="capitalSource != null" >
+        #{capitalSource},
+      </if>
+      <if test="specialFundsType != null" >
+        #{specialFundsType},
+      </if>
+      <if test="reasonType != null" >
+        #{reasonType},
+      </if>
+      <if test="oldEquipmentId != null" >
+        #{oldEquipmentId},
+      </if>
+      <if test="reasonDescriptionId != null" >
+        #{reasonDescriptionId},
+      </if>
+      <if test="recommendsJson != null" >
+        #{recommendsJson},
+      </if>
+      <if test="auxiliariesJson != null" >
+        #{auxiliariesJson},
+      </if>
+      <if test="serviceYear != null" >
+        #{serviceYear},
+      </if>
+      <if test="monthlyUsage != null" >
+        #{monthlyUsage},
+      </if>
+      <if test="fee != null" >
+        #{fee},
+      </if>
+      <if test="yearlyIncome != null" >
+        #{yearlyIncome},
+      </if>
+      <if test="yearlyMaintenanceCost != null" >
+        #{yearlyMaintenanceCost},
+      </if>
+      <if test="yearlyConsumablesCost != null" >
+        #{yearlyConsumablesCost},
+      </if>
+      <if test="yearlyBenefit != null" >
+        #{yearlyBenefit},
+      </if>
+      <if test="recoveryCostYears != null" >
+        #{recoveryCostYears},
+      </if>
+      <if test="socialBenefitAnalysisId != null" >
+        #{socialBenefitAnalysisId},
+      </if>
+      <if test="technicalFeasibilityAnalysisId != null" >
+        #{technicalFeasibilityAnalysisId},
+      </if>
+      <if test="installationConditionsAnalysisId != null" >
+        #{installationConditionsAnalysisId},
+      </if>
+      <if test="fieldInvestigationAnalysisId != null" >
+        #{fieldInvestigationAnalysisId},
+      </if>
+      <if test="recommendsTechnicalAnalysisId != null" >
+        #{recommendsTechnicalAnalysisId},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="committeeApprovalResultJson != null" >
+        #{committeeApprovalResultJson},
+      </if>
+      <if test="directorApprovalResultJson != null" >
+        #{directorApprovalResultJson},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM equipment_year_plan_application WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM equipment_year_plan_application
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="searchInfo" resultType="com.welearn.entity.vo.response.apply.EquipmentYearPlanApplicationInfo" parameterType="com.welearn.entity.qo.apply.EquipmentYearPlanApplicationQueryCondition">
+    select eypa.*, aa.companyId, aa.applicantId, aa.applicantName, aa.departmentId, aa.departmentName,
+      aa.status as applicationStatus, aa.id as applicationId, aa.applyAt as applicationApplyAt, eyp.year
+    from equipment_year_plan_application eypa
+    join approval_application aa on aa.contentId = eypa.id and aa.isEnable = true
+    join equipment_year_plan eyp on eypa.equipmentYearPlanId = eyp.id and eyp.isEnable = true
+    <where>
+      <if test="id != null" >
+        eypa.id = #{id}
+      </if>
+      <if test="isEnable != null" >
+        AND eypa.isEnable = #{isEnable}
+      </if>
+      <if test="equipmentYearPlanId != null" >
+        AND eypa.equipmentYearPlanId = #{equipmentYearPlanId}
+      </if>
+      <if test="isLargeEquipment != null" >
+        AND eypa.isLargeEquipment = #{isLargeEquipment}
+      </if>
+      <if test="equipmentTypeId != null" >
+        AND eypa.equipmentTypeId = #{equipmentTypeId}
+      </if>
+      <if test="capitalSource != null" >
+        AND eypa.capitalSource = #{capitalSource}
+      </if>
+      <if test="oldEquipmentId != null" >
+        AND eypa.oldEquipmentId = #{oldEquipmentId}
+      </if>
+      <if test="status != null" >
+        AND eypa.status = #{status}
+      </if>
+      <if test="statusAfter != null" >
+        AND eypa.status > #{statusAfter}
+      </if>
+      <if test="companyId != null" >
+        AND aa.companyId = #{companyId}
+      </if>
+      <if test="departmentId != null" >
+        AND aa.departmentId = #{departmentId}
+      </if>
+      <if test="applicantId != null" >
+        AND aa.applicantId = #{applicantId}
+      </if>
+    </where>
+    order by eypa.createdAt asc
+  </select>
+</mapper>

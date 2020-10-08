@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  Table    : maintenance_record
+  Comment  : 维护记录
+  Mapper   : com.welearn.mapper.MaintenanceRecordMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/1/10 14:19:14
+-->
+<mapper namespace="com.welearn.mapper.MaintenanceRecordMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    equipmentId,
+    equipmentDescription,
+    equipmentPosition,
+    taskId,
+    engineerId,
+    engineerName,
+    companyId,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    maintenance_record.id AS id,
+    maintenance_record.createdAt AS createdAt,
+    maintenance_record.updatedAt AS updatedAt,
+    maintenance_record.isEnable AS isEnable,
+    maintenance_record.equipmentId AS equipmentId,
+    maintenance_record.equipmentDescription AS equipmentDescription,
+    maintenance_record.equipmentPosition AS equipmentPosition,
+    maintenance_record.taskId AS taskId,
+    maintenance_record.engineerId AS engineerId,
+    maintenance_record.engineerName AS engineerName,
+    maintenance_record.companyId AS companyId,
+    maintenance_record.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.MaintenanceRecord" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 维护设备id -->
+    <result column="equipmentId" property="equipmentId"/>
+    <!-- Comment: 维护设备描述 -->
+    <result column="equipmentDescription" property="equipmentDescription"/>
+    <!-- Comment: 维护设备位置 -->
+    <result column="equipmentPosition" property="equipmentPosition"/>
+    <!-- Comment: 维护任务id -->
+    <result column="taskId" property="taskId"/>
+    <!-- Comment: 维护人员id -->
+    <result column="engineerId" property="engineerId"/>
+    <!-- Comment: 维护人员姓名 -->
+    <result column="engineerName" property="engineerName"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.MaintenanceRecord" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM maintenance_record
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.MaintenanceRecord" parameterType="com.welearn.entity.qo.equipment.MaintenanceRecordQueryCondition" >
+    SELECT
+      mr.*
+    FROM maintenance_record mr
+    <if test="userId != null" >
+      join engineer e on e.id = mr.engineerId and e.isEnable = true and e.userId = #{userId}
+    </if>
+    <where>
+      <if test="id != null" >
+        mr.id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND mr.createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND mr.updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND mr.isEnable = #{isEnable}
+      </if>
+      <if test="equipmentId != null" >
+        AND mr.equipmentId = #{equipmentId}
+      </if>
+      <if test="equipmentDescription != null" >
+        AND mr.equipmentDescription = #{equipmentDescription}
+      </if>
+      <if test="equipmentPosition != null" >
+        AND mr.equipmentPosition = #{equipmentPosition}
+      </if>
+      <if test="taskId != null" >
+        AND mr.taskId = #{taskId}
+      </if>
+      <if test="engineerId != null" >
+        AND mr.engineerId = #{engineerId}
+      </if>
+      <if test="engineerName != null" >
+        AND mr.engineerName = #{engineerName}
+      </if>
+      <if test="companyId != null" >
+        AND mr.companyId = #{companyId}
+      </if>
+      <if test="remark != null" >
+        AND mr.remark = #{remark}
+      </if>
+      <!-- START USER DEFINED -->
+      <if test="createdAtGreaterThan != null" >
+        and mr.createdAt >= #{createdAtGreaterThan}
+      </if>
+      <if test="createdAtLessThan != null" >
+        and #{createdAtLessThan} > mr.createdAt
+      </if>
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY mr.createdAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.MaintenanceRecord" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM maintenance_record
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM maintenance_record
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.MaintenanceRecord" >
+    UPDATE maintenance_record
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      equipmentId = #{equipmentId},
+      equipmentDescription = #{equipmentDescription},
+      equipmentPosition = #{equipmentPosition},
+      taskId = #{taskId},
+      engineerId = #{engineerId},
+      engineerName = #{engineerName},
+      companyId = #{companyId},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.MaintenanceRecord" >
+    UPDATE maintenance_record
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId = #{equipmentId},
+      </if>
+      <if test="equipmentDescription != null" >
+        equipmentDescription = #{equipmentDescription},
+      </if>
+      <if test="equipmentPosition != null" >
+        equipmentPosition = #{equipmentPosition},
+      </if>
+      <if test="taskId != null" >
+        taskId = #{taskId},
+      </if>
+      <if test="engineerId != null" >
+        engineerId = #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        engineerName = #{engineerName},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE maintenance_record SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE maintenance_record SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.MaintenanceRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO maintenance_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      equipmentId,
+      equipmentDescription,
+      equipmentPosition,
+      taskId,
+      engineerId,
+      engineerName,
+      companyId,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{equipmentId},
+      #{equipmentDescription},
+      #{equipmentPosition},
+      #{taskId},
+      #{engineerId},
+      #{engineerName},
+      #{companyId},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.MaintenanceRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO maintenance_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="equipmentId != null" >
+        equipmentId,
+      </if>
+      <if test="equipmentDescription != null" >
+        equipmentDescription,
+      </if>
+      <if test="equipmentPosition != null" >
+        equipmentPosition,
+      </if>
+      <if test="taskId != null" >
+        taskId,
+      </if>
+      <if test="engineerId != null" >
+        engineerId,
+      </if>
+      <if test="engineerName != null" >
+        engineerName,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="equipmentId != null" >
+        #{equipmentId},
+      </if>
+      <if test="equipmentDescription != null" >
+        #{equipmentDescription},
+      </if>
+      <if test="equipmentPosition != null" >
+        #{equipmentPosition},
+      </if>
+      <if test="taskId != null" >
+        #{taskId},
+      </if>
+      <if test="engineerId != null" >
+        #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        #{engineerName},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM maintenance_record WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM maintenance_record
+  </delete>
+
+
+  <!-- START USER DEFINED -->
+  <select id="selectEnabledInfoById" resultType="com.welearn.entity.vo.response.equipment.MaintenanceRecordInfo" parameterType="java.lang.String">
+    SELECT
+           mr.*
+    FROM maintenance_record mr
+    WHERE id = #{id} and isEnable = true
+  </select>
+  <select id="countByCompanyId" resultType="java.lang.Integer">
+    select count(1) from maintenance_record where createdAt >= #{startAt} and companyId = #{companyId} and isEnable = true
+  </select>
+  <select id="countByEngineerId" resultType="java.lang.Integer">
+    select count(1) from maintenance_record where createdAt >= #{startAt} and companyId = #{engineerId} and isEnable = true
+  </select>
+</mapper>

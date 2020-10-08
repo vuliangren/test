@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : device_monitor_record
+  Comment  : 设备监测记录
+  Mapper   : com.welearn.mapper.DeviceMonitorRecordMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/6/10 14:18:31
+-->
+<mapper namespace="com.welearn.mapper.DeviceMonitorRecordMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    type,
+    productKey,
+    iotId,
+    dataJson,
+    monitorName,
+    monitorResult,
+    monitorAt,
+    creatorId
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    device_monitor_record.id AS id,
+    device_monitor_record.createdAt AS createdAt,
+    device_monitor_record.updatedAt AS updatedAt,
+    device_monitor_record.isEnable AS isEnable,
+    device_monitor_record.type AS type,
+    device_monitor_record.productKey AS productKey,
+    device_monitor_record.iotId AS iotId,
+    device_monitor_record.dataJson AS dataJson,
+    device_monitor_record.monitorName AS monitorName,
+    device_monitor_record.monitorResult AS monitorResult,
+    device_monitor_record.monitorAt AS monitorAt,
+    device_monitor_record.creatorId AS creatorId
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.alink.DeviceMonitorRecord" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 监测记录类型 前端定义 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 设备唯一标识符 -->
+    <result column="productKey" property="productKey"/>
+    <!-- Comment: 设备唯一标识符 -->
+    <result column="iotId" property="iotId"/>
+    <!-- Comment: 监测记录数据JSON格式存储 -->
+    <result column="dataJson" property="dataJson"/>
+    <!-- Comment: 监测方名称 -->
+    <result column="monitorName" property="monitorName"/>
+    <!-- Comment: 监测结果 -->
+    <result column="monitorResult" property="monitorResult"/>
+    <!-- Comment: 监测时间 -->
+    <result column="monitorAt" property="monitorAt"/>
+    <!-- Comment: 创建人id -->
+    <result column="creatorId" property="creatorId"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.alink.DeviceMonitorRecord" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM device_monitor_record
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.alink.DeviceMonitorRecord" parameterType="com.welearn.entity.qo.alink.DeviceMonitorRecordQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM device_monitor_record
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="productKey != null" >
+          AND productKey = #{productKey}
+        </if>
+        <if test="iotId != null" >
+          AND iotId = #{iotId}
+        </if>
+        <if test="dataJson != null" >
+          AND dataJson = #{dataJson}
+        </if>
+        <if test="monitorName != null" >
+          AND monitorName like CONCAT('%',#{monitorName},'%')
+        </if>
+        <if test="monitorResult != null" >
+          AND monitorResult = #{monitorResult}
+        </if>
+        <if test="monitorAt != null" >
+          AND monitorAt = #{monitorAt}
+        </if>
+        <if test="creatorId != null" >
+          AND creatorId = #{creatorId}
+        </if>
+        <!-- START USER DEFINED -->
+        <if test="monitorAtStart != null" >
+          AND monitorAt >= #{monitorAtStart}
+        </if>
+        <if test="monitorAtEnd != null" >
+          AND #{monitorAtEnd} > monitorAt
+        </if>
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY monitorAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.alink.DeviceMonitorRecord" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM device_monitor_record
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM device_monitor_record
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.alink.DeviceMonitorRecord" >
+    UPDATE device_monitor_record
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      type = #{type},
+      productKey = #{productKey},
+      iotId = #{iotId},
+      dataJson = #{dataJson},
+      monitorName = #{monitorName},
+      monitorResult = #{monitorResult},
+      monitorAt = #{monitorAt},
+      creatorId = #{creatorId},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.alink.DeviceMonitorRecord" >
+    UPDATE device_monitor_record
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="productKey != null" >
+        productKey = #{productKey},
+      </if>
+      <if test="iotId != null" >
+        iotId = #{iotId},
+      </if>
+      <if test="dataJson != null" >
+        dataJson = #{dataJson},
+      </if>
+      <if test="monitorName != null" >
+        monitorName = #{monitorName},
+      </if>
+      <if test="monitorResult != null" >
+        monitorResult = #{monitorResult},
+      </if>
+      <if test="monitorAt != null" >
+        monitorAt = #{monitorAt},
+      </if>
+      <if test="creatorId != null" >
+        creatorId = #{creatorId},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE device_monitor_record SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE device_monitor_record SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.alink.DeviceMonitorRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO device_monitor_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      type,
+      productKey,
+      iotId,
+      dataJson,
+      monitorName,
+      monitorResult,
+      monitorAt,
+      creatorId,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{type},
+      #{productKey},
+      #{iotId},
+      #{dataJson},
+      #{monitorName},
+      #{monitorResult},
+      #{monitorAt},
+      #{creatorId},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.alink.DeviceMonitorRecord" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO device_monitor_record 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="productKey != null" >
+        productKey,
+      </if>
+      <if test="iotId != null" >
+        iotId,
+      </if>
+      <if test="dataJson != null" >
+        dataJson,
+      </if>
+      <if test="monitorName != null" >
+        monitorName,
+      </if>
+      <if test="monitorResult != null" >
+        monitorResult,
+      </if>
+      <if test="monitorAt != null" >
+        monitorAt,
+      </if>
+      <if test="creatorId != null" >
+        creatorId,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="productKey != null" >
+        #{productKey},
+      </if>
+      <if test="iotId != null" >
+        #{iotId},
+      </if>
+      <if test="dataJson != null" >
+        #{dataJson},
+      </if>
+      <if test="monitorName != null" >
+        #{monitorName},
+      </if>
+      <if test="monitorResult != null" >
+        #{monitorResult},
+      </if>
+      <if test="monitorAt != null" >
+        #{monitorAt},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM device_monitor_record WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM device_monitor_record
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

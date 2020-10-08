@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : contract
+  Comment  : 合同
+  Mapper   : com.welearn.mapper.ContractMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/1/25 16:14:19
+-->
+<mapper namespace="com.welearn.mapper.ContractMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    companyId,
+    companyName,
+    departmentId,
+    departmentName,
+    creatorId,
+    creatorName,
+    targetId,
+    type,
+    outlook,
+    no,
+    firstPart,
+    secondPart,
+    effectiveAt,
+    expiredAt,
+    photocopy,
+    contentJson,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    contract.id AS id,
+    contract.createdAt AS createdAt,
+    contract.updatedAt AS updatedAt,
+    contract.isEnable AS isEnable,
+    contract.companyId AS companyId,
+    contract.companyName AS companyName,
+    contract.departmentId AS departmentId,
+    contract.departmentName AS departmentName,
+    contract.creatorId AS creatorId,
+    contract.creatorName AS creatorName,
+    contract.targetId AS targetId,
+    contract.type AS type,
+    contract.outlook AS outlook,
+    contract.no AS no,
+    contract.firstPart AS firstPart,
+    contract.secondPart AS secondPart,
+    contract.effectiveAt AS effectiveAt,
+    contract.expiredAt AS expiredAt,
+    contract.photocopy AS photocopy,
+    contract.contentJson AS contentJson,
+    contract.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.apply.Contract" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 公司名称 -->
+    <result column="companyName" property="companyName"/>
+    <!-- Comment: 部门id -->
+    <result column="departmentId" property="departmentId"/>
+    <!-- Comment: 部门部门 -->
+    <result column="departmentName" property="departmentName"/>
+    <!-- Comment: 创建人id -->
+    <result column="creatorId" property="creatorId"/>
+    <!-- Comment: 创建人名称 -->
+    <result column="creatorName" property="creatorName"/>
+    <!-- Comment: 合同目标id -->
+    <result column="targetId" property="targetId"/>
+    <!-- Comment: 合同类型 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 合同简述 -->
+    <result column="outlook" property="outlook"/>
+    <!-- Comment: 合同编号 -->
+    <result column="no" property="no"/>
+    <!-- Comment: 合同甲方 -->
+    <result column="firstPart" property="firstPart"/>
+    <!-- Comment: 合同乙方 -->
+    <result column="secondPart" property="secondPart"/>
+    <!-- Comment: 生效日期 -->
+    <result column="effectiveAt" property="effectiveAt"/>
+    <!-- Comment: 过期日期 -->
+    <result column="expiredAt" property="expiredAt"/>
+    <!-- Comment: 合同复印件 -->
+    <result column="photocopy" property="photocopy"/>
+    <!-- Comment: 合同详细内容JSON存储 -->
+    <result column="contentJson" property="contentJson"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.apply.Contract" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM contract
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.apply.Contract" parameterType="com.welearn.entity.qo.apply.ContractQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM contract
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="companyId != null" >
+          AND companyId = #{companyId}
+        </if>
+        <if test="companyName != null" >
+          AND companyName = #{companyName}
+        </if>
+        <if test="departmentId != null" >
+          AND departmentId = #{departmentId}
+        </if>
+        <if test="departmentName != null" >
+          AND departmentName = #{departmentName}
+        </if>
+        <if test="creatorId != null" >
+          AND creatorId = #{creatorId}
+        </if>
+        <if test="creatorName != null" >
+          AND creatorName = #{creatorName}
+        </if>
+        <if test="targetId != null" >
+          AND targetId = #{targetId}
+        </if>
+        <if test="type != null" >
+          AND type = #{type}
+        </if>
+        <if test="outlook != null" >
+          AND outlook = #{outlook}
+        </if>
+        <if test="no != null" >
+          AND no = #{no}
+        </if>
+        <if test="firstPart != null" >
+          AND firstPart = #{firstPart}
+        </if>
+        <if test="secondPart != null" >
+          AND secondPart = #{secondPart}
+        </if>
+        <if test="effectiveAt != null" >
+          AND effectiveAt = #{effectiveAt}
+        </if>
+        <if test="expiredAt != null" >
+          AND expiredAt = #{expiredAt}
+        </if>
+        <if test="photocopy != null" >
+          AND photocopy = #{photocopy}
+        </if>
+        <if test="contentJson != null" >
+          AND contentJson = #{contentJson}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.apply.Contract" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM contract
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM contract
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.apply.Contract" >
+    UPDATE contract
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      companyId = #{companyId},
+      companyName = #{companyName},
+      departmentId = #{departmentId},
+      departmentName = #{departmentName},
+      creatorId = #{creatorId},
+      creatorName = #{creatorName},
+      targetId = #{targetId},
+      type = #{type},
+      outlook = #{outlook},
+      no = #{no},
+      firstPart = #{firstPart},
+      secondPart = #{secondPart},
+      effectiveAt = #{effectiveAt},
+      expiredAt = #{expiredAt},
+      photocopy = #{photocopy},
+      contentJson = #{contentJson},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.apply.Contract" >
+    UPDATE contract
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="companyName != null" >
+        companyName = #{companyName},
+      </if>
+      <if test="departmentId != null" >
+        departmentId = #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        departmentName = #{departmentName},
+      </if>
+      <if test="creatorId != null" >
+        creatorId = #{creatorId},
+      </if>
+      <if test="creatorName != null" >
+        creatorName = #{creatorName},
+      </if>
+      <if test="targetId != null" >
+        targetId = #{targetId},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="outlook != null" >
+        outlook = #{outlook},
+      </if>
+      <if test="no != null" >
+        no = #{no},
+      </if>
+      <if test="firstPart != null" >
+        firstPart = #{firstPart},
+      </if>
+      <if test="secondPart != null" >
+        secondPart = #{secondPart},
+      </if>
+      <if test="effectiveAt != null" >
+        effectiveAt = #{effectiveAt},
+      </if>
+      <if test="expiredAt != null" >
+        expiredAt = #{expiredAt},
+      </if>
+      <if test="photocopy != null" >
+        photocopy = #{photocopy},
+      </if>
+      <if test="contentJson != null" >
+        contentJson = #{contentJson},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE contract SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE contract SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.apply.Contract" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      companyId,
+      companyName,
+      departmentId,
+      departmentName,
+      creatorId,
+      creatorName,
+      targetId,
+      type,
+      outlook,
+      no,
+      firstPart,
+      secondPart,
+      effectiveAt,
+      expiredAt,
+      photocopy,
+      contentJson,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{companyId},
+      #{companyName},
+      #{departmentId},
+      #{departmentName},
+      #{creatorId},
+      #{creatorName},
+      #{targetId},
+      #{type},
+      #{outlook},
+      #{no},
+      #{firstPart},
+      #{secondPart},
+      #{effectiveAt},
+      #{expiredAt},
+      #{photocopy},
+      #{contentJson},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.apply.Contract" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO contract 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="companyName != null" >
+        companyName,
+      </if>
+      <if test="departmentId != null" >
+        departmentId,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="creatorId != null" >
+        creatorId,
+      </if>
+      <if test="creatorName != null" >
+        creatorName,
+      </if>
+      <if test="targetId != null" >
+        targetId,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="outlook != null" >
+        outlook,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="firstPart != null" >
+        firstPart,
+      </if>
+      <if test="secondPart != null" >
+        secondPart,
+      </if>
+      <if test="effectiveAt != null" >
+        effectiveAt,
+      </if>
+      <if test="expiredAt != null" >
+        expiredAt,
+      </if>
+      <if test="photocopy != null" >
+        photocopy,
+      </if>
+      <if test="contentJson != null" >
+        contentJson,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="companyName != null" >
+        #{companyName},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName},
+      </if>
+      <if test="targetId != null" >
+        #{targetId},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="outlook != null" >
+        #{outlook},
+      </if>
+      <if test="no != null" >
+        #{no},
+      </if>
+      <if test="firstPart != null" >
+        #{firstPart},
+      </if>
+      <if test="secondPart != null" >
+        #{secondPart},
+      </if>
+      <if test="effectiveAt != null" >
+        #{effectiveAt},
+      </if>
+      <if test="expiredAt != null" >
+        #{expiredAt},
+      </if>
+      <if test="photocopy != null" >
+        #{photocopy},
+      </if>
+      <if test="contentJson != null" >
+        #{contentJson},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM contract WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM contract
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

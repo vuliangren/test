@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : repair_dispatch_outside_detail
+  Comment  : 报修外部派工详情
+  Mapper   : com.welearn.mapper.RepairDispatchOutsideDetailMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/2/26 15:23:31
+-->
+<mapper namespace="com.welearn.mapper.RepairDispatchOutsideDetailMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    requestId,
+    dispatchOutsideId,
+    engineerId,
+    engineerName,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    repair_dispatch_outside_detail.id AS id,
+    repair_dispatch_outside_detail.createdAt AS createdAt,
+    repair_dispatch_outside_detail.updatedAt AS updatedAt,
+    repair_dispatch_outside_detail.isEnable AS isEnable,
+    repair_dispatch_outside_detail.requestId AS requestId,
+    repair_dispatch_outside_detail.dispatchOutsideId AS dispatchOutsideId,
+    repair_dispatch_outside_detail.engineerId AS engineerId,
+    repair_dispatch_outside_detail.engineerName AS engineerName,
+    repair_dispatch_outside_detail.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 报修id -->
+    <result column="requestId" property="requestId"/>
+    <!-- Comment: 外部派工id -->
+    <result column="dispatchOutsideId" property="dispatchOutsideId"/>
+    <!-- Comment: 工程师id -->
+    <result column="engineerId" property="engineerId"/>
+    <!-- Comment: 工程师名称 -->
+    <result column="engineerName" property="engineerName"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_dispatch_outside_detail
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" parameterType="com.welearn.entity.qo.equipment.RepairDispatchOutsideDetailQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_dispatch_outside_detail
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="requestId != null" >
+          AND requestId = #{requestId}
+        </if>
+        <if test="dispatchOutsideId != null" >
+          AND dispatchOutsideId = #{dispatchOutsideId}
+        </if>
+        <if test="engineerId != null" >
+          AND engineerId = #{engineerId}
+        </if>
+        <if test="engineerName != null" >
+          AND engineerName = #{engineerName}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM repair_dispatch_outside_detail
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM repair_dispatch_outside_detail
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" >
+    UPDATE repair_dispatch_outside_detail
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      requestId = #{requestId},
+      dispatchOutsideId = #{dispatchOutsideId},
+      engineerId = #{engineerId},
+      engineerName = #{engineerName},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" >
+    UPDATE repair_dispatch_outside_detail
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="requestId != null" >
+        requestId = #{requestId},
+      </if>
+      <if test="dispatchOutsideId != null" >
+        dispatchOutsideId = #{dispatchOutsideId},
+      </if>
+      <if test="engineerId != null" >
+        engineerId = #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        engineerName = #{engineerName},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE repair_dispatch_outside_detail SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE repair_dispatch_outside_detail SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO repair_dispatch_outside_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      requestId,
+      dispatchOutsideId,
+      engineerId,
+      engineerName,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{requestId},
+      #{dispatchOutsideId},
+      #{engineerId},
+      #{engineerName},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.RepairDispatchOutsideDetail" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO repair_dispatch_outside_detail 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="requestId != null" >
+        requestId,
+      </if>
+      <if test="dispatchOutsideId != null" >
+        dispatchOutsideId,
+      </if>
+      <if test="engineerId != null" >
+        engineerId,
+      </if>
+      <if test="engineerName != null" >
+        engineerName,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="requestId != null" >
+        #{requestId},
+      </if>
+      <if test="dispatchOutsideId != null" >
+        #{dispatchOutsideId},
+      </if>
+      <if test="engineerId != null" >
+        #{engineerId},
+      </if>
+      <if test="engineerName != null" >
+        #{engineerName},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM repair_dispatch_outside_detail WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM repair_dispatch_outside_detail
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  <select id="searchDispatchOutsideEngineers" resultType="com.welearn.entity.vo.response.equipment.RepairDispatchOutsideDetailInfo">
+    select distinct e.*, rdod.id as repairDispatchOutsideDetailId
+    from repair_dispatch_outside_detail rdod
+    join engineer e on e.id = rdod.engineerId and e.isEnable = true
+    where rdod.dispatchOutsideId = #{dispatchOutsideId}
+  </select>
+</mapper>

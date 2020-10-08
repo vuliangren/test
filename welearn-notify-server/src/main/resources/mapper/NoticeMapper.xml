@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+  Table    : notice
+  Comment  : 通知信息
+  Mapper   : com.welearn.mapper.NoticeMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/2/15 18:41:03
+-->
+<mapper namespace="com.welearn.mapper.NoticeMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    releasedAt,
+    expiredAt,
+    status,
+    type,
+    lever,
+    clientType,
+    method,
+    title,
+    isShortNotice,
+    contentId,
+    isNoticeCloseable,
+    senderDescription,
+    senderId,
+    senderName,
+    senderCompanyId,
+    senderCompanyName,
+    senderDepartmentId,
+    senderDepartmentName,
+    receiverId,
+    receiverName,
+    receiverCompanyId,
+    receiverCompanyName,
+    receiverDepartmentId,
+    receiverDepartmentName,
+    refType,
+    refId,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    notice.id AS id,
+    notice.createdAt AS createdAt,
+    notice.updatedAt AS updatedAt,
+    notice.isEnable AS isEnable,
+    notice.releasedAt AS releasedAt,
+    notice.expiredAt AS expiredAt,
+    notice.status AS status,
+    notice.type AS type,
+    notice.lever AS lever,
+    notice.clientType AS clientType,
+    notice.method AS method,
+    notice.title AS title,
+    notice.isShortNotice AS isShortNotice,
+    notice.contentId AS contentId,
+    notice.isNoticeCloseable AS isNoticeCloseable,
+    notice.senderDescription AS senderDescription,
+    notice.senderId AS senderId,
+    notice.senderName AS senderName,
+    notice.senderCompanyId AS senderCompanyId,
+    notice.senderCompanyName AS senderCompanyName,
+    notice.senderDepartmentId AS senderDepartmentId,
+    notice.senderDepartmentName AS senderDepartmentName,
+    notice.receiverId AS receiverId,
+    notice.receiverName AS receiverName,
+    notice.receiverCompanyId AS receiverCompanyId,
+    notice.receiverCompanyName AS receiverCompanyName,
+    notice.receiverDepartmentId AS receiverDepartmentId,
+    notice.receiverDepartmentName AS receiverDepartmentName,
+    notice.refType AS refType,
+    notice.refId AS refId,
+    notice.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.notify.Notice" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 发布时间 -->
+    <result column="releasedAt" property="releasedAt"/>
+    <!-- Comment: 过期时间 -->
+    <result column="expiredAt" property="expiredAt"/>
+    <!-- Comment: 状态: 0-待通知 1-通知中 2-已通知 3-部分通知(发生异常) -->
+    <result column="status" property="status"/>
+    <!-- Comment: 类型: 0-系统公告 1-公司公告 2-部门公告 3-员工通知 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 级别: 0-一般通知 1-重要通知 2-紧急通知 3-加急通知 -->
+    <result column="lever" property="lever"/>
+    <!-- Comment: 站内信接收方客户端类型: 0-所有客户端 1-WEB端 4-小程序 -->
+    <result column="clientType" property="clientType"/>
+    <!-- Comment: 通知方式:0-站内通知 1-站内通知+邮件通知 2-站内通知+短信通知 3-站内通知+邮件通知+短信通知 -->
+    <result column="method" property="method"/>
+    <!-- Comment: 标题 -->
+    <result column="title" property="title"/>
+    <!-- Comment: 是否是简短公告(简短公告无内容id, 且不记录阅读记录) -->
+    <result column="isShortNotice" property="isShortNotice"/>
+    <!-- Comment: 内容id -->
+    <result column="contentId" property="contentId"/>
+    <!-- Comment: 是否允许用户关闭公告 -->
+    <result column="isNoticeCloseable" property="isNoticeCloseable"/>
+    <!-- Comment: 发布方描述 -->
+    <result column="senderDescription" property="senderDescription"/>
+    <!-- Comment: 发布方id -->
+    <result column="senderId" property="senderId"/>
+    <!-- Comment: 发布方名称 -->
+    <result column="senderName" property="senderName"/>
+    <!-- Comment: 发布方公司id -->
+    <result column="senderCompanyId" property="senderCompanyId"/>
+    <!-- Comment: 发布方公司名称 -->
+    <result column="senderCompanyName" property="senderCompanyName"/>
+    <!-- Comment: 发布方部门id -->
+    <result column="senderDepartmentId" property="senderDepartmentId"/>
+    <!-- Comment: 发布方部门名称 -->
+    <result column="senderDepartmentName" property="senderDepartmentName"/>
+    <!-- Comment: 接收方id -->
+    <result column="receiverId" property="receiverId"/>
+    <!-- Comment: 接收方名称 -->
+    <result column="receiverName" property="receiverName"/>
+    <!-- Comment: 接收方公司id -->
+    <result column="receiverCompanyId" property="receiverCompanyId"/>
+    <!-- Comment: 接收方公司名称 -->
+    <result column="receiverCompanyName" property="receiverCompanyName"/>
+    <!-- Comment: 接收方部门id -->
+    <result column="receiverDepartmentId" property="receiverDepartmentId"/>
+    <!-- Comment: 接收方部门名称 -->
+    <result column="receiverDepartmentName" property="receiverDepartmentName"/>
+    <!-- Comment: 关联类型 -->
+    <result column="refType" property="refType"/>
+    <!-- Comment: 关联类型id -->
+    <result column="refId" property="refId"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.notify.Notice" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM notice
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.notify.Notice" parameterType="com.welearn.entity.qo.notify.NoticeQueryCondition" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM notice
+    <where>
+      <if test="id != null" >
+        id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="releasedAt != null" >
+        AND releasedAt = #{releasedAt}
+      </if>
+      <if test="releasedAtLessThan != null" >
+        AND #{releasedAtLessThan} > releasedAt
+      </if>
+      <if test="releasedAtGreaterThan != null" >
+        AND releasedAt >= #{releasedAtGreaterThan}
+      </if>
+      <if test="expiredAt != null" >
+        AND expiredAt = #{expiredAt}
+      </if>
+      <if test="status != null" >
+        AND status = #{status}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="typeGreaterThan != null" >
+        AND type > #{typeGreaterThan}
+      </if>
+      <if test="lever != null" >
+        AND lever = #{lever}
+      </if>
+      <if test="clientType != null" >
+        AND clientType = #{clientType}
+      </if>
+      <if test="method != null" >
+        AND method = #{method}
+      </if>
+      <if test="title != null" >
+        AND title = #{title}
+      </if>
+      <if test="isShortNotice != null" >
+        AND isShortNotice = #{isShortNotice}
+      </if>
+      <if test="contentId != null" >
+        AND contentId = #{contentId}
+      </if>
+      <if test="isNoticeCloseable != null" >
+        AND isNoticeCloseable = #{isNoticeCloseable}
+      </if>
+      <if test="senderDescription != null" >
+        AND senderDescription = #{senderDescription}
+      </if>
+      <if test="senderId != null" >
+        AND senderId = #{senderId}
+      </if>
+      <if test="senderName != null" >
+        AND senderName = #{senderName}
+      </if>
+      <if test="senderCompanyId != null" >
+        AND senderCompanyId = #{senderCompanyId}
+      </if>
+      <if test="senderCompanyName != null" >
+        AND senderCompanyName = #{senderCompanyName}
+      </if>
+      <if test="senderDepartmentId != null" >
+        AND senderDepartmentId = #{senderDepartmentId}
+      </if>
+      <if test="senderDepartmentName != null" >
+        AND senderDepartmentName = #{senderDepartmentName}
+      </if>
+      <if test="receiverId != null" >
+        AND receiverId = #{receiverId}
+      </if>
+      <if test="receiverName != null" >
+        AND receiverName = #{receiverName}
+      </if>
+      <if test="receiverCompanyId != null" >
+        AND receiverCompanyId = #{receiverCompanyId}
+      </if>
+      <if test="receiverCompanyName != null" >
+        AND receiverCompanyName = #{receiverCompanyName}
+      </if>
+      <if test="receiverDepartmentId != null" >
+        AND receiverDepartmentId = #{receiverDepartmentId}
+      </if>
+      <if test="receiverDepartmentName != null" >
+        AND receiverDepartmentName = #{receiverDepartmentName}
+      </if>
+      <if test="refType != null" >
+        AND refType = #{refType}
+      </if>
+      <if test="refId != null" >
+        AND refId = #{refId}
+      </if>
+      <if test="remark != null" >
+        AND remark = #{remark}
+      </if>
+      <!-- START USER DEFINED -->
+
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.notify.Notice" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM notice
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM notice
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.notify.Notice" >
+    UPDATE notice
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      releasedAt = #{releasedAt},
+      expiredAt = #{expiredAt},
+      status = #{status},
+      type = #{type},
+      lever = #{lever},
+      clientType = #{clientType},
+      method = #{method},
+      title = #{title},
+      isShortNotice = #{isShortNotice},
+      contentId = #{contentId},
+      isNoticeCloseable = #{isNoticeCloseable},
+      senderDescription = #{senderDescription},
+      senderId = #{senderId},
+      senderName = #{senderName},
+      senderCompanyId = #{senderCompanyId},
+      senderCompanyName = #{senderCompanyName},
+      senderDepartmentId = #{senderDepartmentId},
+      senderDepartmentName = #{senderDepartmentName},
+      receiverId = #{receiverId},
+      receiverName = #{receiverName},
+      receiverCompanyId = #{receiverCompanyId},
+      receiverCompanyName = #{receiverCompanyName},
+      receiverDepartmentId = #{receiverDepartmentId},
+      receiverDepartmentName = #{receiverDepartmentName},
+      refType = #{refType},
+      refId = #{refId},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.notify.Notice" >
+    UPDATE notice
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="releasedAt != null" >
+        releasedAt = #{releasedAt},
+      </if>
+      <if test="expiredAt != null" >
+        expiredAt = #{expiredAt},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="lever != null" >
+        lever = #{lever},
+      </if>
+      <if test="clientType != null" >
+        clientType = #{clientType},
+      </if>
+      <if test="method != null" >
+        method = #{method},
+      </if>
+      <if test="title != null" >
+        title = #{title},
+      </if>
+      <if test="isShortNotice != null" >
+        isShortNotice = #{isShortNotice},
+      </if>
+      <if test="contentId != null" >
+        contentId = #{contentId},
+      </if>
+      <if test="isNoticeCloseable != null" >
+        isNoticeCloseable = #{isNoticeCloseable},
+      </if>
+      <if test="senderDescription != null" >
+        senderDescription = #{senderDescription},
+      </if>
+      <if test="senderId != null" >
+        senderId = #{senderId},
+      </if>
+      <if test="senderName != null" >
+        senderName = #{senderName},
+      </if>
+      <if test="senderCompanyId != null" >
+        senderCompanyId = #{senderCompanyId},
+      </if>
+      <if test="senderCompanyName != null" >
+        senderCompanyName = #{senderCompanyName},
+      </if>
+      <if test="senderDepartmentId != null" >
+        senderDepartmentId = #{senderDepartmentId},
+      </if>
+      <if test="senderDepartmentName != null" >
+        senderDepartmentName = #{senderDepartmentName},
+      </if>
+      <if test="receiverId != null" >
+        receiverId = #{receiverId},
+      </if>
+      <if test="receiverName != null" >
+        receiverName = #{receiverName},
+      </if>
+      <if test="receiverCompanyId != null" >
+        receiverCompanyId = #{receiverCompanyId},
+      </if>
+      <if test="receiverCompanyName != null" >
+        receiverCompanyName = #{receiverCompanyName},
+      </if>
+      <if test="receiverDepartmentId != null" >
+        receiverDepartmentId = #{receiverDepartmentId},
+      </if>
+      <if test="receiverDepartmentName != null" >
+        receiverDepartmentName = #{receiverDepartmentName},
+      </if>
+      <if test="refType != null" >
+        refType = #{refType},
+      </if>
+      <if test="refId != null" >
+        refId = #{refId},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE notice SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE notice SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.notify.Notice" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      releasedAt,
+      expiredAt,
+      status,
+      type,
+      lever,
+      clientType,
+      method,
+      title,
+      isShortNotice,
+      contentId,
+      isNoticeCloseable,
+      senderDescription,
+      senderId,
+      senderName,
+      senderCompanyId,
+      senderCompanyName,
+      senderDepartmentId,
+      senderDepartmentName,
+      receiverId,
+      receiverName,
+      receiverCompanyId,
+      receiverCompanyName,
+      receiverDepartmentId,
+      receiverDepartmentName,
+      refType,
+      refId,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{releasedAt},
+      #{expiredAt},
+      #{status},
+      #{type},
+      #{lever},
+      #{clientType},
+      #{method},
+      #{title},
+      #{isShortNotice},
+      #{contentId},
+      #{isNoticeCloseable},
+      #{senderDescription},
+      #{senderId},
+      #{senderName},
+      #{senderCompanyId},
+      #{senderCompanyName},
+      #{senderDepartmentId},
+      #{senderDepartmentName},
+      #{receiverId},
+      #{receiverName},
+      #{receiverCompanyId},
+      #{receiverCompanyName},
+      #{receiverDepartmentId},
+      #{receiverDepartmentName},
+      #{refType},
+      #{refId},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.notify.Notice" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="releasedAt != null" >
+        releasedAt,
+      </if>
+      <if test="expiredAt != null" >
+        expiredAt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="lever != null" >
+        lever,
+      </if>
+      <if test="clientType != null" >
+        clientType,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="isShortNotice != null" >
+        isShortNotice,
+      </if>
+      <if test="contentId != null" >
+        contentId,
+      </if>
+      <if test="isNoticeCloseable != null" >
+        isNoticeCloseable,
+      </if>
+      <if test="senderDescription != null" >
+        senderDescription,
+      </if>
+      <if test="senderId != null" >
+        senderId,
+      </if>
+      <if test="senderName != null" >
+        senderName,
+      </if>
+      <if test="senderCompanyId != null" >
+        senderCompanyId,
+      </if>
+      <if test="senderCompanyName != null" >
+        senderCompanyName,
+      </if>
+      <if test="senderDepartmentId != null" >
+        senderDepartmentId,
+      </if>
+      <if test="senderDepartmentName != null" >
+        senderDepartmentName,
+      </if>
+      <if test="receiverId != null" >
+        receiverId,
+      </if>
+      <if test="receiverName != null" >
+        receiverName,
+      </if>
+      <if test="receiverCompanyId != null" >
+        receiverCompanyId,
+      </if>
+      <if test="receiverCompanyName != null" >
+        receiverCompanyName,
+      </if>
+      <if test="receiverDepartmentId != null" >
+        receiverDepartmentId,
+      </if>
+      <if test="receiverDepartmentName != null" >
+        receiverDepartmentName,
+      </if>
+      <if test="refType != null" >
+        refType,
+      </if>
+      <if test="refId != null" >
+        refId,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="releasedAt != null" >
+        #{releasedAt},
+      </if>
+      <if test="expiredAt != null" >
+        #{expiredAt},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="lever != null" >
+        #{lever},
+      </if>
+      <if test="clientType != null" >
+        #{clientType},
+      </if>
+      <if test="method != null" >
+        #{method},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="isShortNotice != null" >
+        #{isShortNotice},
+      </if>
+      <if test="contentId != null" >
+        #{contentId},
+      </if>
+      <if test="isNoticeCloseable != null" >
+        #{isNoticeCloseable},
+      </if>
+      <if test="senderDescription != null" >
+        #{senderDescription},
+      </if>
+      <if test="senderId != null" >
+        #{senderId},
+      </if>
+      <if test="senderName != null" >
+        #{senderName},
+      </if>
+      <if test="senderCompanyId != null" >
+        #{senderCompanyId},
+      </if>
+      <if test="senderCompanyName != null" >
+        #{senderCompanyName},
+      </if>
+      <if test="senderDepartmentId != null" >
+        #{senderDepartmentId},
+      </if>
+      <if test="senderDepartmentName != null" >
+        #{senderDepartmentName},
+      </if>
+      <if test="receiverId != null" >
+        #{receiverId},
+      </if>
+      <if test="receiverName != null" >
+        #{receiverName},
+      </if>
+      <if test="receiverCompanyId != null" >
+        #{receiverCompanyId},
+      </if>
+      <if test="receiverCompanyName != null" >
+        #{receiverCompanyName},
+      </if>
+      <if test="receiverDepartmentId != null" >
+        #{receiverDepartmentId},
+      </if>
+      <if test="receiverDepartmentName != null" >
+        #{receiverDepartmentName},
+      </if>
+      <if test="refType != null" >
+        #{refType},
+      </if>
+      <if test="refId != null" >
+        #{refId},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM notice WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM notice
+  </delete>
+
+
+  <!-- START USER DEFINED -->
+  <!-- 按条件查询数据详情 此方法仅供用户查询和其相关通知详情信息 -->
+  <select id="selectInfoByCondition" resultType="com.welearn.entity.vo.response.notify.NoticeInfo" parameterType="com.welearn.entity.qo.notify.NoticeQueryCondition" >
+    SELECT
+    distinct n.*, nr.userId as userId, nr.userName as userName, nr.isViewed as isViewed
+    FROM notice n
+    join notice_record nr on nr.noticeId = n.id and nr.isEnable = true
+    <if test="userId != null" >
+      AND nr.userId = #{userId}
+    </if>
+    <if test="isViewed != null" >
+      AND nr.isViewed = #{isViewed}
+    </if>
+    <where>
+      <if test="id != null" >
+        n.id = #{id}
+      </if>
+      <if test="createdAt != null" >
+        AND n.createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND n.updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND n.isEnable = #{isEnable}
+      </if>
+      <if test="releasedAt != null" >
+        AND n.releasedAt = #{releasedAt}
+      </if>
+      <if test="releasedAtLessThan != null" >
+        AND #{releasedAtLessThan} > n.releasedAt
+      </if>
+      <if test="releasedAtGreaterThan != null" >
+        AND n.releasedAt >= #{releasedAtGreaterThan}
+      </if>
+      <if test="expiredAt != null" >
+        AND n.expiredAt = #{expiredAt}
+      </if>
+      <if test="status != null" >
+        AND n.status = #{status}
+      </if>
+      <if test="type != null" >
+        AND n.type = #{type}
+      </if>
+      <if test="typeGreaterThan != null" >
+        AND n.type > #{typeGreaterThan}
+      </if>
+      <if test="lever != null" >
+        AND n.lever = #{lever}
+      </if>
+      <if test="clientType != null" >
+        AND n.clientType = #{clientType}
+      </if>
+      <if test="method != null" >
+        AND n.method = #{method}
+      </if>
+      <if test="title != null" >
+        AND n.title = #{title}
+      </if>
+      <if test="isShortNotice != null" >
+        AND n.isShortNotice = #{isShortNotice}
+      </if>
+      <if test="contentId != null" >
+        AND n.contentId = #{contentId}
+      </if>
+      <if test="isNoticeCloseable != null" >
+        AND n.isNoticeCloseable = #{isNoticeCloseable}
+      </if>
+      <if test="senderDescription != null" >
+        AND n.senderDescription = #{senderDescription}
+      </if>
+      <if test="senderId != null" >
+        AND n.senderId = #{senderId}
+      </if>
+      <if test="senderName != null" >
+        AND n.senderName = #{senderName}
+      </if>
+      <if test="senderCompanyId != null" >
+        AND n.senderCompanyId = #{senderCompanyId}
+      </if>
+      <if test="senderCompanyName != null" >
+        AND n.senderCompanyName = #{senderCompanyName}
+      </if>
+      <if test="senderDepartmentId != null" >
+        AND n.senderDepartmentId = #{senderDepartmentId}
+      </if>
+      <if test="senderDepartmentName != null" >
+        AND n.senderDepartmentName = #{senderDepartmentName}
+      </if>
+      <if test="receiverId != null" >
+        AND n.receiverId = #{receiverId}
+      </if>
+      <if test="receiverName != null" >
+        AND n.receiverName = #{receiverName}
+      </if>
+      <if test="receiverCompanyId != null" >
+        AND n.receiverCompanyId = #{receiverCompanyId}
+      </if>
+      <if test="receiverCompanyName != null" >
+        AND n.receiverCompanyName = #{receiverCompanyName}
+      </if>
+      <if test="receiverDepartmentId != null" >
+        AND n.receiverDepartmentId = #{receiverDepartmentId}
+      </if>
+      <if test="receiverDepartmentName != null" >
+        AND n.receiverDepartmentName = #{receiverDepartmentName}
+      </if>
+      <!-- START USER DEFINED -->
+
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY nr.isViewed ASC, n.lever DESC, n.releasedAt DESC
+  </select>
+</mapper>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : spare_part_usage
+  Comment  : 备件用途
+  Mapper   : com.welearn.mapper.SparePartUsageMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/1/25 17:49:40
+-->
+<mapper namespace="com.welearn.mapper.SparePartUsageMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    spareTypeId,
+    usageType,
+    usageRefId,
+    usageDescription
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    spare_part_usage.id AS id,
+    spare_part_usage.createdAt AS createdAt,
+    spare_part_usage.updatedAt AS updatedAt,
+    spare_part_usage.isEnable AS isEnable,
+    spare_part_usage.spareTypeId AS spareTypeId,
+    spare_part_usage.usageType AS usageType,
+    spare_part_usage.usageRefId AS usageRefId,
+    spare_part_usage.usageDescription AS usageDescription
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.SparePartUsage" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 备件类型id -->
+    <result column="spareTypeId" property="spareTypeId"/>
+    <!-- Comment: 用途类型: 0-通用 1-类型适用 2-产品适用 3-设备专用 -->
+    <result column="usageType" property="usageType"/>
+    <!-- Comment: 用途关联的id(用途类型: 1-设备类型id, 2-设备产品id, 3-设备id) -->
+    <result column="usageRefId" property="usageRefId"/>
+    <!-- Comment: 用途描述 -->
+    <result column="usageDescription" property="usageDescription"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.SparePartUsage" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_usage
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.SparePartUsage" parameterType="com.welearn.entity.qo.equipment.SparePartUsageQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_usage
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="spareTypeId != null" >
+          AND spareTypeId = #{spareTypeId}
+        </if>
+        <if test="usageType != null" >
+          AND usageType = #{usageType}
+        </if>
+        <if test="usageRefId != null" >
+          AND usageRefId = #{usageRefId}
+        </if>
+        <if test="usageDescription != null" >
+          AND usageDescription = #{usageDescription}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.SparePartUsage" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_usage
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM spare_part_usage
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.SparePartUsage" >
+    UPDATE spare_part_usage
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      spareTypeId = #{spareTypeId},
+      usageType = #{usageType},
+      usageRefId = #{usageRefId},
+      usageDescription = #{usageDescription},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.SparePartUsage" >
+    UPDATE spare_part_usage
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="spareTypeId != null" >
+        spareTypeId = #{spareTypeId},
+      </if>
+      <if test="usageType != null" >
+        usageType = #{usageType},
+      </if>
+      <if test="usageRefId != null" >
+        usageRefId = #{usageRefId},
+      </if>
+      <if test="usageDescription != null" >
+        usageDescription = #{usageDescription},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE spare_part_usage SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE spare_part_usage SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.SparePartUsage" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO spare_part_usage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      spareTypeId,
+      usageType,
+      usageRefId,
+      usageDescription,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{spareTypeId},
+      #{usageType},
+      #{usageRefId},
+      #{usageDescription},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.SparePartUsage" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO spare_part_usage 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="spareTypeId != null" >
+        spareTypeId,
+      </if>
+      <if test="usageType != null" >
+        usageType,
+      </if>
+      <if test="usageRefId != null" >
+        usageRefId,
+      </if>
+      <if test="usageDescription != null" >
+        usageDescription,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="spareTypeId != null" >
+        #{spareTypeId},
+      </if>
+      <if test="usageType != null" >
+        #{usageType},
+      </if>
+      <if test="usageRefId != null" >
+        #{usageRefId},
+      </if>
+      <if test="usageDescription != null" >
+        #{usageDescription},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM spare_part_usage WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM spare_part_usage
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

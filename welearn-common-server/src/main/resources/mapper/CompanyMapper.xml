@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : company
+  Comment  : 公司
+  Mapper   : com.welearn.mapper.CompanyMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/9/13 11:40:41
+-->
+<mapper namespace="com.welearn.mapper.CompanyMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    parentId,
+    createdAt,
+    updatedAt,
+    isEnable,
+    name,
+    description,
+    addressId,
+    phone,
+    logo,
+    creatorId,
+    adminId,
+    type,
+    tags,
+    state,
+    businessLicenseId,
+    configJson
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    company.id AS id,
+    company.parentId AS parentId,
+    company.createdAt AS createdAt,
+    company.updatedAt AS updatedAt,
+    company.isEnable AS isEnable,
+    company.name AS name,
+    company.description AS description,
+    company.addressId AS addressId,
+    company.phone AS phone,
+    company.logo AS logo,
+    company.creatorId AS creatorId,
+    company.adminId AS adminId,
+    company.type AS type,
+    company.tags AS tags,
+    company.state AS state,
+    company.businessLicenseId AS businessLicenseId,
+    company.configJson AS configJson
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.common.Company" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 父节点主键 -->
+    <result column="parentId" property="parentId"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 名称 -->
+    <result column="name" property="name"/>
+    <!-- Comment: 描述 -->
+    <result column="description" property="description"/>
+    <!-- Comment: 地址 -->
+    <result column="addressId" property="addressId"/>
+    <!-- Comment: 电话 -->
+    <result column="phone" property="phone"/>
+    <!-- Comment: 商标LOGO图片的URL -->
+    <result column="logo" property="logo"/>
+    <!-- Comment: 创建者id -->
+    <result column="creatorId" property="creatorId"/>
+    <!-- Comment: 管理员id -->
+    <result column="adminId" property="adminId"/>
+    <!-- Comment: 类型: 0-医院 1-供应 2-系统 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 标签: 可有多个标签,根据标签来确认功能 -->
+    <result column="tags" property="tags"/>
+    <!-- Comment: 状态: 0-正常 -->
+    <result column="state" property="state"/>
+    <!-- Comment: 营业执照id -->
+    <result column="businessLicenseId" property="businessLicenseId"/>
+    <!-- Comment: 参数配置项 key-value 键值对 -->
+    <result column="configJson" property="configJson"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.common.Company" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM company
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.common.Company" parameterType="com.welearn.entity.qo.common.CompanyQueryCondition" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM company
+    <where>
+      <if test="id != null" >
+        id = #{id}
+      </if>
+      <if test="parentId != null" >
+        AND parentId = #{parentId}
+      </if>
+      <if test="createdAt != null" >
+        AND createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="name != null" >
+        AND name = #{name}
+      </if>
+      <if test="description != null" >
+        AND description = #{description}
+      </if>
+      <if test="addressId != null" >
+        AND addressId = #{addressId}
+      </if>
+      <if test="phone != null" >
+        AND phone = #{phone}
+      </if>
+      <if test="logo != null" >
+        AND logo = #{logo}
+      </if>
+      <if test="creatorId != null" >
+        AND creatorId = #{creatorId}
+      </if>
+      <if test="adminId != null" >
+        AND adminId = #{adminId}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="tags != null" >
+        AND tags = #{tags}
+      </if>
+      <if test="state != null" >
+        AND state = #{state}
+      </if>
+      <if test="businessLicenseId != null" >
+        AND businessLicenseId = #{businessLicenseId}
+      </if>
+      <if test="configJson != null" >
+        AND configJson = #{configJson}
+      </if>
+      <!-- START USER DEFINED -->
+
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.common.Company" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM company
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM company
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.common.Company" >
+    UPDATE company
+    <set>
+      parentId = #{parentId},
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      name = #{name},
+      description = #{description},
+      addressId = #{addressId},
+      phone = #{phone},
+      logo = #{logo},
+      creatorId = #{creatorId},
+      adminId = #{adminId},
+      type = #{type},
+      tags = #{tags},
+      state = #{state},
+      businessLicenseId = #{businessLicenseId},
+      configJson = #{configJson},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.common.Company" >
+    UPDATE company
+    <set>
+      <if test="parentId != null" >
+        parentId = #{parentId},
+      </if>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="addressId != null" >
+        addressId = #{addressId},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo},
+      </if>
+      <if test="creatorId != null" >
+        creatorId = #{creatorId},
+      </if>
+      <if test="adminId != null" >
+        adminId = #{adminId},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="tags != null" >
+        tags = #{tags},
+      </if>
+      <if test="state != null" >
+        state = #{state},
+      </if>
+      <if test="businessLicenseId != null" >
+        businessLicenseId = #{businessLicenseId},
+      </if>
+      <if test="configJson != null" >
+        configJson = #{configJson},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE company SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE company SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.common.Company" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      parentId,
+      createdAt,
+      updatedAt,
+      isEnable,
+      name,
+      description,
+      addressId,
+      phone,
+      logo,
+      creatorId,
+      adminId,
+      type,
+      tags,
+      state,
+      businessLicenseId,
+      configJson,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{parentId},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{name},
+      #{description},
+      #{addressId},
+      #{phone},
+      #{logo},
+      #{creatorId},
+      #{adminId},
+      #{type},
+      #{tags},
+      #{state},
+      #{businessLicenseId},
+      #{configJson},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.common.Company" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="addressId != null" >
+        addressId,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="creatorId != null" >
+        creatorId,
+      </if>
+      <if test="adminId != null" >
+        adminId,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="tags != null" >
+        tags,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="businessLicenseId != null" >
+        businessLicenseId,
+      </if>
+      <if test="configJson != null" >
+        configJson,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="addressId != null" >
+        #{addressId},
+      </if>
+      <if test="phone != null" >
+        #{phone},
+      </if>
+      <if test="logo != null" >
+        #{logo},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId},
+      </if>
+      <if test="adminId != null" >
+        #{adminId},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="tags != null" >
+        #{tags},
+      </if>
+      <if test="state != null" >
+        #{state},
+      </if>
+      <if test="businessLicenseId != null" >
+        #{businessLicenseId},
+      </if>
+      <if test="configJson != null" >
+        #{configJson},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM company WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM company
+  </delete>
+
+
+  <!-- START USER DEFINED -->
+
+</mapper>

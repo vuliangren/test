@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : rfid_tag
+  Comment  : RFID标签
+  Mapper   : com.welearn.mapper.RfidTagMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/7/16 16:51:57
+-->
+<mapper namespace="com.welearn.mapper.RfidTagMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    no,
+    type,
+    specification,
+    image,
+    refId,
+    refType,
+    refName,
+    refDescription
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    rfid_tag.id AS id,
+    rfid_tag.createdAt AS createdAt,
+    rfid_tag.updatedAt AS updatedAt,
+    rfid_tag.isEnable AS isEnable,
+    rfid_tag.no AS no,
+    rfid_tag.type AS type,
+    rfid_tag.specification AS specification,
+    rfid_tag.image AS image,
+    rfid_tag.refId AS refId,
+    rfid_tag.refType AS refType,
+    rfid_tag.refName AS refName,
+    rfid_tag.refDescription AS refDescription
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.alink.RfidTag" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 标签编号 -->
+    <result column="no" property="no"/>
+    <!-- Comment: 类型: 0-125kHz -->
+    <result column="type" property="type"/>
+    <!-- Comment: 规格: 如 蓝色 直径25mm标签 等 -->
+    <result column="specification" property="specification"/>
+    <!-- Comment: 图标 -->
+    <result column="image" property="image"/>
+    <!-- Comment: 关联ID -->
+    <result column="refId" property="refId"/>
+    <!-- Comment: 关联类型: User, Equipment -->
+    <result column="refType" property="refType"/>
+    <!-- Comment: 关联类型名称 -->
+    <result column="refName" property="refName"/>
+    <!-- Comment: 关联类型描述 -->
+    <result column="refDescription" property="refDescription"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.alink.RfidTag" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM rfid_tag
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.alink.RfidTag" parameterType="com.welearn.entity.qo.alink.RfidTagQueryCondition" >
+    SELECT
+      distinct rt.*
+    FROM rfid_tag rt
+    <if test="iotId != null" >
+      join re_rfid_tag_device rrtd on rrtd.isEnable = true and rrtd.tagId = rt.id and rrtd.iotId = #{iotId}
+    </if>
+      <where>
+        <if test="id != null" >
+          rt.id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND rt.createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND rt.updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND rt.isEnable = #{isEnable}
+        </if>
+        <if test="no != null" >
+          AND rt.no = #{no}
+        </if>
+        <if test="type != null" >
+          AND rt.type = #{type}
+        </if>
+        <if test="specification != null" >
+          AND rt.specification = #{specification}
+        </if>
+        <if test="image != null" >
+          AND rt.image = #{image}
+        </if>
+        <if test="refId != null" >
+          AND rt.refId = #{refId}
+        </if>
+        <if test="refType != null" >
+          AND rt.refType = #{refType}
+        </if>
+        <if test="refName != null" >
+          AND rt.refName = #{refName}
+        </if>
+        <if test="refDescription != null" >
+          AND rt.refDescription = #{refDescription}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY rt.createdAt ASC, rt.updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.alink.RfidTag" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM rfid_tag
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM rfid_tag
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.alink.RfidTag" >
+    UPDATE rfid_tag
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      no = #{no},
+      type = #{type},
+      specification = #{specification},
+      image = #{image},
+      refId = #{refId},
+      refType = #{refType},
+      refName = #{refName},
+      refDescription = #{refDescription},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.alink.RfidTag" >
+    UPDATE rfid_tag
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="no != null" >
+        no = #{no},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification},
+      </if>
+      <if test="image != null" >
+        image = #{image},
+      </if>
+      <if test="refId != null" >
+        refId = #{refId},
+      </if>
+      <if test="refType != null" >
+        refType = #{refType},
+      </if>
+      <if test="refName != null" >
+        refName = #{refName},
+      </if>
+      <if test="refDescription != null" >
+        refDescription = #{refDescription},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE rfid_tag SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE rfid_tag SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.alink.RfidTag" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO rfid_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      no,
+      type,
+      specification,
+      image,
+      refId,
+      refType,
+      refName,
+      refDescription,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{no},
+      #{type},
+      #{specification},
+      #{image},
+      #{refId},
+      #{refType},
+      #{refName},
+      #{refDescription},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.alink.RfidTag" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO rfid_tag 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="refId != null" >
+        refId,
+      </if>
+      <if test="refType != null" >
+        refType,
+      </if>
+      <if test="refName != null" >
+        refName,
+      </if>
+      <if test="refDescription != null" >
+        refDescription,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="no != null" >
+        #{no},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="specification != null" >
+        #{specification},
+      </if>
+      <if test="image != null" >
+        #{image},
+      </if>
+      <if test="refId != null" >
+        #{refId},
+      </if>
+      <if test="refType != null" >
+        #{refType},
+      </if>
+      <if test="refName != null" >
+        #{refName},
+      </if>
+      <if test="refDescription != null" >
+        #{refDescription},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM rfid_tag WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM rfid_tag
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

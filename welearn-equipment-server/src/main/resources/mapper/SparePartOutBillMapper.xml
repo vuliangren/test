@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : spare_part_out_bill
+  Comment  : 配件出库单
+  Mapper   : com.welearn.mapper.SparePartOutBillMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2019/2/28 15:27:59
+-->
+<mapper namespace="com.welearn.mapper.SparePartOutBillMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    createdAt,
+    updatedAt,
+    isEnable,
+    outlook,
+    status,
+    recipientId,
+    recipientName,
+    recipientSignatureId,
+    recipientDepartmentId,
+    recipientDepartmentName,
+    recipientCompanyId,
+    recipientCompanyName,
+    sumCount,
+    sumPrice,
+    sumPriceChinese,
+    approverId,
+    approverName,
+    approverDepartmentId,
+    approverDepartmentName,
+    approverCompanyId,
+    approverCompanyName,
+    remark
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    spare_part_out_bill.id AS id,
+    spare_part_out_bill.createdAt AS createdAt,
+    spare_part_out_bill.updatedAt AS updatedAt,
+    spare_part_out_bill.isEnable AS isEnable,
+    spare_part_out_bill.outlook AS outlook,
+    spare_part_out_bill.status AS status,
+    spare_part_out_bill.recipientId AS recipientId,
+    spare_part_out_bill.recipientName AS recipientName,
+    spare_part_out_bill.recipientSignatureId AS recipientSignatureId,
+    spare_part_out_bill.recipientDepartmentId AS recipientDepartmentId,
+    spare_part_out_bill.recipientDepartmentName AS recipientDepartmentName,
+    spare_part_out_bill.recipientCompanyId AS recipientCompanyId,
+    spare_part_out_bill.recipientCompanyName AS recipientCompanyName,
+    spare_part_out_bill.sumCount AS sumCount,
+    spare_part_out_bill.sumPrice AS sumPrice,
+    spare_part_out_bill.sumPriceChinese AS sumPriceChinese,
+    spare_part_out_bill.approverId AS approverId,
+    spare_part_out_bill.approverName AS approverName,
+    spare_part_out_bill.approverDepartmentId AS approverDepartmentId,
+    spare_part_out_bill.approverDepartmentName AS approverDepartmentName,
+    spare_part_out_bill.approverCompanyId AS approverCompanyId,
+    spare_part_out_bill.approverCompanyName AS approverCompanyName,
+    spare_part_out_bill.remark AS remark
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.equipment.SparePartOutBill" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 出库简述 -->
+    <result column="outlook" property="outlook"/>
+    <!-- Comment: 状态: 0-待出库 1-已出库 2-已取消 -->
+    <result column="status" property="status"/>
+    <!-- Comment: 接收人id -->
+    <result column="recipientId" property="recipientId"/>
+    <!-- Comment: 接收人名称 -->
+    <result column="recipientName" property="recipientName"/>
+    <!-- Comment: 接收人签名id -->
+    <result column="recipientSignatureId" property="recipientSignatureId"/>
+    <!-- Comment: 接收方部门id -->
+    <result column="recipientDepartmentId" property="recipientDepartmentId"/>
+    <!-- Comment: 接收方部门名称 -->
+    <result column="recipientDepartmentName" property="recipientDepartmentName"/>
+    <!-- Comment: 接收方公司id -->
+    <result column="recipientCompanyId" property="recipientCompanyId"/>
+    <!-- Comment: 接收方公司名称 -->
+    <result column="recipientCompanyName" property="recipientCompanyName"/>
+    <!-- Comment: 总数量 -->
+    <result column="sumCount" property="sumCount"/>
+    <!-- Comment: 总金额(小写) -->
+    <result column="sumPrice" property="sumPrice"/>
+    <!-- Comment: 总金额(大写) -->
+    <result column="sumPriceChinese" property="sumPriceChinese"/>
+    <!-- Comment: 核验人id -->
+    <result column="approverId" property="approverId"/>
+    <!-- Comment: 核验人名称 -->
+    <result column="approverName" property="approverName"/>
+    <!-- Comment: 库存方部门id -->
+    <result column="approverDepartmentId" property="approverDepartmentId"/>
+    <!-- Comment: 库存方部门名称 -->
+    <result column="approverDepartmentName" property="approverDepartmentName"/>
+    <!-- Comment: 库存方公司id -->
+    <result column="approverCompanyId" property="approverCompanyId"/>
+    <!-- Comment: 库存方公司名称 -->
+    <result column="approverCompanyName" property="approverCompanyName"/>
+    <!-- Comment: 备注 -->
+    <result column="remark" property="remark"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.equipment.SparePartOutBill" parameterType="java.lang.String">
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_out_bill
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.equipment.SparePartOutBill" parameterType="com.welearn.entity.qo.equipment.SparePartOutBillQueryCondition" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_out_bill
+      <where>
+        <if test="id != null" >
+          id = #{id}
+        </if>
+        <if test="createdAt != null" >
+          AND createdAt = #{createdAt}
+        </if>
+        <if test="updatedAt != null" >
+          AND updatedAt = #{updatedAt}
+        </if>
+        <if test="isEnable != null" >
+          AND isEnable = #{isEnable}
+        </if>
+        <if test="outlook != null" >
+          AND outlook = #{outlook}
+        </if>
+        <if test="status != null" >
+          AND status = #{status}
+        </if>
+        <if test="recipientId != null" >
+          AND recipientId = #{recipientId}
+        </if>
+        <if test="recipientName != null" >
+          AND recipientName = #{recipientName}
+        </if>
+        <if test="recipientSignatureId != null" >
+          AND recipientSignatureId = #{recipientSignatureId}
+        </if>
+        <if test="recipientDepartmentId != null" >
+          AND recipientDepartmentId = #{recipientDepartmentId}
+        </if>
+        <if test="recipientDepartmentName != null" >
+          AND recipientDepartmentName = #{recipientDepartmentName}
+        </if>
+        <if test="recipientCompanyId != null" >
+          AND recipientCompanyId = #{recipientCompanyId}
+        </if>
+        <if test="recipientCompanyName != null" >
+          AND recipientCompanyName = #{recipientCompanyName}
+        </if>
+        <if test="sumCount != null" >
+          AND sumCount = #{sumCount}
+        </if>
+        <if test="sumPrice != null" >
+          AND sumPrice = #{sumPrice}
+        </if>
+        <if test="sumPriceChinese != null" >
+          AND sumPriceChinese = #{sumPriceChinese}
+        </if>
+        <if test="approverId != null" >
+          AND approverId = #{approverId}
+        </if>
+        <if test="approverName != null" >
+          AND approverName = #{approverName}
+        </if>
+        <if test="approverDepartmentId != null" >
+          AND approverDepartmentId = #{approverDepartmentId}
+        </if>
+        <if test="approverDepartmentName != null" >
+          AND approverDepartmentName = #{approverDepartmentName}
+        </if>
+        <if test="approverCompanyId != null" >
+          AND approverCompanyId = #{approverCompanyId}
+        </if>
+        <if test="approverCompanyName != null" >
+          AND approverCompanyName = #{approverCompanyName}
+        </if>
+        <if test="remark != null" >
+          AND remark = #{remark}
+        </if>
+        <!-- START USER DEFINED -->
+        
+        <!-- End USER DEFINED -->
+      </where>
+    ORDER BY createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.equipment.SparePartOutBill" >
+    SELECT
+      <include refid="sqlColumns"/>
+    FROM spare_part_out_bill
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM spare_part_out_bill
+  </select>
+  
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.equipment.SparePartOutBill" >
+    UPDATE spare_part_out_bill
+    <set>
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      outlook = #{outlook},
+      status = #{status},
+      recipientId = #{recipientId},
+      recipientName = #{recipientName},
+      recipientSignatureId = #{recipientSignatureId},
+      recipientDepartmentId = #{recipientDepartmentId},
+      recipientDepartmentName = #{recipientDepartmentName},
+      recipientCompanyId = #{recipientCompanyId},
+      recipientCompanyName = #{recipientCompanyName},
+      sumCount = #{sumCount},
+      sumPrice = #{sumPrice},
+      sumPriceChinese = #{sumPriceChinese},
+      approverId = #{approverId},
+      approverName = #{approverName},
+      approverDepartmentId = #{approverDepartmentId},
+      approverDepartmentName = #{approverDepartmentName},
+      approverCompanyId = #{approverCompanyId},
+      approverCompanyName = #{approverCompanyName},
+      remark = #{remark},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.equipment.SparePartOutBill" >
+    UPDATE spare_part_out_bill
+    <set>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="outlook != null" >
+        outlook = #{outlook},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="recipientId != null" >
+        recipientId = #{recipientId},
+      </if>
+      <if test="recipientName != null" >
+        recipientName = #{recipientName},
+      </if>
+      <if test="recipientSignatureId != null" >
+        recipientSignatureId = #{recipientSignatureId},
+      </if>
+      <if test="recipientDepartmentId != null" >
+        recipientDepartmentId = #{recipientDepartmentId},
+      </if>
+      <if test="recipientDepartmentName != null" >
+        recipientDepartmentName = #{recipientDepartmentName},
+      </if>
+      <if test="recipientCompanyId != null" >
+        recipientCompanyId = #{recipientCompanyId},
+      </if>
+      <if test="recipientCompanyName != null" >
+        recipientCompanyName = #{recipientCompanyName},
+      </if>
+      <if test="sumCount != null" >
+        sumCount = #{sumCount},
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice = #{sumPrice},
+      </if>
+      <if test="sumPriceChinese != null" >
+        sumPriceChinese = #{sumPriceChinese},
+      </if>
+      <if test="approverId != null" >
+        approverId = #{approverId},
+      </if>
+      <if test="approverName != null" >
+        approverName = #{approverName},
+      </if>
+      <if test="approverDepartmentId != null" >
+        approverDepartmentId = #{approverDepartmentId},
+      </if>
+      <if test="approverDepartmentName != null" >
+        approverDepartmentName = #{approverDepartmentName},
+      </if>
+      <if test="approverCompanyId != null" >
+        approverCompanyId = #{approverCompanyId},
+      </if>
+      <if test="approverCompanyName != null" >
+        approverCompanyName = #{approverCompanyName},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+  
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE spare_part_out_bill SET isEnable = TRUE WHERE id = #{id}
+  </update>
+  
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE spare_part_out_bill SET isEnable = FALSE WHERE id = #{id}
+  </update>
+  
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.equipment.SparePartOutBill" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO spare_part_out_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      createdAt,
+      updatedAt,
+      isEnable,
+      outlook,
+      status,
+      recipientId,
+      recipientName,
+      recipientSignatureId,
+      recipientDepartmentId,
+      recipientDepartmentName,
+      recipientCompanyId,
+      recipientCompanyName,
+      sumCount,
+      sumPrice,
+      sumPriceChinese,
+      approverId,
+      approverName,
+      approverDepartmentId,
+      approverDepartmentName,
+      approverCompanyId,
+      approverCompanyName,
+      remark,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{outlook},
+      #{status},
+      #{recipientId},
+      #{recipientName},
+      #{recipientSignatureId},
+      #{recipientDepartmentId},
+      #{recipientDepartmentName},
+      #{recipientCompanyId},
+      #{recipientCompanyName},
+      #{sumCount},
+      #{sumPrice},
+      #{sumPriceChinese},
+      #{approverId},
+      #{approverName},
+      #{approverDepartmentId},
+      #{approverDepartmentName},
+      #{approverCompanyId},
+      #{approverCompanyName},
+      #{remark},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.equipment.SparePartOutBill" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO spare_part_out_bill 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="outlook != null" >
+        outlook,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="recipientId != null" >
+        recipientId,
+      </if>
+      <if test="recipientName != null" >
+        recipientName,
+      </if>
+      <if test="recipientSignatureId != null" >
+        recipientSignatureId,
+      </if>
+      <if test="recipientDepartmentId != null" >
+        recipientDepartmentId,
+      </if>
+      <if test="recipientDepartmentName != null" >
+        recipientDepartmentName,
+      </if>
+      <if test="recipientCompanyId != null" >
+        recipientCompanyId,
+      </if>
+      <if test="recipientCompanyName != null" >
+        recipientCompanyName,
+      </if>
+      <if test="sumCount != null" >
+        sumCount,
+      </if>
+      <if test="sumPrice != null" >
+        sumPrice,
+      </if>
+      <if test="sumPriceChinese != null" >
+        sumPriceChinese,
+      </if>
+      <if test="approverId != null" >
+        approverId,
+      </if>
+      <if test="approverName != null" >
+        approverName,
+      </if>
+      <if test="approverDepartmentId != null" >
+        approverDepartmentId,
+      </if>
+      <if test="approverDepartmentName != null" >
+        approverDepartmentName,
+      </if>
+      <if test="approverCompanyId != null" >
+        approverCompanyId,
+      </if>
+      <if test="approverCompanyName != null" >
+        approverCompanyName,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="outlook != null" >
+        #{outlook},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="recipientId != null" >
+        #{recipientId},
+      </if>
+      <if test="recipientName != null" >
+        #{recipientName},
+      </if>
+      <if test="recipientSignatureId != null" >
+        #{recipientSignatureId},
+      </if>
+      <if test="recipientDepartmentId != null" >
+        #{recipientDepartmentId},
+      </if>
+      <if test="recipientDepartmentName != null" >
+        #{recipientDepartmentName},
+      </if>
+      <if test="recipientCompanyId != null" >
+        #{recipientCompanyId},
+      </if>
+      <if test="recipientCompanyName != null" >
+        #{recipientCompanyName},
+      </if>
+      <if test="sumCount != null" >
+        #{sumCount},
+      </if>
+      <if test="sumPrice != null" >
+        #{sumPrice},
+      </if>
+      <if test="sumPriceChinese != null" >
+        #{sumPriceChinese},
+      </if>
+      <if test="approverId != null" >
+        #{approverId},
+      </if>
+      <if test="approverName != null" >
+        #{approverName},
+      </if>
+      <if test="approverDepartmentId != null" >
+        #{approverDepartmentId},
+      </if>
+      <if test="approverDepartmentName != null" >
+        #{approverDepartmentName},
+      </if>
+      <if test="approverCompanyId != null" >
+        #{approverCompanyId},
+      </if>
+      <if test="approverCompanyName != null" >
+        #{approverCompanyName},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM spare_part_out_bill WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM spare_part_out_bill
+  </delete>
+  
+  
+  <!-- START USER DEFINED -->
+  
+</mapper>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+  Table    : approval_process_point
+  Comment  : 审批节点
+  Mapper   : com.welearn.mapper.ApprovalProcessPointMapper
+  Author   : Setsuna Jin build with CodeSmith 7.0
+  CreateAt : 2018/10/8 13:59:07
+-->
+<mapper namespace="com.welearn.mapper.ApprovalProcessPointMapper">
+  <!-- SQL 片段:所有字段 -->
+  <sql id="sqlColumns" >
+    id,
+    processId,
+    createdAt,
+    updatedAt,
+    isEnable,
+    companyId,
+    departmentId,
+    departmentName,
+    positionId,
+    positionName,
+    approverId,
+    approverName,
+    type,
+    sort,
+    approvalType
+  </sql>
+
+  <!-- SQL 片段:所有字段（带表头和 AS） -->
+  <sql id="sqlColumnsAs" >
+    approval_process_point.id AS id,
+    approval_process_point.processId AS processId,
+    approval_process_point.createdAt AS createdAt,
+    approval_process_point.updatedAt AS updatedAt,
+    approval_process_point.isEnable AS isEnable,
+    approval_process_point.companyId AS companyId,
+    approval_process_point.departmentId AS departmentId,
+    approval_process_point.departmentName AS departmentName,
+    approval_process_point.positionId AS positionId,
+    approval_process_point.positionName AS positionName,
+    approval_process_point.approverId AS approverId,
+    approval_process_point.approverName AS approverName,
+    approval_process_point.type AS type,
+    approval_process_point.sort AS sort,
+    approval_process_point.approvalType AS approvalType
+  </sql>
+
+  <!-- ResultMap: 默认表结构 -->
+  <resultMap id="resultMapDefault" type="com.welearn.entity.po.apply.ApprovalProcessPoint" >
+    <!-- Comment: 主键 -->
+    <id column="id" property="id"/>
+    <!-- Comment:  -->
+    <result column="processId" property="processId"/>
+    <!-- Comment: 创建时间 -->
+    <result column="createdAt" property="createdAt"/>
+    <!-- Comment: 更新时间 -->
+    <result column="updatedAt" property="updatedAt"/>
+    <!-- Comment: 是否可用：0-不可用，1-可用 -->
+    <result column="isEnable" property="isEnable"/>
+    <!-- Comment: 公司id -->
+    <result column="companyId" property="companyId"/>
+    <!-- Comment: 部门id -->
+    <result column="departmentId" property="departmentId"/>
+    <!-- Comment: 部门名称 -->
+    <result column="departmentName" property="departmentName"/>
+    <!-- Comment: 职位id -->
+    <result column="positionId" property="positionId"/>
+    <!-- Comment: 职位姓名 -->
+    <result column="positionName" property="positionName"/>
+    <!-- Comment: 审批人id -->
+    <result column="approverId" property="approverId"/>
+    <!-- Comment: 审批人姓名 -->
+    <result column="approverName" property="approverName"/>
+    <!-- Comment: 类型: 0-审批人 1-职位任意人 2-职位所有人 -->
+    <result column="type" property="type"/>
+    <!-- Comment: 排序 -->
+    <result column="sort" property="sort"/>
+    <!-- Comment: 审批类型 0-审批 1-提意 2-抄送 -->
+    <result column="approvalType" property="approvalType"/>
+  </resultMap>
+
+  <!-- 按主键查询数据 -->
+  <select id="selectByPK" resultType="com.welearn.entity.po.apply.ApprovalProcessPoint" parameterType="java.lang.String">
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM approval_process_point
+    WHERE id = #{id}
+  </select>
+
+  <!-- 按条件查询数据 -->
+  <select id="selectByCondition" resultType="com.welearn.entity.po.apply.ApprovalProcessPoint" parameterType="com.welearn.entity.qo.apply.ApprovalProcessPointQueryCondition" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM approval_process_point
+    <where>
+      <if test="id != null" >
+        id = #{id}
+      </if>
+      <if test="processId != null" >
+        AND processId = #{processId}
+      </if>
+      <if test="createdAt != null" >
+        AND createdAt = #{createdAt}
+      </if>
+      <if test="updatedAt != null" >
+        AND updatedAt = #{updatedAt}
+      </if>
+      <if test="isEnable != null" >
+        AND isEnable = #{isEnable}
+      </if>
+      <if test="companyId != null" >
+        AND companyId = #{companyId}
+      </if>
+      <if test="departmentId != null" >
+        AND departmentId = #{departmentId}
+      </if>
+      <if test="departmentName != null" >
+        AND departmentName = #{departmentName}
+      </if>
+      <if test="positionId != null" >
+        AND positionId = #{positionId}
+      </if>
+      <if test="positionName != null" >
+        AND positionName = #{positionName}
+      </if>
+      <if test="approverId != null" >
+        AND approverId = #{approverId}
+      </if>
+      <if test="approverName != null" >
+        AND approverName = #{approverName}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="approvalType != null" >
+        AND approvalType = #{approvalType}
+      </if>
+      <!-- START USER DEFINED -->
+
+      <!-- End USER DEFINED -->
+    </where>
+    ORDER BY sort ASC, createdAt ASC, updatedAt DESC
+  </select>
+
+  <!-- 查询所有数据 -->
+  <select id="selectAll" resultType="com.welearn.entity.po.apply.ApprovalProcessPoint" >
+    SELECT
+    <include refid="sqlColumns"/>
+    FROM approval_process_point
+  </select>
+
+  <!-- 获取数据条数 -->
+  <select id="countAll" resultType="java.lang.Integer" >
+    SELECT count(id)
+    FROM approval_process_point
+  </select>
+
+  <!-- 更新数据（全部） -->
+  <update id="updateByPK" parameterType="com.welearn.entity.po.apply.ApprovalProcessPoint" >
+    UPDATE approval_process_point
+    <set>
+      processId = #{processId},
+      createdAt = #{createdAt},
+      updatedAt = #{updatedAt},
+      isEnable = #{isEnable},
+      companyId = #{companyId},
+      departmentId = #{departmentId},
+      departmentName = #{departmentName},
+      positionId = #{positionId},
+      positionName = #{positionName},
+      approverId = #{approverId},
+      approverName = #{approverName},
+      type = #{type},
+      sort = #{sort},
+      approvalType = #{approvalType},
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 更新数据（选择） -->
+  <update id="updateByPKSelective" parameterType="com.welearn.entity.po.apply.ApprovalProcessPoint" >
+    UPDATE approval_process_point
+    <set>
+      <if test="processId != null" >
+        processId = #{processId},
+      </if>
+      <if test="createdAt != null" >
+        createdAt = #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt = #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        isEnable = #{isEnable},
+      </if>
+      <if test="companyId != null" >
+        companyId = #{companyId},
+      </if>
+      <if test="departmentId != null" >
+        departmentId = #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        departmentName = #{departmentName},
+      </if>
+      <if test="positionId != null" >
+        positionId = #{positionId},
+      </if>
+      <if test="positionName != null" >
+        positionName = #{positionName},
+      </if>
+      <if test="approverId != null" >
+        approverId = #{approverId},
+      </if>
+      <if test="approverName != null" >
+        approverName = #{approverName},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort},
+      </if>
+      <if test="approvalType != null" >
+        approvalType = #{approvalType},
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <!-- 启用 -->
+  <update id="enable" parameterType="java.lang.String" >
+    UPDATE approval_process_point SET isEnable = TRUE WHERE id = #{id}
+  </update>
+
+  <!-- 禁用 -->
+  <update id="disable" parameterType="java.lang.String" >
+    UPDATE approval_process_point SET isEnable = FALSE WHERE id = #{id}
+  </update>
+
+  <!-- 添加数据（全部） -->
+  <insert id="insert" parameterType="com.welearn.entity.po.apply.ApprovalProcessPoint" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO approval_process_point
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      processId,
+      createdAt,
+      updatedAt,
+      isEnable,
+      companyId,
+      departmentId,
+      departmentName,
+      positionId,
+      positionName,
+      approverId,
+      approverName,
+      type,
+      sort,
+      approvalType,
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      #{id},
+      #{processId},
+      #{createdAt},
+      #{updatedAt},
+      #{isEnable},
+      #{companyId},
+      #{departmentId},
+      #{departmentName},
+      #{positionId},
+      #{positionName},
+      #{approverId},
+      #{approverName},
+      #{type},
+      #{sort},
+      #{approvalType},
+    </trim>
+  </insert>
+
+  <!-- 添加数据（选择） -->
+  <insert id="insertSelective" parameterType="com.welearn.entity.po.apply.ApprovalProcessPoint" useGeneratedKeys="true" keyProperty="id" >
+    INSERT INTO approval_process_point
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="processId != null" >
+        processId,
+      </if>
+      <if test="createdAt != null" >
+        createdAt,
+      </if>
+      <if test="updatedAt != null" >
+        updatedAt,
+      </if>
+      <if test="isEnable != null" >
+        isEnable,
+      </if>
+      <if test="companyId != null" >
+        companyId,
+      </if>
+      <if test="departmentId != null" >
+        departmentId,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="positionId != null" >
+        positionId,
+      </if>
+      <if test="positionName != null" >
+        positionName,
+      </if>
+      <if test="approverId != null" >
+        approverId,
+      </if>
+      <if test="approverName != null" >
+        approverName,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="approvalType != null" >
+        approvalType,
+      </if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="processId != null" >
+        #{processId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName},
+      </if>
+      <if test="positionId != null" >
+        #{positionId},
+      </if>
+      <if test="positionName != null" >
+        #{positionName},
+      </if>
+      <if test="approverId != null" >
+        #{approverId},
+      </if>
+      <if test="approverName != null" >
+        #{approverName},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="approvalType != null" >
+        #{approvalType},
+      </if>
+    </trim>
+  </insert>
+
+  <!-- 根据主键删除 -->
+  <delete id="deleteByPK" parameterType="java.lang.String" >
+    DELETE FROM approval_process_point WHERE id = #{id}
+  </delete>
+
+  <!-- 删除全部数据 -->
+  <delete id="deleteAll">
+    DELETE FROM approval_process_point
+  </delete>
+
+
+  <!-- START USER DEFINED -->
+  <select id="countByCompanyAndProcessCode" resultType="java.lang.Integer">
+    select count(app.id)
+    from approval_process_point app
+    join approval_process ap on ap.code = #{code} and ap.id = app.processId and ap.isEnable = true
+    where app.companyId = #{companyId} and app.isEnable = true
+  </select>
+</mapper>
