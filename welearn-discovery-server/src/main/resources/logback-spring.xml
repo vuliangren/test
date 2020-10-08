@@ -22,7 +22,7 @@
     </springProfile>
 
     <!--输出到控制台-->
-    <appender name="FILE_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
             <charset>utf8</charset>
@@ -98,8 +98,7 @@
     <!-- 日志输出级别 -->
     <springProfile name="dev">
         <root level="DEBUG">
-            <appender-ref ref="FILE_CONSOLE"/>
-            <appender-ref ref="FILE_INFO"/>
+            <appender-ref ref="CONSOLE"/>
         </root>
         <logger name="org.springframework" level="WARN" />
         <logger name="com.apache.ibatis" level="TRACE"/>
